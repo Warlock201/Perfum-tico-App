@@ -1,0 +1,6 @@
+{
+  "name": "Perfumático",
+  "description": "Seu acervo inteligente de perfumes, notas olfativas e gestão de coleção.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

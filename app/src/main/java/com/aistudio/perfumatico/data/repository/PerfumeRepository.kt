@@ -1,0 +1,200 @@
+package com.aistudio.perfumatico.data.repository
+
+import android.content.Context
+import com.aistudio.perfumatico.data.local.AppDatabase
+import com.aistudio.perfumatico.data.local.PerfumeEntity
+import com.aistudio.perfumatico.data.local.SotdEntity
+import com.aistudio.perfumatico.data.local.UserProfileEntity
+import com.aistudio.perfumatico.data.model.OlfactoryNote
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.withContext
+import java.io.InputStreamReader
+import java.util.UUID
+
+data class RawPerfumeJson(
+    val nome: String?,
+    val marca: String?,
+    val familia: String?,
+    val notas: String?,
+    val longevidade: Int?,
+    val projeção: Int?,
+    val priceMin: Double?,
+    val priceMax: Double?,
+    val imageUrl: String?,
+    val referencia: String?
+)
+
+data class RawNoteJson(
+    val nome: String?,
+    val imageUrl: String?
+)
+
+class PerfumeRepository(private val context: Context) {
+    private val db = AppDatabase.getDatabase(context)
+    private val perfumeDao = db.perfumeDao()
+    private val sotdDao = db.sotdDao()
+    private val userProfileDao = db.userProfileDao()
+    private val gson = Gson()
+
+    // In-memory catalog of all 200+ global reference perfumes from dataset
+    private val _globalPerfumes = mutableListOf<PerfumeEntity>()
+    val globalPerfumes: List<PerfumeEntity> get() = _globalPerfumes
+
+    // In-memory olfactory notes
+    private val _olfactoryNotes = mutableListOf<OlfactoryNote>()
+    val olfactoryNotes: List<OlfactoryNote> get() = _olfactoryNotes
+
+    val myPerfumes: Flow<List<PerfumeEntity>> = perfumeDao.getAllPerfumes()
+    val sotdHistory: Flow<List<SotdEntity>> = sotdDao.getAllSotd()
+    val userProfile: Flow<UserProfileEntity?> = userProfileDao.getProfile()
+
+    suspend fun initializeCatalog() = withContext(Dispatchers.IO) {
+        if (_globalPerfumes.isNotEmpty()) return@withContext
+
+        try {
+            // Load base perfumes
+            context.assets.open("base_perfumes.json").use { inputStream ->
+                InputStreamReader(inputStream).use { reader ->
+                    val type = object : TypeToken<List<RawPerfumeJson>>() {}.type
+                    val rawList: List<RawPerfumeJson> = gson.fromJson(reader, type) ?: emptyList()
+                    val converted = rawList.mapIndexed { index, raw ->
+                        val parts = (raw.notas ?: "").split("|")
+                        val top = if (parts.isNotEmpty()) parts[0].trim() else ""
+                        val heart = if (parts.size > 1) parts[1].trim() else ""
+                        val base = if (parts.size > 2) parts[2].trim() else ""
+
+                        PerfumeEntity(
+                            id = "catalog_${index}_${(raw.nome ?: "").filter { it.isLetterOrDigit() }}",
+                            name = (raw.nome ?: "Sem nome").trim(),
+                            brand = (raw.marca ?: "Genérico").trim(),
+                            family = (raw.familia ?: "Fresco").trim(),
+                            imageUrl = raw.imageUrl?.trim() ?: "",
+                            priceMin = raw.priceMin ?: 200.0,
+                            priceMax = raw.priceMax ?: 350.0,
+                            notes = (raw.notas ?: "").trim(),
+                            topNotes = top,
+                            heartNotes = heart,
+                            baseNotes = base,
+                            referenceName = raw.referencia?.trim() ?: "",
+                            status = "Já possuo",
+                            fixation = raw.longevidade ?: 7,
+                            projection = raw.projeção ?: 7,
+                            tags = "DIA A DIA, ASSINATURA",
+                            bottlesJson = "[\"100ml\"]",
+                            isCustom = false
+                        )
+                    }
+                    _globalPerfumes.addAll(converted)
+                }
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+
+        try {
+            // Load olfactory notes
+            context.assets.open("base_notes.json").use { inputStream ->
+                InputStreamReader(inputStream).use { reader ->
+                    val type = object : TypeToken<List<RawNoteJson>>() {}.type
+                    val rawNotes: List<RawNoteJson> = gson.fromJson(reader, type) ?: emptyList()
+                    val converted = rawNotes.mapIndexed { index, raw ->
+                        OlfactoryNote(
+                            id = "note_$index",
+                            nome = (raw.nome ?: "").uppercase().trim(),
+                            imageUrl = raw.imageUrl ?: ""
+                        )
+                    }.filter { it.nome.isNotBlank() }
+                    _olfactoryNotes.addAll(converted)
+                }
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+
+        // Seed initial collection if completely empty
+        val currentCount = perfumeDao.getCount()
+        if (currentCount == 0 && _globalPerfumes.isNotEmpty()) {
+            val starterItems = _globalPerfumes.take(8).mapIndexed { idx, p ->
+                val status = when (idx % 3) {
+                    0 -> "Já possuo"
+                    1 -> "Pipeline"
+                    else -> "Desejos"
+                }
+                p.copy(
+                    id = "my_${UUID.randomUUID()}",
+                    status = status,
+                    tags = when (idx % 4) {
+                        0 -> "DIA A DIA, TRABALHO"
+                        1 -> "ENCONTRO, NOITE"
+                        2 -> "CALOR, PRAIA"
+                        else -> "ASSINATURA, BALADA"
+                    },
+                    fixation = 8,
+                    projection = 8,
+                    personalNotes = "Fragrância excelente para ocasiões especiais."
+                )
+            }
+            perfumeDao.insertAll(starterItems)
+
+            // Seed default profile
+            userProfileDao.saveProfile(
+                UserProfileEntity(
+                    id = 1,
+                    displayName = "Colecionador Perfumático",
+                    bio = "Amante da perfumaria de nicho e designers.",
+                    signaturePerfumeName = starterItems.firstOrNull()?.name ?: ""
+                )
+            )
+
+            // Seed initial SOTD entry
+            starterItems.firstOrNull()?.let { first ->
+                sotdDao.insert(
+                    SotdEntity(
+                        perfumeId = first.id,
+                        perfumeName = first.name,
+                        perfumeBrand = first.brand,
+                        date = "Hoje",
+                        comment = "Sensação refrescante marcante!"
+                    )
+                )
+            }
+        }
+    }
+
+    suspend fun savePerfume(perfume: PerfumeEntity) = withContext(Dispatchers.IO) {
+        perfumeDao.insertOrUpdate(perfume)
+    }
+
+    suspend fun deletePerfume(perfume: PerfumeEntity) = withContext(Dispatchers.IO) {
+        perfumeDao.delete(perfume)
+    }
+
+    suspend fun deletePerfumeById(id: String) = withContext(Dispatchers.IO) {
+        perfumeDao.deleteById(id)
+    }
+
+    suspend fun addSotd(sotd: SotdEntity) = withContext(Dispatchers.IO) {
+        sotdDao.insert(sotd)
+    }
+
+    suspend fun deleteSotd(id: Long) = withContext(Dispatchers.IO) {
+        sotdDao.deleteById(id)
+    }
+
+    suspend fun saveProfile(profile: UserProfileEntity) = withContext(Dispatchers.IO) {
+        userProfileDao.saveProfile(profile)
+    }
+
+    // Quick add from catalog to collection
+    suspend fun addFromCatalog(catalogPerfume: PerfumeEntity, targetStatus: String) = withContext(Dispatchers.IO) {
+        val userCopy = catalogPerfume.copy(
+            id = "my_${UUID.randomUUID()}",
+            status = targetStatus,
+            createdAt = System.currentTimeMillis()
+        )
+        perfumeDao.insertOrUpdate(userCopy)
+    }
+}

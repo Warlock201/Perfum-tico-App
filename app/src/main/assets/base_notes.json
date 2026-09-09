@@ -1,0 +1,438 @@
+[
+  {
+    "nome": "BERGAMOTA",
+    "imageUrl": ""
+  },
+  {
+    "nome": "LIMÃO SICILIANO",
+    "imageUrl": ""
+  },
+  {
+    "nome": "MANDARINA",
+    "imageUrl": ""
+  },
+  {
+    "nome": "TORANJA",
+    "imageUrl": ""
+  },
+  {
+    "nome": "LARANJA DOCE",
+    "imageUrl": ""
+  },
+  {
+    "nome": "MAÇÃ VERDE",
+    "imageUrl": ""
+  },
+  {
+    "nome": "ABACAXI",
+    "imageUrl": ""
+  },
+  {
+    "nome": "PÊSSEGO",
+    "imageUrl": ""
+  },
+  {
+    "nome": "MELANCIA",
+    "imageUrl": ""
+  },
+  {
+    "nome": "ROSA",
+    "imageUrl": ""
+  },
+  {
+    "nome": "JASMIM",
+    "imageUrl": ""
+  },
+  {
+    "nome": "LAVANDA",
+    "imageUrl": ""
+  },
+  {
+    "nome": "NÉROLI",
+    "imageUrl": ""
+  },
+  {
+    "nome": "ÍRIS",
+    "imageUrl": ""
+  },
+  {
+    "nome": "GERÂNIO",
+    "imageUrl": ""
+  },
+  {
+    "nome": "FLOR DE LARANJEIRA",
+    "imageUrl": ""
+  },
+  {
+    "nome": "TUBEROSA",
+    "imageUrl": ""
+  },
+  {
+    "nome": "SÂNDALO",
+    "imageUrl": ""
+  },
+  {
+    "nome": "CEDRO",
+    "imageUrl": ""
+  },
+  {
+    "nome": "VETIVER",
+    "imageUrl": ""
+  },
+  {
+    "nome": "PATCHOULI",
+    "imageUrl": ""
+  },
+  {
+    "nome": "OUD",
+    "imageUrl": ""
+  },
+  {
+    "nome": "MADEIRA GAIAC",
+    "imageUrl": ""
+  },
+  {
+    "nome": "PIMENTA ROSA",
+    "imageUrl": ""
+  },
+  {
+    "nome": "PIMENTA PRETA",
+    "imageUrl": ""
+  },
+  {
+    "nome": "CARDAMOMO",
+    "imageUrl": ""
+  },
+  {
+    "nome": "CANELA",
+    "imageUrl": ""
+  },
+  {
+    "nome": "NOZ-MOSCADA",
+    "imageUrl": ""
+  },
+  {
+    "nome": "CRAVO-DA-ÍNDIA",
+    "imageUrl": ""
+  },
+  {
+    "nome": "AÇAFRÃO",
+    "imageUrl": ""
+  },
+  {
+    "nome": "BAUNILHA",
+    "imageUrl": ""
+  },
+  {
+    "nome": "FAVA TONKA",
+    "imageUrl": ""
+  },
+  {
+    "nome": "CARAMELO",
+    "imageUrl": ""
+  },
+  {
+    "nome": "CACAU",
+    "imageUrl": ""
+  },
+  {
+    "nome": "CAFÉ",
+    "imageUrl": ""
+  },
+  {
+    "nome": "ÂMBAR",
+    "imageUrl": ""
+  },
+  {
+    "nome": "INCENSO",
+    "imageUrl": ""
+  },
+  {
+    "nome": "MUSK",
+    "imageUrl": ""
+  },
+  {
+    "nome": "COURO",
+    "imageUrl": ""
+  },
+  {
+    "nome": "NOTAS AQUÁTICAS",
+    "imageUrl": ""
+  },
+  {
+    "nome": "LIMA",
+    "imageUrl": ""
+  },
+  {
+    "nome": "YUZU",
+    "imageUrl": ""
+  },
+  {
+    "nome": "TANGERINA",
+    "imageUrl": ""
+  },
+  {
+    "nome": "CEREJA",
+    "imageUrl": ""
+  },
+  {
+    "nome": "AMEIXA",
+    "imageUrl": ""
+  },
+  {
+    "nome": "COCO",
+    "imageUrl": ""
+  },
+  {
+    "nome": "FIGO",
+    "imageUrl": ""
+  },
+  {
+    "nome": "PÊRA",
+    "imageUrl": ""
+  },
+  {
+    "nome": "AMORA",
+    "imageUrl": ""
+  },
+  {
+    "nome": "FRAMBOESA",
+    "imageUrl": ""
+  },
+  {
+    "nome": "CASSIS (GROSELHA PRETA)",
+    "imageUrl": ""
+  },
+  {
+    "nome": "MARACUJÁ",
+    "imageUrl": ""
+  },
+  {
+    "nome": "MANGA",
+    "imageUrl": ""
+  },
+  {
+    "nome": "YLANG-YLANG",
+    "imageUrl": ""
+  },
+  {
+    "nome": "MAGNÓLIA",
+    "imageUrl": ""
+  },
+  {
+    "nome": "PEÔNIA",
+    "imageUrl": ""
+  },
+  {
+    "nome": "LÍRIO-DO-VALE",
+    "imageUrl": ""
+  },
+  {
+    "nome": "ORQUÍDEA",
+    "imageUrl": ""
+  },
+  {
+    "nome": "FRÉSIA",
+    "imageUrl": ""
+  },
+  {
+    "nome": "VIOLETA",
+    "imageUrl": ""
+  },
+  {
+    "nome": "MENTA",
+    "imageUrl": ""
+  },
+  {
+    "nome": "MANJERICÃO",
+    "imageUrl": ""
+  },
+  {
+    "nome": "SÁLVIA",
+    "imageUrl": ""
+  },
+  {
+    "nome": "ALECRIM",
+    "imageUrl": ""
+  },
+  {
+    "nome": "CHÁ VERDE",
+    "imageUrl": ""
+  },
+  {
+    "nome": "CHÁ PRETO",
+    "imageUrl": ""
+  },
+  {
+    "nome": "ABSINTO",
+    "imageUrl": ""
+  },
+  {
+    "nome": "GÁLBANO",
+    "imageUrl": ""
+  },
+  {
+    "nome": "FOLHAS DE VIOLETA",
+    "imageUrl": ""
+  },
+  {
+    "nome": "EUCALIPTO",
+    "imageUrl": ""
+  },
+  {
+    "nome": "CIPRESTE",
+    "imageUrl": ""
+  },
+  {
+    "nome": "JUNÍPERO (ZIMBRO)",
+    "imageUrl": ""
+  },
+  {
+    "nome": "PINHEIRO",
+    "imageUrl": ""
+  },
+  {
+    "nome": "MUSGO DE CARVALHO",
+    "imageUrl": ""
+  },
+  {
+    "nome": "MIRRA",
+    "imageUrl": ""
+  },
+  {
+    "nome": "OLÍBANO",
+    "imageUrl": ""
+  },
+  {
+    "nome": "BENJOIM",
+    "imageUrl": ""
+  },
+  {
+    "nome": "LÁDANO",
+    "imageUrl": ""
+  },
+  {
+    "nome": "AMBROXAN",
+    "imageUrl": ""
+  },
+  {
+    "nome": "ALDEÍDOS",
+    "imageUrl": ""
+  },
+  {
+    "nome": "PRALINÊ",
+    "imageUrl": ""
+  },
+  {
+    "nome": "MEL",
+    "imageUrl": ""
+  },
+  {
+    "nome": "AMÊNDOA",
+    "imageUrl": ""
+  },
+  {
+    "nome": "RUM",
+    "imageUrl": ""
+  },
+  {
+    "nome": "CONHAQUE",
+    "imageUrl": ""
+  },
+  {
+    "nome": "TABACO",
+    "imageUrl": ""
+  },
+  {
+    "nome": "CHOCOLATE",
+    "imageUrl": ""
+  },
+  {
+    "nome": "CHOCOLATE BRANCO",
+    "imageUrl": ""
+  },
+  {
+    "nome": "GENGIBRE",
+    "imageUrl": ""
+  },
+  {
+    "nome": "PETITGRAIN",
+    "imageUrl": ""
+  },
+  {
+    "nome": "LICHIA",
+    "imageUrl": ""
+  },
+  {
+    "nome": "MELÃO",
+    "imageUrl": ""
+  },
+  {
+    "nome": "PISTACHE",
+    "imageUrl": ""
+  },
+  {
+    "nome": "ALGODÃO DOCE",
+    "imageUrl": ""
+  },
+  {
+    "nome": "MARSHMALLOW",
+    "imageUrl": ""
+  },
+  {
+    "nome": "HELIOTRÓPIO",
+    "imageUrl": ""
+  },
+  {
+    "nome": "OSMANTHUS",
+    "imageUrl": ""
+  },
+  {
+    "nome": "CAMOMILA",
+    "imageUrl": ""
+  },
+  {
+    "nome": "LÓTUS",
+    "imageUrl": ""
+  },
+  {
+    "nome": "CAMURÇA",
+    "imageUrl": ""
+  },
+  {
+    "nome": "BÉTULA",
+    "imageUrl": ""
+  },
+  {
+    "nome": "PAU-ROSA",
+    "imageUrl": ""
+  },
+  {
+    "nome": "CASHMERAN",
+    "imageUrl": ""
+  },
+  {
+    "nome": "ISO E SUPER",
+    "imageUrl": ""
+  },
+  {
+    "nome": "ANIS ESTRELADO",
+    "imageUrl": ""
+  },
+  {
+    "nome": "COENTRO",
+    "imageUrl": ""
+  },
+  {
+    "nome": "ELEMI",
+    "imageUrl": ""
+  },
+  {
+    "nome": "CHAMPANHE",
+    "imageUrl": ""
+  },
+  {
+    "nome": "NOTAS OZÔNICAS",
+    "imageUrl": ""
+  }
+]
