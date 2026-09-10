@@ -1,0 +1,5 @@
+package com.aistudio.perfumatico.data.local
+
+val DefaultNoteImages = mapOf(
+    "default" to "https://images.unsplash.com/photo-1615599814502-d8a43f87b8f0?w=200&h=200&fit=crop"
+)

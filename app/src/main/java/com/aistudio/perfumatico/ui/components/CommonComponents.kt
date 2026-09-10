@@ -31,6 +31,8 @@ import com.aistudio.perfumatico.ui.viewmodel.MainTab
 @Composable
 fun PerfumaticoTopBar(
     userName: String,
+    isCloudConnected: Boolean,
+    isAdmin: Boolean,
     onProfileClick: () -> Unit,
     onAddClick: () -> Unit,
     showAddButton: Boolean = true
@@ -71,13 +73,33 @@ fun PerfumaticoTopBar(
                 }
 
                 Column {
-                    Text(
-                        text = "PERFUMÁTICO",
-                        color = Amber400,
-                        fontSize = 17.sp,
-                        fontWeight = FontWeight.Black,
-                        letterSpacing = 1.sp
-                    )
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.spacedBy(6.dp)
+                    ) {
+                        Text(
+                            text = "PERFUMÁTICO",
+                            color = Amber400,
+                            fontSize = 17.sp,
+                            fontWeight = FontWeight.Black,
+                            letterSpacing = 1.sp
+                        )
+                        if (isAdmin) {
+                            Surface(
+                                color = Amber500.copy(alpha = 0.2f),
+                                shape = RoundedCornerShape(4.dp),
+                                border = androidx.compose.foundation.BorderStroke(1.dp, Amber400)
+                            ) {
+                                Text(
+                                    text = "ADMIN",
+                                    color = Amber400,
+                                    fontSize = 8.sp,
+                                    fontWeight = FontWeight.Black,
+                                    modifier = Modifier.padding(horizontal = 4.dp, vertical = 1.dp)
+                                )
+                            }
+                        }
+                    }
                     Row(
                         verticalAlignment = Alignment.CenterVertically,
                         horizontalArrangement = Arrangement.spacedBy(4.dp)
@@ -86,7 +108,7 @@ fun PerfumaticoTopBar(
                             modifier = Modifier
                                 .size(6.dp)
                                 .clip(CircleShape)
-                                .background(Emerald400)
+                                .background(if (isCloudConnected) Emerald400 else Slate600)
                         )
                         Text(
                             text = userName.ifBlank { "COLECIONADOR" }.uppercase(),
@@ -132,7 +154,7 @@ fun PerfumaticoTopBar(
                 IconButton(
                     onClick = onProfileClick,
                     modifier = Modifier
-                        .size(40.dp)
+                        .size(38.dp)
                         .clip(RoundedCornerShape(10.dp))
                         .background(Slate900)
                         .border(1.dp, Slate800, RoundedCornerShape(10.dp))
@@ -266,14 +288,27 @@ fun PerfumeCard(
                         maxLines = 1,
                         overflow = TextOverflow.Ellipsis
                     )
-                    Text(
-                        text = perfume.name,
-                        color = Slate100,
-                        fontSize = 16.sp,
-                        fontWeight = FontWeight.Bold,
-                        maxLines = 1,
-                        overflow = TextOverflow.Ellipsis
-                    )
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        Text(
+                            text = perfume.name,
+                            color = Slate100,
+                            fontSize = 16.sp,
+                            fontWeight = FontWeight.Bold,
+                            maxLines = 1,
+                            overflow = TextOverflow.Ellipsis,
+                            modifier = Modifier.weight(1f, fill = false)
+                        )
+                        if (perfume.tags.contains("ASSINATURA", true)) {
+                            Spacer(modifier = Modifier.width(6.dp))
+                            Icon(Icons.Default.Star, contentDescription = "Assinatura", tint = Amber400, modifier = Modifier.size(14.dp))
+                        } else if (perfume.userPreference == 1) {
+                            Spacer(modifier = Modifier.width(6.dp))
+                            Icon(Icons.Default.Favorite, contentDescription = "Amo", tint = Rose500, modifier = Modifier.size(14.dp))
+                        } else if (perfume.userPreference == 2) {
+                            Spacer(modifier = Modifier.width(6.dp))
+                            Icon(Icons.Default.ThumbUp, contentDescription = "Gosto", tint = Amber400, modifier = Modifier.size(14.dp))
+                        }
+                    }
                     Spacer(modifier = Modifier.height(4.dp))
                     Row(
                         verticalAlignment = Alignment.CenterVertically,

@@ -6,14 +6,15 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 
 @Database(
-    entities = [PerfumeEntity::class, SotdEntity::class, UserProfileEntity::class],
-    version = 1,
+    entities = [PerfumeEntity::class, SotdEntity::class, UserProfileEntity::class, NoteImageEntity::class],
+    version = 3,
     exportSchema = false
 )
 abstract class AppDatabase : RoomDatabase() {
     abstract fun perfumeDao(): PerfumeDao
     abstract fun sotdDao(): SotdDao
     abstract fun userProfileDao(): UserProfileDao
+    abstract fun noteImageDao(): NoteImageDao
 
     companion object {
         @Volatile

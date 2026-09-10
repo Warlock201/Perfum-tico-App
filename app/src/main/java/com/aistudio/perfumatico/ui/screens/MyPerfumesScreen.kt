@@ -46,7 +46,11 @@ fun MyPerfumesScreen(
     // Filter perfumes by subTab, search, tag, family
     val filteredList = remember(perfumes, currentSubTab, searchQuery, selectedTag, selectedFamily) {
         perfumes.filter { p ->
-            val matchesTab = p.status == currentSubTab.dbStatus
+            val matchesTab = p.status == currentSubTab.dbStatus || 
+                (currentSubTab == CollectionSubTab.HAVE && (p.status == "Já possuo" || p.status == "Frasco")) ||
+                (currentSubTab == CollectionSubTab.DECANT && p.status == "Decant") ||
+                (currentSubTab == CollectionSubTab.WISH && (p.status == "Desejos" || p.status == "Pipeline" || p.status == "Wishlist"))
+
             val matchesSearch = searchQuery.isBlank() ||
                     p.name.contains(searchQuery, ignoreCase = true) ||
                     p.brand.contains(searchQuery, ignoreCase = true) ||
@@ -56,7 +60,11 @@ fun MyPerfumesScreen(
             val matchesFamily = selectedFamily == null || p.family.equals(selectedFamily, ignoreCase = true)
 
             matchesTab && matchesSearch && matchesTag && matchesFamily
-        }
+        }.sortedWith(
+            compareByDescending<PerfumeEntity> { it.tags.contains("ASSINATURA", true) }
+                .thenBy { if (it.userPreference in 1..4) it.userPreference else 99 }
+                .thenBy { it.name }
+        )
     }
 
     Column(
@@ -65,7 +73,7 @@ fun MyPerfumesScreen(
             .background(Slate950)
             .padding(horizontal = 16.dp)
     ) {
-        // Subtabs selector: TENHO, VOU COMPRAR, QUERO
+        // Subtabs selector: FRASCOS, DECANTS, WISHLIST
         Row(
             modifier = Modifier
                 .fillMaxWidth()
@@ -77,9 +85,9 @@ fun MyPerfumesScreen(
             horizontalArrangement = Arrangement.spacedBy(4.dp)
         ) {
             val tabs = listOf(
-                CollectionSubTab.HAVE to "TENHO",
-                CollectionSubTab.TO_BUY to "VOU COMPRAR",
-                CollectionSubTab.WISH to "QUERO"
+                CollectionSubTab.HAVE to "FRASCOS",
+                CollectionSubTab.DECANT to "DECANTS",
+                CollectionSubTab.WISH to "WISHLIST"
             )
 
             tabs.forEach { (tab, label) ->

@@ -17,7 +17,8 @@ data class PerfumeEntity(
     val heartNotes: String = "",
     val baseNotes: String = "",
     val referenceName: String = "",
-    val status: String = "Já possuo", // "Já possuo", "Pipeline", "Desejos"
+    val status: String = "Já possuo", // Can be "Frasco", "Decant", "Wishlist", "Já possuo"
+    val userPreference: Int = 0, // 0 = None, 1 = Amo, 2 = Gosto, 3 = Ok, 4 = Não Gosto
     val tags: String = "", // Comma separated tags
     val fixation: Int = 0, // 0 to 10
     val projection: Int = 0, // 0 to 10
@@ -48,4 +49,10 @@ data class UserProfileEntity(
     val bio: String = "Apaixonado por alta perfumaria",
     val signaturePerfumeId: String = "",
     val signaturePerfumeName: String = ""
+)
+
+@Entity(tableName = "note_images")
+data class NoteImageEntity(
+    @PrimaryKey val noteName: String, // lowercase, normalized name
+    val imageUrl: String
 )

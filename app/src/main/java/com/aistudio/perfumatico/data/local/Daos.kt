@@ -53,3 +53,15 @@ interface UserProfileDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun saveProfile(profile: UserProfileEntity)
 }
+
+@Dao
+interface NoteImageDao {
+    @Query("SELECT * FROM note_images")
+    fun getAllNoteImages(): Flow<List<NoteImageEntity>>
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun saveNoteImage(noteImage: NoteImageEntity)
+    
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertAll(noteImages: List<NoteImageEntity>)
+}

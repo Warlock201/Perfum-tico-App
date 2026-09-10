@@ -6,10 +6,13 @@ import androidx.lifecycle.viewModelScope
 import com.aistudio.perfumatico.data.local.PerfumeEntity
 import com.aistudio.perfumatico.data.local.SotdEntity
 import com.aistudio.perfumatico.data.local.UserProfileEntity
+import com.aistudio.perfumatico.data.remote.GeminiService
 import com.aistudio.perfumatico.data.model.OlfactoryNote
 import com.aistudio.perfumatico.data.repository.PerfumeRepository
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import kotlinx.coroutines.Dispatchers
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -21,9 +24,9 @@ enum class MainTab {
 }
 
 enum class CollectionSubTab(val dbStatus: String) {
-    HAVE("Já possuo"),
-    TO_BUY("Pipeline"),
-    WISH("Desejos")
+    HAVE("Frasco"),
+    DECANT("Decant"),
+    WISH("Wishlist")
 }
 
 enum class CatalogSubTab {
@@ -92,6 +95,14 @@ class PerfumeViewModel(application: Application) : AndroidViewModel(application)
     private val _isProfileModalOpen = MutableStateFlow(false)
     val isProfileModalOpen: StateFlow<Boolean> = _isProfileModalOpen.asStateFlow()
 
+    // Firebase Auth & Cloud Sync
+    val currentUser = repository.firebaseManager.currentUser
+    val syncStatus = repository.firebaseManager.syncStatus
+    val isAdmin: Boolean get() = repository.firebaseManager.isAdmin
+
+    private val _isAuthDialogOpen = MutableStateFlow(false)
+    val isAuthDialogOpen: StateFlow<Boolean> = _isAuthDialogOpen.asStateFlow()
+
     // Discover filters
     private val _discoverFamily = MutableStateFlow<String?>(null)
     val discoverFamily: StateFlow<String?> = _discoverFamily.asStateFlow()
@@ -99,13 +110,60 @@ class PerfumeViewModel(application: Application) : AndroidViewModel(application)
     private val _discoverNotes = MutableStateFlow<List<String>>(emptyList())
     val discoverNotes: StateFlow<List<String>> = _discoverNotes.asStateFlow()
 
+    private val _searchNotes = MutableStateFlow<List<String>>(emptyList())
+    val searchNotes: StateFlow<List<String>> = _searchNotes.asStateFlow()
+
+    fun toggleSearchNote(note: String) {
+        val current = _searchNotes.value
+        _searchNotes.value = if (current.contains(note)) {
+            current - note
+        } else {
+            current + note
+        }
+    }
+    
+    fun clearSearchNotes() {
+        _searchNotes.value = emptyList()
+    }
+
+    fun getSimilarPerfumes(perfume: PerfumeEntity): List<PerfumeEntity> {
+        val myNotes = perfume.notes.split("|").map { it.trim().lowercase() }.filter { it.isNotBlank() }.toSet()
+        if (myNotes.isEmpty()) return emptyList()
+
+        return repository.globalPerfumes
+            .filter { it.id != perfume.id }
+            .map { other ->
+                val otherNotes = other.notes.split("|").map { it.trim().lowercase() }.filter { it.isNotBlank() }.toSet()
+                val intersection = myNotes.intersect(otherNotes)
+                other to intersection.size
+            }
+            .filter { it.second > 0 }
+            .sortedByDescending { it.second }
+            .map { it.first }
+            .take(5)
+    }
+
     val globalPerfumes: List<PerfumeEntity> get() = repository.globalPerfumes
     val olfactoryNotes: List<OlfactoryNote> get() = repository.olfactoryNotes
+
+    private val _noteImages = MutableStateFlow<Map<String, String>>(emptyMap())
+    val noteImages: StateFlow<Map<String, String>> = _noteImages.asStateFlow()
 
     init {
         viewModelScope.launch {
             repository.initializeCatalog()
             _isInitialized.value = true
+        }
+        viewModelScope.launch {
+            repository.noteImages.collect { list ->
+                _noteImages.value = list.associate { it.noteName to it.imageUrl }
+            }
+        }
+    }
+
+    fun saveNoteImage(noteName: String, imageUrl: String) {
+        viewModelScope.launch {
+            repository.saveNoteImage(noteName, imageUrl)
         }
     }
 
@@ -141,6 +199,41 @@ class PerfumeViewModel(application: Application) : AndroidViewModel(application)
         _selectedPerfume.value = null
     }
 
+    fun completeNotesWithAI(perfume: PerfumeEntity, onResult: (String) -> Unit) {
+        viewModelScope.launch {
+            val result = GeminiService.completeOlfactoryPyramid(perfume.name, perfume.brand)
+            
+            if (result.contains("|")) {
+                // Parse and update
+                val parts = result.split("|")
+                val top = if (parts.isNotEmpty()) parts[0].replace("Saída:", "").trim() else ""
+                val heart = if (parts.size > 1) parts[1].replace("Coração:", "").trim() else ""
+                val base = if (parts.size > 2) parts[2].replace("Fundo:", "").trim() else ""
+                
+                val updatedPerfume = perfume.copy(
+                    topNotes = top,
+                    heartNotes = heart,
+                    baseNotes = base,
+                    notes = "$top | $heart | $base"
+                )
+                
+                // Keep the modal open with new data if it was open
+                if (_selectedPerfume.value?.id == perfume.id) {
+                    _selectedPerfume.value = updatedPerfume
+                }
+                
+                // If it's in collection, save to DB
+                if (perfume.id.startsWith("my_")) {
+                    savePerfume(updatedPerfume)
+                }
+            }
+            
+            withContext(Dispatchers.Main) {
+                onResult(result)
+            }
+        }
+    }
+
     fun openAddEdit(perfume: PerfumeEntity? = null) {
         _perfumeToEdit.value = perfume
         _isAddEditOpen.value = true
@@ -157,6 +250,66 @@ class PerfumeViewModel(application: Application) : AndroidViewModel(application)
 
     fun closeProfileModal() {
         _isProfileModalOpen.value = false
+    }
+
+    fun openAuthDialog() {
+        _isAuthDialogOpen.value = true
+    }
+
+    fun closeAuthDialog() {
+        _isAuthDialogOpen.value = false
+    }
+
+    fun signInWithEmail(email: String, pass: String, onResult: (Boolean, String?) -> Unit) {
+        viewModelScope.launch {
+            try {
+                val user = repository.firebaseManager.signInWithEmail(email, pass)
+                if (user != null) {
+                    saveUserProfile(
+                        name = user.displayName ?: email.substringBefore("@"),
+                        bio = "Colecionador Perfumático Conectado",
+                        signature = ""
+                    )
+                    closeAuthDialog()
+                    onResult(true, null)
+                } else {
+                    onResult(false, "Falha na autenticação.")
+                }
+            } catch (e: Exception) {
+                onResult(false, e.localizedMessage ?: "Erro ao autenticar.")
+            }
+        }
+    }
+
+    fun signInWithGoogleIdToken(idToken: String, onResult: (Boolean, String?) -> Unit) {
+        viewModelScope.launch {
+            try {
+                val user = repository.firebaseManager.signInWithGoogleIdToken(idToken)
+                if (user != null) {
+                    saveUserProfile(
+                        name = user.displayName ?: (user.email?.substringBefore("@") ?: "Colecionador"),
+                        bio = "Colecionador Perfumático Conectado",
+                        signature = ""
+                    )
+                    closeAuthDialog()
+                    onResult(true, null)
+                } else {
+                    onResult(false, "Falha no login com Google.")
+                }
+            } catch (e: Exception) {
+                onResult(false, e.localizedMessage ?: "Erro no Google Sign-In.")
+            }
+        }
+    }
+
+    fun signOut() {
+        repository.firebaseManager.signOut()
+        // Limpa o perfil local ao desconectar para evitar vazar o nome para outro usuário
+        saveUserProfile(
+            name = "Colecionador",
+            bio = "Apaixonado por alta perfumaria",
+            signature = ""
+        )
     }
 
     fun savePerfume(perfume: PerfumeEntity) {

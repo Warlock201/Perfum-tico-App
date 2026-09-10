@@ -6,6 +6,9 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.compose.foundation.background
+import coil.ImageLoader
+import coil.Coil
+import okhttp3.OkHttpClient
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Scaffold
@@ -34,6 +37,25 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+        
+        val imageLoader = ImageLoader.Builder(this)
+            .okHttpClient {
+                OkHttpClient.Builder()
+                    .connectTimeout(60, java.util.concurrent.TimeUnit.SECONDS)
+                    .readTimeout(60, java.util.concurrent.TimeUnit.SECONDS)
+                    .writeTimeout(60, java.util.concurrent.TimeUnit.SECONDS)
+                    .addInterceptor { chain ->
+                        val original = chain.request()
+                        val request = original.newBuilder()
+                            .header("User-Agent", "Mozilla/5.0 Perfumatico/1.0")
+                            .build()
+                        chain.proceed(request)
+                    }
+                    .build()
+            }
+            .build()
+        Coil.setImageLoader(imageLoader)
+        
         setContent {
             PerfumaticoTheme {
                 PerfumaticoApp(viewModel = viewModel)
@@ -51,6 +73,8 @@ fun PerfumaticoApp(viewModel: PerfumeViewModel) {
     val isAddEditOpen by viewModel.isAddEditOpen.collectAsState()
     val perfumeToEdit by viewModel.perfumeToEdit.collectAsState()
     val isProfileModalOpen by viewModel.isProfileModalOpen.collectAsState()
+    val isAuthDialogOpen by viewModel.isAuthDialogOpen.collectAsState()
+    val currentUser by viewModel.currentUser.collectAsState()
 
     if (!isInitialized) {
         Box(
@@ -79,7 +103,9 @@ fun PerfumaticoApp(viewModel: PerfumeViewModel) {
     Scaffold(
         topBar = {
             PerfumaticoTopBar(
-                userName = userProfile?.displayName ?: "Colecionador",
+                userName = currentUser?.displayName ?: (userProfile?.displayName ?: "Colecionador"),
+                isCloudConnected = currentUser != null,
+                isAdmin = viewModel.isAdmin,
                 onProfileClick = { viewModel.openProfileModal() },
                 onAddClick = { viewModel.openAddEdit() },
                 showAddButton = currentTab == MainTab.COLLECTION || currentTab == MainTab.CATALOG
