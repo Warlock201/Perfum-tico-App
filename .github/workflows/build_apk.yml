@@ -27,6 +27,11 @@ jobs:
         touch .env
         echo "MAPS_API_KEY=" >> .env
 
+    - name: Create dummy google-services.json
+      run: |
+        mkdir -p app
+        echo '{"project_info":{"project_number":"123","firebase_url":"https://test.firebaseio.com","project_id":"test","storage_bucket":"test.appspot.com"},"client":[{"client_info":{"mobilesdk_app_id":"1:123:android:123","android_client_info":{"package_name":"com.aistudio.perfumatico.kqpv"}},"oauth_client":[],"api_key":[{"current_key":"test"}],"services":{"appinvite_service":{"other_platform_oauth_client":[]}}}]}' > app/google-services.json
+
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
 
