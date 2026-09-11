@@ -22,6 +22,15 @@ jobs:
     - name: Setup Android SDK
       uses: android-actions/setup-android@v3
 
+    - name: Configure strict memory limits for CI
+      run: |
+        echo "org.gradle.jvmargs=-Xmx2g -XX:MaxMetaspaceSize=512m -XX:+HeapDumpOnOutOfMemoryError" > gradle.properties
+        echo "org.gradle.parallel=false" >> gradle.properties
+        echo "org.gradle.daemon=false" >> gradle.properties
+        echo "org.gradle.workers.max=1" >> gradle.properties
+        echo "kotlin.daemon.jvm.options=-Xmx1g" >> gradle.properties
+        echo "android.useAndroidX=true" >> gradle.properties
+
     - name: Create .env properties file
       run: |
         touch .env
@@ -40,8 +49,6 @@ jobs:
         keytool -genkey -v -keystore debug.keystore -storepass android -alias androiddebugkey -keypass android -keyalg RSA -keysize 2048 -validity 10000 -dname "C=US, O=Android, CN=Android Debug"
 
     - name: Build Debug APK
-      env:
-        GRADLE_OPTS: "-Dorg.gradle.jvmargs=-Xmx4g -Dorg.gradle.daemon=false -Dkotlin.compiler.execution.strategy=in-process"
       run: |
         # Run gradle build. KSP throws a non-fatal AWT-EventQueue NullPointerException 
         # in CI environments that causes standard bash to sometimes fail if set -e is aggressive
