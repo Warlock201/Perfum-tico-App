@@ -45,6 +45,7 @@ fun PerfumaticoTopBar(
         Row(
             modifier = Modifier
                 .fillMaxWidth()
+                .statusBarsPadding()
                 .padding(horizontal = 16.dp, vertical = 12.dp),
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
@@ -184,9 +185,10 @@ fun PerfumaticoBottomNav(
     ) {
         val items = listOf(
             Triple(MainTab.COLLECTION, "Meus", Icons.Default.Diamond),
-            Triple(MainTab.DASHBOARD, "Dashboard", Icons.Default.Analytics),
+            Triple(MainTab.DASHBOARD, "Estatísticas", Icons.Default.Analytics),
             Triple(MainTab.DISCOVER, "Descubra", Icons.Default.AutoAwesome),
-            Triple(MainTab.CATALOG, "Catálogo", Icons.Default.MenuBook)
+            Triple(MainTab.CATALOG, "Catálogo", Icons.Default.MenuBook),
+            Triple(MainTab.CHATBOT, "Chat", Icons.Default.VoiceChat)
         )
 
         items.forEach { (tab, label, icon) ->

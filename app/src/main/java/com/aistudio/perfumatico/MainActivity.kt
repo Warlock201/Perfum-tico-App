@@ -130,6 +130,7 @@ fun PerfumaticoApp(viewModel: PerfumeViewModel) {
                 MainTab.DASHBOARD -> DashboardScreen(viewModel = viewModel)
                 MainTab.DISCOVER -> DiscoverScreen(viewModel = viewModel)
                 MainTab.CATALOG -> CatalogScreen(viewModel = viewModel)
+                MainTab.CHATBOT -> ChatScreen(viewModel = viewModel)
             }
         }
 

@@ -28,6 +28,9 @@ import com.aistudio.perfumatico.data.model.AVAILABLE_FAMILIES
 import com.aistudio.perfumatico.ui.theme.*
 import com.aistudio.perfumatico.ui.viewmodel.PerfumeViewModel
 import java.util.UUID
+import androidx.compose.material.icons.filled.AutoAwesome
+import org.json.JSONObject
+import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -47,6 +50,10 @@ fun AddEditPerfumeDialog(
     var baseNotes by remember { mutableStateOf(perfumeToEdit?.baseNotes ?: "") }
     var referenceName by remember { mutableStateOf(perfumeToEdit?.referenceName ?: "") }
     var status by remember { mutableStateOf(perfumeToEdit?.status ?: "Já possuo") }
+    var isAutoFilling by remember { mutableStateOf(false) }
+    var fixation by remember { mutableStateOf(perfumeToEdit?.fixation ?: 7) }
+    var projection by remember { mutableStateOf(perfumeToEdit?.projection ?: 7) }
+    val coroutineScope = rememberCoroutineScope()
 
     val isEditing = perfumeToEdit != null
 
@@ -102,15 +109,55 @@ fun AddEditPerfumeDialog(
                         .verticalScroll(rememberScrollState()),
                     verticalArrangement = Arrangement.spacedBy(14.dp)
                 ) {
-                    OutlinedTextField(
-                        value = name,
-                        onValueChange = { name = it },
-                        label = { Text("Nome do Perfume *") },
-                        singleLine = true,
-                        modifier = Modifier.fillMaxWidth().testTag("input_perfume_name"),
-                        colors = fieldColors(),
-                        shape = RoundedCornerShape(12.dp)
-                    )
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.spacedBy(8.dp)
+                    ) {
+                        OutlinedTextField(
+                            value = name,
+                            onValueChange = { name = it },
+                            label = { Text("Nome do Perfume *") },
+                            singleLine = true,
+                            modifier = Modifier.weight(1f).testTag("input_perfume_name"),
+                            colors = fieldColors(),
+                            shape = RoundedCornerShape(12.dp)
+                        )
+                        
+                        IconButton(
+                            onClick = {
+                                if (name.isNotBlank()) {
+                                    isAutoFilling = true
+                                    viewModel.autoFillPerfume(name) { jsonResult ->
+                                        isAutoFilling = false
+                                        try {
+                                            val json = JSONObject(jsonResult)
+                                            if (json.has("brand")) brand = json.getString("brand")
+                                            if (json.has("family")) family = json.getString("family")
+                                            if (json.has("topNotes")) topNotes = json.getString("topNotes")
+                                            if (json.has("heartNotes")) heartNotes = json.getString("heartNotes")
+                                            if (json.has("baseNotes")) baseNotes = json.getString("baseNotes")
+                                            if (json.has("fixation")) fixation = json.getInt("fixation")
+                                            if (json.has("projection")) projection = json.getInt("projection")
+                                            
+                                            
+                                        } catch (e: Exception) {
+                                            e.printStackTrace()
+                                        }
+                                    }
+                                }
+                            },
+                            modifier = Modifier
+                                .size(50.dp)
+                                .background(Amber400, RoundedCornerShape(12.dp))
+                        ) {
+                            if (isAutoFilling) {
+                                CircularProgressIndicator(color = Slate950, modifier = Modifier.size(20.dp), strokeWidth = 2.dp)
+                            } else {
+                                Icon(Icons.Default.AutoAwesome, contentDescription = "Auto Preencher", tint = Slate950)
+                            }
+                        }
+                    }
 
                     OutlinedTextField(
                         value = brand,
@@ -254,6 +301,8 @@ fun AddEditPerfumeDialog(
                                 topNotes = topNotes.trim(),
                                 heartNotes = heartNotes.trim(),
                                 baseNotes = baseNotes.trim(),
+                                fixation = fixation,
+                                projection = projection,
                                 notes = allNotesStr,
                                 referenceName = referenceName.trim()
                             )
@@ -269,12 +318,13 @@ fun AddEditPerfumeDialog(
                                 topNotes = topNotes.trim(),
                                 heartNotes = heartNotes.trim(),
                                 baseNotes = baseNotes.trim(),
+                                fixation = fixation,
+                                projection = projection,
                                 notes = allNotesStr,
                                 referenceName = referenceName.trim(),
                                 status = status,
                                 tags = "DIA A DIA",
-                                fixation = 7,
-                                projection = 7,
+                                
                                 isCustom = true
                             )
                         }

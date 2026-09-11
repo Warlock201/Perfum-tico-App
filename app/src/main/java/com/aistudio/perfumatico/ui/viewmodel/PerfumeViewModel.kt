@@ -20,7 +20,8 @@ enum class MainTab {
     COLLECTION,
     DASHBOARD,
     DISCOVER,
-    CATALOG
+    CATALOG,
+    CHATBOT
 }
 
 enum class CollectionSubTab(val dbStatus: String) {
@@ -102,6 +103,42 @@ class PerfumeViewModel(application: Application) : AndroidViewModel(application)
 
     private val _isAuthDialogOpen = MutableStateFlow(false)
     val isAuthDialogOpen: StateFlow<Boolean> = _isAuthDialogOpen.asStateFlow()
+
+    private val _chatHistory = MutableStateFlow<List<com.aistudio.perfumatico.data.remote.Content>>(emptyList())
+    val chatHistory: StateFlow<List<com.aistudio.perfumatico.data.remote.Content>> = _chatHistory.asStateFlow()
+
+    private val _isChatLoading = MutableStateFlow(false)
+    val isChatLoading: StateFlow<Boolean> = _isChatLoading.asStateFlow()
+
+    fun sendMessage(text: String) {
+        val userMsg = com.aistudio.perfumatico.data.remote.Content(
+            parts = listOf(com.aistudio.perfumatico.data.remote.Part(text = text)),
+            role = "user"
+        )
+        _chatHistory.value = _chatHistory.value + userMsg
+        _isChatLoading.value = true
+
+        val assistantMsgIndex = _chatHistory.value.size
+        _chatHistory.value = _chatHistory.value + com.aistudio.perfumatico.data.remote.Content(
+            parts = listOf(com.aistudio.perfumatico.data.remote.Part(text = "")),
+            role = "model"
+        )
+
+        viewModelScope.launch {
+            val historyToSend = _chatHistory.value.take(assistantMsgIndex)
+            val geminiService = com.aistudio.perfumatico.data.remote.GeminiService
+            geminiService.chatWithSommelier(historyToSend) { token ->
+                _isChatLoading.value = false
+                val currentList = _chatHistory.value.toMutableList()
+                val currentText = currentList[assistantMsgIndex].parts.firstOrNull()?.text ?: ""
+                currentList[assistantMsgIndex] = com.aistudio.perfumatico.data.remote.Content(
+                    parts = listOf(com.aistudio.perfumatico.data.remote.Part(text = currentText + token)),
+                    role = "model"
+                )
+                _chatHistory.value = currentList
+            }
+        }
+    }
 
     // Discover filters
     private val _discoverFamily = MutableStateFlow<String?>(null)
@@ -237,6 +274,16 @@ class PerfumeViewModel(application: Application) : AndroidViewModel(application)
     fun openAddEdit(perfume: PerfumeEntity? = null) {
         _perfumeToEdit.value = perfume
         _isAddEditOpen.value = true
+    }
+
+    
+    fun autoFillPerfume(perfumeName: String, onResult: (String) -> Unit) {
+        viewModelScope.launch {
+            val result = com.aistudio.perfumatico.data.remote.GeminiService.autoFillPerfume(perfumeName)
+            withContext(Dispatchers.Main) {
+                onResult(result)
+            }
+        }
     }
 
     fun closeAddEdit() {
