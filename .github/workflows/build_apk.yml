@@ -40,12 +40,18 @@ jobs:
         keytool -genkey -v -keystore debug.keystore -storepass android -alias androiddebugkey -keypass android -keyalg RSA -keysize 2048 -validity 10000 -dname "C=US, O=Android, CN=Android Debug"
 
     - name: Build Debug APK
+      env:
+        GRADLE_OPTS: "-Dorg.gradle.jvmargs=-Xmx4g -Dorg.gradle.daemon=false -Dkotlin.compiler.execution.strategy=in-process"
       run: |
         # Run gradle build. KSP throws a non-fatal AWT-EventQueue NullPointerException 
         # in CI environments that causes standard bash to sometimes fail if set -e is aggressive
         # or if the task wrapper propagates the signal weirdly. 
         # We run it and ensure we check if the APK was actually generated.
-        ./gradlew :app:assembleDebug --stacktrace || true
+        ./gradlew :app:assembleDebug --no-daemon --stacktrace || echo "Gradle returned non-zero exit code due to KSP, ignoring..."
+        
+        # Give the filesystem a moment to sync just in case
+        sleep 2
+        
         if [ ! -f app/build/outputs/apk/debug/app-debug.apk ]; then
           echo "APK was not generated. Build failed."
           exit 1
