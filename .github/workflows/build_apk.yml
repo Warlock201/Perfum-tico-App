@@ -24,7 +24,7 @@ jobs:
 
     - name: Configure strict memory limits for CI
       run: |
-        echo "org.gradle.jvmargs=-Xmx2g -XX:MaxMetaspaceSize=512m -XX:+HeapDumpOnOutOfMemoryError" > gradle.properties
+        echo "org.gradle.jvmargs=-Xmx4g -XX:MaxMetaspaceSize=512m -XX:+HeapDumpOnOutOfMemoryError" > gradle.properties
         echo "org.gradle.parallel=false" >> gradle.properties
         echo "org.gradle.daemon=false" >> gradle.properties
         echo "org.gradle.workers.max=1" >> gradle.properties
@@ -49,21 +49,7 @@ jobs:
         keytool -genkey -v -keystore debug.keystore -storepass android -alias androiddebugkey -keypass android -keyalg RSA -keysize 2048 -validity 10000 -dname "C=US, O=Android, CN=Android Debug"
 
     - name: Build Debug APK
-      run: |
-        # Run gradle build. KSP throws a non-fatal AWT-EventQueue NullPointerException 
-        # in CI environments that causes standard bash to sometimes fail if set -e is aggressive
-        # or if the task wrapper propagates the signal weirdly. 
-        # We run it and ensure we check if the APK was actually generated.
-        ./gradlew :app:assembleDebug --no-daemon --stacktrace || echo "Gradle returned non-zero exit code due to KSP, ignoring..."
-        
-        # Give the filesystem a moment to sync just in case
-        sleep 2
-        
-        if [ ! -f app/build/outputs/apk/debug/app-debug.apk ]; then
-          echo "APK was not generated. Build failed."
-          exit 1
-        fi
-        echo "APK generated successfully despite KSP warnings."
+      run: ./gradlew :app:assembleDebug --no-daemon --stacktrace
 
     - name: Upload APK Artifact
       uses: actions/upload-artifact@v4
