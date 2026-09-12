@@ -1,6 +1,6 @@
 {
-  "versionCode": 2,
-  "versionName": "1.1",
-  "apkUrl": "https://raw.githubusercontent.com/Warlock201/Perfum-tico-App/main/releases/perfumatico-v1.1.apk",
-  "releaseNotes": "Pequenas melhorias de performance e atualizações internas de configuração."
+  "versionCode": 3,
+  "versionName": "1.2",
+  "apkUrl": "https://raw.githubusercontent.com/Warlock201/Perfum-tico-App/main/releases/perfumatico-v1.2.apk",
+  "releaseNotes": "Versão 1.2: Teste de atualização automática direto do GitHub com sucesso!"
 }
