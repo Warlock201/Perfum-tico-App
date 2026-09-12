@@ -26,6 +26,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.isImeVisible
 import com.aistudio.perfumatico.ui.components.PerfumaticoBottomNav
 import com.aistudio.perfumatico.ui.components.PerfumaticoTopBar
 import com.aistudio.perfumatico.ui.screens.*
@@ -125,10 +127,14 @@ fun PerfumaticoApp(viewModel: PerfumeViewModel, chatViewModel: ChatViewModel) {
             )
         },
         bottomBar = {
+            @OptIn(androidx.compose.foundation.layout.ExperimentalLayoutApi::class)
+            val isImeVisible = WindowInsets.isImeVisible
+            if (!isImeVisible) {
             PerfumaticoBottomNav(
                 currentTab = currentTab,
                 onTabSelected = { viewModel.setTab(it) }
             )
+            }
         },
         containerColor = Slate950,
         contentWindowInsets = WindowInsets.safeDrawing

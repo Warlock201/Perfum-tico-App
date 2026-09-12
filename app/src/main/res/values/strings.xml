@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Perfumático</string>
+    <string name="default_web_client_id">784506326280-i4dfu7es4v9575jdt13fa6upcubh5spe.apps.googleusercontent.com</string>
 </resources>
