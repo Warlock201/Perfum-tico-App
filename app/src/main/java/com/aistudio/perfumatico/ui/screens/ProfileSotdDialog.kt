@@ -560,6 +560,20 @@ fun ProfileSotdDialog(
                         }
                     }
                 }
+                
+                Spacer(modifier = Modifier.height(16.dp))
+                val versionName = try {
+                    context.packageManager.getPackageInfo(context.packageName, 0).versionName
+                } catch (e: Exception) {
+                    "Desconhecida"
+                }
+                Text(
+                    text = "Versão do App: $versionName",
+                    color = Slate500,
+                    fontSize = 11.sp,
+                    fontWeight = FontWeight.Medium,
+                    modifier = Modifier.align(Alignment.CenterHorizontally)
+                )
             }
         }
     }

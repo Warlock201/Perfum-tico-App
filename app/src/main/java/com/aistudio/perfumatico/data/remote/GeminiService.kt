@@ -62,15 +62,17 @@ class GoogleSearch
 
 
 interface GeminiApiService {
-    @POST("v1beta/models/gemini-3.5-flash:generateContent")
+    @POST("v1beta/models/{model}:generateContent")
     suspend fun generateContent(
+        @retrofit2.http.Path("model") model: String,
         @Query("key") apiKey: String,
         @Body request: GenerateContentRequest
     ): GenerateContentResponse
 
-    @POST("v1beta/models/gemini-3.5-flash:streamGenerateContent")
+    @POST("v1beta/models/{model}:streamGenerateContent")
     @Streaming
     suspend fun streamGenerateContent(
+        @retrofit2.http.Path("model") model: String,
         @Query("key") apiKey: String,
         @Query("alt") alt: String = "sse",
         @Body request: GenerateContentRequest
@@ -117,7 +119,7 @@ object GeminiService {
         )
         
         try {
-            val response = RetrofitClient.service.generateContent(apiKey, request)
+            val response = RetrofitClient.service.generateContent("gemini-3.5-flash", apiKey, request)
             response.candidates?.firstOrNull()?.content?.parts?.firstOrNull()?.text ?: ""
         } catch (e: Exception) {
             "Erro ao buscar notas com IA: ${e.message}"
@@ -150,7 +152,7 @@ object GeminiService {
         )
 
         try {
-            val response = RetrofitClient.service.generateContent(apiKey, request)
+            val response = RetrofitClient.service.generateContent("gemini-3.5-flash", apiKey, request)
             response.candidates?.firstOrNull()?.content?.parts?.firstOrNull()?.text ?: "{}"
         } catch (e: Exception) {
             "{}"
@@ -171,7 +173,7 @@ object GeminiService {
         )
 
         try {
-            val responseBody = RetrofitClient.service.streamGenerateContent(apiKey, request = request)
+            val responseBody = RetrofitClient.service.streamGenerateContent("gemini-3.1-pro-preview", apiKey, request = request)
             responseBody.source().use { source ->
                 while (!source.exhausted()) {
                     val line = source.readUtf8Line() ?: break

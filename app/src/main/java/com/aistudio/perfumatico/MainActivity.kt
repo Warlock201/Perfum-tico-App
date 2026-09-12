@@ -1,6 +1,7 @@
 package com.aistudio.perfumatico
 
 import android.os.Bundle
+import android.view.WindowManager
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -13,6 +14,10 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -36,6 +41,10 @@ class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        // PROTEÇÃO CONTRA PRINTS (Ativado apenas em Release para não quebrar o emulador de preview)
+        if (!BuildConfig.DEBUG) {
+            window.setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE)
+        }
         enableEdgeToEdge()
         
         val imageLoader = ImageLoader.Builder(this)
@@ -75,6 +84,7 @@ fun PerfumaticoApp(viewModel: PerfumeViewModel) {
     val isProfileModalOpen by viewModel.isProfileModalOpen.collectAsState()
     val isAuthDialogOpen by viewModel.isAuthDialogOpen.collectAsState()
     val currentUser by viewModel.currentUser.collectAsState()
+    val updateInfo by viewModel.updateInfo.collectAsState()
 
     if (!isInitialized) {
         Box(
@@ -155,6 +165,36 @@ fun PerfumaticoApp(viewModel: PerfumeViewModel) {
             ProfileSotdDialog(
                 viewModel = viewModel,
                 onDismiss = { viewModel.closeProfileModal() }
+            )
+        }
+
+        updateInfo?.let { info ->
+            AlertDialog(
+                onDismissRequest = { viewModel.dismissUpdate() },
+                containerColor = Slate950,
+                titleContentColor = Amber400,
+                textContentColor = Slate400,
+                title = { Text(text = "Nova Atualização Disponível!") },
+                text = {
+                    Column {
+                        Text("Versão: ${info.latestVersionName}")
+                        Spacer(modifier = Modifier.height(8.dp))
+                        Text(info.releaseNotes)
+                    }
+                },
+                confirmButton = {
+                    Button(
+                        onClick = { viewModel.downloadUpdate(info.apkUrl) },
+                        colors = ButtonDefaults.buttonColors(containerColor = Amber400, contentColor = Slate950)
+                    ) {
+                        Text("Baixar e Instalar", fontWeight = FontWeight.Bold)
+                    }
+                },
+                dismissButton = {
+                    TextButton(onClick = { viewModel.dismissUpdate() }) {
+                        Text("Mais tarde", color = Slate400)
+                    }
+                }
             )
         }
     }

@@ -110,6 +110,29 @@ class PerfumeViewModel(application: Application) : AndroidViewModel(application)
     private val _isChatLoading = MutableStateFlow(false)
     val isChatLoading: StateFlow<Boolean> = _isChatLoading.asStateFlow()
 
+    private val updateManager = com.aistudio.perfumatico.updater.UpdateManager(application)
+    
+    private val _updateInfo = MutableStateFlow<com.aistudio.perfumatico.updater.UpdateInfo?>(null)
+    val updateInfo: StateFlow<com.aistudio.perfumatico.updater.UpdateInfo?> = _updateInfo.asStateFlow()
+
+    fun checkForUpdates() {
+        viewModelScope.launch {
+            val info = updateManager.checkForUpdate()
+            if (info != null && info.hasUpdate) {
+                _updateInfo.value = info
+            }
+        }
+    }
+
+    fun downloadUpdate(apkUrl: String) {
+        updateManager.downloadAndInstallUpdate(apkUrl)
+        _updateInfo.value = null // hide dialog after start
+    }
+    
+    fun dismissUpdate() {
+        _updateInfo.value = null
+    }
+
     fun sendMessage(text: String) {
         val userMsg = com.aistudio.perfumatico.data.remote.Content(
             parts = listOf(com.aistudio.perfumatico.data.remote.Part(text = text)),
@@ -190,6 +213,7 @@ class PerfumeViewModel(application: Application) : AndroidViewModel(application)
         viewModelScope.launch {
             repository.initializeCatalog()
             _isInitialized.value = true
+            checkForUpdates()
         }
         viewModelScope.launch {
             repository.noteImages.collect { list ->
