@@ -115,6 +115,12 @@ class PerfumeViewModel(application: Application) : AndroidViewModel(application)
     private val _updateInfo = MutableStateFlow<com.aistudio.perfumatico.updater.UpdateInfo?>(null)
     val updateInfo: StateFlow<com.aistudio.perfumatico.updater.UpdateInfo?> = _updateInfo.asStateFlow()
 
+    private val _isCheckingUpdate = MutableStateFlow(false)
+    val isCheckingUpdate: StateFlow<Boolean> = _isCheckingUpdate.asStateFlow()
+
+    private val _noUpdateAvailable = MutableStateFlow(false)
+    val noUpdateAvailable: StateFlow<Boolean> = _noUpdateAvailable.asStateFlow()
+
     fun checkForUpdates() {
         viewModelScope.launch {
             val info = updateManager.checkForUpdate()
@@ -122,6 +128,24 @@ class PerfumeViewModel(application: Application) : AndroidViewModel(application)
                 _updateInfo.value = info
             }
         }
+    }
+
+    fun checkUpdatesManually() {
+        viewModelScope.launch {
+            _isCheckingUpdate.value = true
+            val info = updateManager.checkForUpdate()
+            _isCheckingUpdate.value = false
+            
+            if (info != null && info.hasUpdate) {
+                _updateInfo.value = info
+            } else {
+                _noUpdateAvailable.value = true
+            }
+        }
+    }
+
+    fun dismissNoUpdateDialog() {
+        _noUpdateAvailable.value = false
     }
 
     fun downloadUpdate(apkUrl: String) {

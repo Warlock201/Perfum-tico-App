@@ -85,6 +85,7 @@ fun PerfumaticoApp(viewModel: PerfumeViewModel) {
     val isAuthDialogOpen by viewModel.isAuthDialogOpen.collectAsState()
     val currentUser by viewModel.currentUser.collectAsState()
     val updateInfo by viewModel.updateInfo.collectAsState()
+    val noUpdateAvailable by viewModel.noUpdateAvailable.collectAsState()
 
     if (!isInitialized) {
         Box(
@@ -193,6 +194,25 @@ fun PerfumaticoApp(viewModel: PerfumeViewModel) {
                 dismissButton = {
                     TextButton(onClick = { viewModel.dismissUpdate() }) {
                         Text("Mais tarde", color = Slate400)
+                    }
+                }
+            )
+        }
+
+        if (noUpdateAvailable) {
+            AlertDialog(
+                onDismissRequest = { viewModel.dismissNoUpdateDialog() },
+                containerColor = Slate950,
+                titleContentColor = Amber400,
+                textContentColor = Slate400,
+                title = { Text(text = "App Atualizado") },
+                text = { Text("Você já está na versão mais recente do Perfumático.") },
+                confirmButton = {
+                    Button(
+                        onClick = { viewModel.dismissNoUpdateDialog() },
+                        colors = ButtonDefaults.buttonColors(containerColor = Amber400, contentColor = Slate950)
+                    ) {
+                        Text("OK", fontWeight = FontWeight.Bold)
                     }
                 }
             )

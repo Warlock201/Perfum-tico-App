@@ -46,6 +46,7 @@ fun ProfileSotdDialog(
     
     val currentUser by viewModel.currentUser.collectAsState()
     val syncStatus by viewModel.syncStatus.collectAsState()
+    val isCheckingUpdate by viewModel.isCheckingUpdate.collectAsState()
     val isAdmin = viewModel.isAdmin
 
     var displayName by remember(profile) { mutableStateOf(profile?.displayName ?: "Colecionador") }
@@ -567,13 +568,32 @@ fun ProfileSotdDialog(
                 } catch (e: Exception) {
                     "Desconhecida"
                 }
-                Text(
-                    text = "Versão do App: $versionName",
-                    color = Slate500,
-                    fontSize = 11.sp,
-                    fontWeight = FontWeight.Medium,
-                    modifier = Modifier.align(Alignment.CenterHorizontally)
-                )
+                
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.Center,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Text(
+                        text = "Versão: $versionName",
+                        color = Slate500,
+                        fontSize = 11.sp,
+                        fontWeight = FontWeight.Medium
+                    )
+                    Spacer(modifier = Modifier.width(16.dp))
+                    TextButton(
+                        onClick = { viewModel.checkUpdatesManually() },
+                        enabled = !isCheckingUpdate
+                    ) {
+                        if (isCheckingUpdate) {
+                            CircularProgressIndicator(color = Amber400, modifier = Modifier.size(14.dp), strokeWidth = 2.dp)
+                            Spacer(modifier = Modifier.width(8.dp))
+                            Text("Buscando...", color = Slate400, fontSize = 11.sp)
+                        } else {
+                            Text("Buscar Atualizações", color = Amber400, fontSize = 11.sp, fontWeight = FontWeight.Bold)
+                        }
+                    }
+                }
             }
         }
     }
