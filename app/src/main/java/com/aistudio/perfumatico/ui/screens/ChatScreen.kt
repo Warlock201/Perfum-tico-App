@@ -12,20 +12,25 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.aistudio.perfumatico.ui.theme.*
-import com.aistudio.perfumatico.ui.viewmodel.PerfumeViewModel
+import com.aistudio.perfumatico.ui.viewmodel.ChatViewModel
 import kotlinx.coroutines.launch
 
 @Composable
-fun ChatScreen(viewModel: PerfumeViewModel) {
+fun ChatScreen(viewModel: ChatViewModel) {
     val chatHistory by viewModel.chatHistory.collectAsState()
     val isChatLoading by viewModel.isChatLoading.collectAsState()
     var messageText by remember { mutableStateOf("") }
     val listState = rememberLazyListState()
+    val focusManager = LocalFocusManager.current
+    LaunchedEffect(Unit) {
+        focusManager.clearFocus()
+    }
     val coroutineScope = rememberCoroutineScope()
 
     LaunchedEffect(chatHistory.size) {

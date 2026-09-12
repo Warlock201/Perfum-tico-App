@@ -35,9 +35,11 @@ import com.aistudio.perfumatico.ui.theme.Slate400
 import com.aistudio.perfumatico.ui.theme.Slate950
 import com.aistudio.perfumatico.ui.viewmodel.MainTab
 import com.aistudio.perfumatico.ui.viewmodel.PerfumeViewModel
+import com.aistudio.perfumatico.ui.viewmodel.ChatViewModel
 
 class MainActivity : ComponentActivity() {
     private val viewModel: PerfumeViewModel by viewModels()
+    private val chatViewModel: ChatViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -67,14 +69,14 @@ class MainActivity : ComponentActivity() {
         
         setContent {
             PerfumaticoTheme {
-                PerfumaticoApp(viewModel = viewModel)
+                PerfumaticoApp(viewModel = viewModel, chatViewModel = chatViewModel)
             }
         }
     }
 }
 
 @Composable
-fun PerfumaticoApp(viewModel: PerfumeViewModel) {
+fun PerfumaticoApp(viewModel: PerfumeViewModel, chatViewModel: ChatViewModel) {
     val isInitialized by viewModel.isInitialized.collectAsState()
     val currentTab by viewModel.currentTab.collectAsState()
     val userProfile by viewModel.userProfile.collectAsState()
@@ -141,7 +143,7 @@ fun PerfumaticoApp(viewModel: PerfumeViewModel) {
                 MainTab.DASHBOARD -> DashboardScreen(viewModel = viewModel)
                 MainTab.DISCOVER -> DiscoverScreen(viewModel = viewModel)
                 MainTab.CATALOG -> CatalogScreen(viewModel = viewModel)
-                MainTab.CHATBOT -> ChatScreen(viewModel = viewModel)
+                MainTab.CHATBOT -> ChatScreen(viewModel = chatViewModel)
             }
         }
 
