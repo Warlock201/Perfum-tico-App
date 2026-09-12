@@ -2,6 +2,7 @@ package com.aistudio.perfumatico.ui.screens
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
@@ -40,27 +41,27 @@ fun ChatScreen(viewModel: ChatViewModel) {
     }
 
     Column(
-        modifier = Modifier
+        modifier = Modifier.imePadding().imePadding()
             .fillMaxSize()
             .background(Slate950)
             .padding(16.dp)
     ) {
         LazyColumn(
             state = listState,
-            modifier = Modifier
+            modifier = Modifier.imePadding()
                 .weight(1f)
                 .fillMaxWidth(),
             verticalArrangement = Arrangement.spacedBy(12.dp)
         ) {
             if (chatHistory.isEmpty()) {
                 item {
-                    Box(modifier = Modifier.fillParentMaxSize(), contentAlignment = Alignment.Center) {
+                    Box(modifier = Modifier.imePadding().fillParentMaxSize(), contentAlignment = Alignment.Center) {
                         Text(
                             text = "Olá! Sou seu Sommelier de Perfumes. Como posso ajudar a encontrar a fragrância perfeita hoje?",
                             color = Slate400,
                             fontSize = 14.sp,
                             fontWeight = FontWeight.Medium,
-                            modifier = Modifier.padding(32.dp)
+                            modifier = Modifier.imePadding().padding(32.dp)
                         )
                     }
                 }
@@ -69,11 +70,11 @@ fun ChatScreen(viewModel: ChatViewModel) {
             items(chatHistory) { msg ->
                 val isUser = msg.role == "user"
                 Row(
-                    modifier = Modifier.fillMaxWidth(),
+                    modifier = Modifier.imePadding().fillMaxWidth(),
                     horizontalArrangement = if (isUser) Arrangement.End else Arrangement.Start
                 ) {
                     Box(
-                        modifier = Modifier
+                        modifier = Modifier.imePadding()
                             .fillMaxWidth(0.85f)
                             .clip(RoundedCornerShape(
                                 topStart = 16.dp,
@@ -96,17 +97,17 @@ fun ChatScreen(viewModel: ChatViewModel) {
             if (isChatLoading) {
                 item {
                     Row(
-                        modifier = Modifier.fillMaxWidth(),
+                        modifier = Modifier.imePadding().fillMaxWidth(),
                         horizontalArrangement = Arrangement.Start
                     ) {
                         Box(
-                            modifier = Modifier
+                            modifier = Modifier.imePadding()
                                 .clip(RoundedCornerShape(16.dp, 16.dp, 16.dp, 4.dp))
                                 .background(Slate800)
                                 .padding(16.dp)
                         ) {
                             CircularProgressIndicator(
-                                modifier = Modifier.size(20.dp),
+                                modifier = Modifier.imePadding().size(20.dp),
                                 color = Amber400,
                                 strokeWidth = 2.dp
                             )
@@ -116,16 +117,16 @@ fun ChatScreen(viewModel: ChatViewModel) {
             }
         }
 
-        Spacer(modifier = Modifier.height(12.dp))
+        Spacer(modifier = Modifier.imePadding().height(12.dp))
 
         Row(
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier.imePadding().fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically
         ) {
             OutlinedTextField(
                 value = messageText,
                 onValueChange = { messageText = it },
-                modifier = Modifier.weight(1f),
+                modifier = Modifier.imePadding().weight(1f),
                 placeholder = { Text("Descreva o que procura...", color = Slate500, fontSize = 14.sp) },
                 colors = OutlinedTextFieldDefaults.colors(
                     focusedBorderColor = Amber400,
@@ -139,7 +140,7 @@ fun ChatScreen(viewModel: ChatViewModel) {
                 shape = RoundedCornerShape(24.dp),
                 maxLines = 4
             )
-            Spacer(modifier = Modifier.width(8.dp))
+            Spacer(modifier = Modifier.imePadding().width(8.dp))
             FloatingActionButton(
                 onClick = {
                     if (messageText.isNotBlank()) {
@@ -150,12 +151,12 @@ fun ChatScreen(viewModel: ChatViewModel) {
                 containerColor = Amber400,
                 contentColor = Slate950,
                 shape = RoundedCornerShape(24.dp),
-                modifier = Modifier.size(52.dp)
+                modifier = Modifier.imePadding().size(52.dp)
             ) {
                 Icon(
                     imageVector = Icons.AutoMirrored.Filled.Send,
                     contentDescription = "Enviar",
-                    modifier = Modifier.size(20.dp)
+                    modifier = Modifier.imePadding().size(20.dp)
                 )
             }
         }
