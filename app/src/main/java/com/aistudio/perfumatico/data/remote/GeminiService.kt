@@ -119,7 +119,7 @@ object GeminiService {
         )
         
         try {
-            val response = RetrofitClient.service.generateContent("gemini-3.5-flash", apiKey, request)
+            val response = RetrofitClient.service.generateContent("gemini-1.5-flash-latest", apiKey, request)
             response.candidates?.firstOrNull()?.content?.parts?.firstOrNull()?.text ?: ""
         } catch (e: Exception) {
             "Erro ao buscar notas com IA: ${e.message}"
@@ -152,7 +152,7 @@ object GeminiService {
         )
 
         try {
-            val response = RetrofitClient.service.generateContent("gemini-3.5-flash", apiKey, request)
+            val response = RetrofitClient.service.generateContent("gemini-1.5-flash-latest", apiKey, request)
             response.candidates?.firstOrNull()?.content?.parts?.firstOrNull()?.text ?: "{}"
         } catch (e: Exception) {
             "{}"
@@ -173,7 +173,7 @@ object GeminiService {
         )
 
         try {
-            val responseBody = RetrofitClient.service.streamGenerateContent("gemini-3.1-pro-preview", apiKey, request = request)
+            val responseBody = RetrofitClient.service.streamGenerateContent("gemini-1.5-pro-latest", apiKey, request = request)
             responseBody.source().use { source ->
                 while (!source.exhausted()) {
                     val line = source.readUtf8Line() ?: break
