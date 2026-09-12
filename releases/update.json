@@ -1,6 +1,6 @@
 {
-  "versionCode": 4,
-  "versionName": "1.3",
-  "apkUrl": "https://raw.githubusercontent.com/Warlock201/Perfum-tico-App/main/releases/perfumatico-v1.3.apk",
-  "releaseNotes": "Versão 1.3: Adicionado botão de 'Buscar Atualizações' manual no painel de perfil."
+  "versionCode": 5,
+  "versionName": "1.4",
+  "apkUrl": "https://raw.githubusercontent.com/Warlock201/Perfum-tico-App/main/releases/perfumatico-v1.4.apk",
+  "releaseNotes": "Versão 1.4: Correção do teclado subindo sozinho na tela inicial e chat."
 }
