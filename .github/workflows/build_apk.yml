@@ -31,6 +31,17 @@ jobs:
         echo "kotlin.daemon.jvmargs=-Xmx1g" >> gradle.properties
         echo "android.useAndroidX=true" >> gradle.properties
 
+    - name: Create dummy google-services.json
+      run: |
+        cat << 'DUMMY' > app/google-services.json
+        {
+          "project_info": { "project_number": "123", "project_id": "dummy" },
+          "client": [ {
+            "client_info": { "mobilesdk_app_id": "1:123:android:abc", "android_client_info": { "package_name": "com.aistudio.perfumatico.kqpv" } },
+            "api_key": [ { "current_key": "dummy" } ]
+          } ]
+        }
+        DUMMY
     - name: Create .env properties file
       run: |
         touch .env
