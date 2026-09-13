@@ -24,6 +24,10 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.ui.platform.LocalContext
+import android.widget.Toast
+import com.aistudio.perfumatico.data.local.PerfumeEntity
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.foundation.layout.WindowInsets
@@ -91,6 +95,24 @@ fun PerfumaticoApp(viewModel: PerfumeViewModel, chatViewModel: ChatViewModel) {
     val updateInfo by viewModel.updateInfo.collectAsState()
     val noUpdateAvailable by viewModel.noUpdateAvailable.collectAsState()
 
+    val context = LocalContext.current
+    LaunchedEffect(chatViewModel) {
+        chatViewModel.addPerfumeEvent.collect { (name, brand, status) ->
+            val newPerfume = PerfumeEntity(
+                id = "my_${System.currentTimeMillis()}",
+                name = name,
+                brand = brand,
+                status = status,
+                imageUrl = "",
+                notes = "",
+                family = ""
+            )
+            viewModel.savePerfume(newPerfume)
+            Toast.makeText(context, "$name adicionado em $status!", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+
     if (!isInitialized) {
         Box(
             modifier = Modifier
@@ -148,6 +170,7 @@ fun PerfumaticoApp(viewModel: PerfumeViewModel, chatViewModel: ChatViewModel) {
                 MainTab.COLLECTION -> MyPerfumesScreen(viewModel = viewModel)
                 MainTab.DASHBOARD -> DashboardScreen(viewModel = viewModel)
                 MainTab.DISCOVER -> DiscoverScreen(viewModel = viewModel)
+                MainTab.ORACLE -> com.aistudio.perfumatico.ui.screens.OracleScreen(viewModel = viewModel)
                 MainTab.CATALOG -> CatalogScreen(viewModel = viewModel)
                 MainTab.CHATBOT -> ChatScreen(viewModel = chatViewModel)
             }

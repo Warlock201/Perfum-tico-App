@@ -185,9 +185,9 @@ fun PerfumaticoBottomNav(
     ) {
         val items = listOf(
             Triple(MainTab.COLLECTION, "Meus", Icons.Default.Diamond),
-            Triple(MainTab.DASHBOARD, "Estatísticas", Icons.Default.Analytics),
-            Triple(MainTab.DISCOVER, "Descubra", Icons.Default.AutoAwesome),
-            Triple(MainTab.CATALOG, "Catálogo", Icons.Default.MenuBook),
+            Triple(MainTab.DASHBOARD, "Painel", Icons.Default.Analytics),
+            Triple(MainTab.DISCOVER, "Descubra", Icons.Default.Search),
+            Triple(MainTab.ORACLE, "Oráculo", Icons.Default.AutoAwesome),
             Triple(MainTab.CHATBOT, "Chat", Icons.Default.VoiceChat)
         )
 
@@ -300,6 +300,24 @@ fun PerfumeCard(
                             overflow = TextOverflow.Ellipsis,
                             modifier = Modifier.weight(1f, fill = false)
                         )
+                        
+                        val isNew = perfume.markedNewAt > 0L && (System.currentTimeMillis() - perfume.markedNewAt) < 14L * 24 * 60 * 60 * 1000
+                        if (isNew) {
+                            Spacer(modifier = Modifier.width(6.dp))
+                            Surface(
+                                color = Emerald500.copy(alpha = 0.2f),
+                                shape = RoundedCornerShape(4.dp),
+                                border = androidx.compose.foundation.BorderStroke(1.dp, Emerald500)
+                            ) {
+                                Text(
+                                    text = "NOVO",
+                                    color = Emerald400,
+                                    fontSize = 8.sp,
+                                    fontWeight = FontWeight.Black,
+                                    modifier = Modifier.padding(horizontal = 4.dp, vertical = 2.dp)
+                                )
+                            }
+                        }
                         if (perfume.tags.contains("ASSINATURA", true)) {
                             Spacer(modifier = Modifier.width(6.dp))
                             Icon(Icons.Default.Star, contentDescription = "Assinatura", tint = Amber400, modifier = Modifier.size(14.dp))
@@ -312,10 +330,34 @@ fun PerfumeCard(
                         }
                     }
                     Spacer(modifier = Modifier.height(4.dp))
+                    val volumeText = try {
+                        val arr = org.json.JSONArray(perfume.bottlesJson)
+                        val first = arr.get(0)
+                        if (first is org.json.JSONObject) first.getString("size") else first.toString()
+                    } catch (e: Exception) {
+                        if (perfume.bottlesJson.contains("50ml")) "50ml" else "100ml"
+                    }
+
+                    val typeText = if (volumeText.contains("Decant", ignoreCase = true) || volumeText.contains("Amostra", ignoreCase = true)) "Decant" else "Frasco"
+                    val displayVol = volumeText.replace("Decant ", "", ignoreCase = true)
+                    
                     Row(
                         verticalAlignment = Alignment.CenterVertically,
                         horizontalArrangement = Arrangement.spacedBy(6.dp)
                     ) {
+                        Surface(
+                            color = Slate800,
+                            shape = RoundedCornerShape(6.dp)
+                        ) {
+                            Text(
+                                text = "$typeText • $displayVol",
+                                color = Slate200,
+                                fontSize = 10.sp,
+                                fontWeight = FontWeight.SemiBold,
+                                modifier = Modifier.padding(horizontal = 6.dp, vertical = 2.dp)
+                            )
+                        }
+                        
                         Surface(
                             color = Slate800,
                             shape = RoundedCornerShape(6.dp)

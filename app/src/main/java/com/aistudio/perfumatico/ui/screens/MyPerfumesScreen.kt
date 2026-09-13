@@ -47,9 +47,9 @@ fun MyPerfumesScreen(
     val filteredList = remember(perfumes, currentSubTab, searchQuery, selectedTag, selectedFamily) {
         perfumes.filter { p ->
             val matchesTab = p.status == currentSubTab.dbStatus || 
-                (currentSubTab == CollectionSubTab.HAVE && (p.status == "Já possuo" || p.status == "Frasco")) ||
-                (currentSubTab == CollectionSubTab.DECANT && p.status == "Decant") ||
-                (currentSubTab == CollectionSubTab.WISH && (p.status == "Desejos" || p.status == "Pipeline" || p.status == "Wishlist"))
+                (currentSubTab == CollectionSubTab.HAVE && (p.status == "Já possuo" || p.status == "Frasco" || p.status == "Decant")) ||
+                (currentSubTab == CollectionSubTab.WANT && (p.status == "Quero ter" || p.status == "Pipeline")) ||
+                (currentSubTab == CollectionSubTab.DREAM && (p.status == "Desejo" || p.status == "Desejos" || p.status == "Wishlist"))
 
             val matchesSearch = searchQuery.isBlank() ||
                     p.name.contains(searchQuery, ignoreCase = true) ||
@@ -85,9 +85,9 @@ fun MyPerfumesScreen(
             horizontalArrangement = Arrangement.spacedBy(4.dp)
         ) {
             val tabs = listOf(
-                CollectionSubTab.HAVE to "FRASCOS",
-                CollectionSubTab.DECANT to "DECANTS",
-                CollectionSubTab.WISH to "WISHLIST"
+                CollectionSubTab.HAVE to "COLEÇÃO",
+                CollectionSubTab.WANT to "QUERO TER",
+                CollectionSubTab.DREAM to "DESEJO"
             )
 
             tabs.forEach { (tab, label) ->

@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
@@ -68,8 +69,13 @@ fun ChatScreen(viewModel: ChatViewModel) {
                 }
             }
 
-            items(chatHistory) { msg ->
+            itemsIndexed(chatHistory) { index, msg ->
                 val isUser = msg.role == "user"
+                val rawText = msg.parts.firstOrNull()?.text ?: ""
+                val askRegex = Regex("""\[ASK_COLLECTION:\s*(.+?)\s*\|\s*(.+?)\s*\]""")
+                val match = askRegex.find(rawText)
+                val cleanText = rawText.replace(askRegex, "").trim()
+
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = if (isUser) Arrangement.End else Arrangement.Start
@@ -86,12 +92,46 @@ fun ChatScreen(viewModel: ChatViewModel) {
                             .background(if (isUser) Amber400 else Slate800)
                             .padding(16.dp)
                     ) {
-                        Text(
-                            text = msg.parts.firstOrNull()?.text ?: "",
-                            color = if (isUser) Slate950 else Slate100,
-                            fontSize = 14.sp,
-                            lineHeight = 20.sp
-                        )
+                        Column {
+                            Text(
+                                text = cleanText,
+                                color = if (isUser) Slate950 else Slate100,
+                                fontSize = 14.sp,
+                                lineHeight = 20.sp
+                            )
+                            
+                            if (match != null && !isUser) {
+                                val perfumeName = match.groupValues[1].trim()
+                                val perfumeBrand = match.groupValues[2].trim()
+                                
+                                Spacer(modifier = Modifier.height(12.dp))
+                                Text("Onde deseja guardar '$perfumeName'?", color = Slate400, fontSize = 12.sp, fontWeight = FontWeight.Bold)
+                                Spacer(modifier = Modifier.height(8.dp))
+                                
+                                Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                                    Button(
+                                        onClick = { viewModel.addPerfumeFromUI(perfumeName, perfumeBrand, "Já possuo", index) },
+                                        colors = ButtonDefaults.buttonColors(containerColor = Amber400, contentColor = Slate950),
+                                        modifier = Modifier.fillMaxWidth(),
+                                        shape = RoundedCornerShape(12.dp)
+                                    ) { Text("Já possuo (ou A Caminho)", fontWeight = FontWeight.Bold) }
+                                    
+                                    Button(
+                                        onClick = { viewModel.addPerfumeFromUI(perfumeName, perfumeBrand, "Quero ter", index) },
+                                        colors = ButtonDefaults.buttonColors(containerColor = Slate700, contentColor = Slate100),
+                                        modifier = Modifier.fillMaxWidth(),
+                                        shape = RoundedCornerShape(12.dp)
+                                    ) { Text("Quero ter (Próximos)", fontWeight = FontWeight.Bold) }
+                                    
+                                    Button(
+                                        onClick = { viewModel.addPerfumeFromUI(perfumeName, perfumeBrand, "Desejo", index) },
+                                        colors = ButtonDefaults.buttonColors(containerColor = Slate700, contentColor = Slate100),
+                                        modifier = Modifier.fillMaxWidth(),
+                                        shape = RoundedCornerShape(12.dp)
+                                    ) { Text("Desejo", fontWeight = FontWeight.Bold) }
+                                }
+                            }
+                        }
                     }
                 }
             }

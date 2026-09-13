@@ -27,7 +27,8 @@ data class PerfumeEntity(
     val macerationStart: String = "",
     val externalRating: Double = 0.0,
     val isCustom: Boolean = false,
-    val createdAt: Long = System.currentTimeMillis()
+    val createdAt: Long = System.currentTimeMillis(),
+    val markedNewAt: Long = 0L // 0 means not marked as new
 )
 
 @Entity(tableName = "sotd_history")

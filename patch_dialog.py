@@ -1,79 +1,49 @@
 import re
 
-with open('app/src/main/java/com/aistudio/perfumatico/ui/screens/AddEditPerfumeDialog.kt', 'r') as f:
-    code = f.read()
+with open("app/src/main/java/com/aistudio/perfumatico/ui/screens/PerfumeDetailDialog.kt", "r") as f:
+    content = f.read()
 
-imports = '''import androidx.compose.material.icons.filled.AutoAwesome
-import org.json.JSONObject
-import kotlinx.coroutines.launch'''
+old_status_logic = """
+    var status by remember { mutableStateOf(
+        when (perfume.status) {
+            "Já possuo", "Frasco" -> "Já possuo"
+            "Decant" -> "Decant"
+            "Quero ter", "Pipeline" -> "Quero ter"
+            "Graal", "Desejos", "Wishlist" -> "Graal"
+            else -> "Nenhum"
+        }
+    ) }
+"""
 
-code = code.replace('import java.util.UUID', 'import java.util.UUID\n' + imports)
+new_status_logic = """
+    var status by remember { mutableStateOf(
+        when (perfume.status) {
+            "Já possuo", "Frasco", "Decant" -> "Já possuo"
+            "Quero ter", "Pipeline" -> "Quero ter"
+            "Graal", "Desejos", "Wishlist" -> "Graal"
+            else -> "Nenhum"
+        }
+    ) }
+"""
+content = content.replace(old_status_logic.strip(), new_status_logic.strip())
 
-# Add states
-state_old = 'var status by remember { mutableStateOf(perfumeToEdit?.status ?: "Já possuo") }'
-state_new = 'var status by remember { mutableStateOf(perfumeToEdit?.status ?: "Já possuo") }\n    var isAutoFilling by remember { mutableStateOf(false) }\n    val coroutineScope = rememberCoroutineScope()'
-code = code.replace(state_old, state_new)
 
-# Replace the OutlinedTextField for Name
-name_field_old = '''                    OutlinedTextField(
-                        value = name,
-                        onValueChange = { name = it },
-                        label = { Text("Nome do Perfume *") },
-                        singleLine = true,
-                        modifier = Modifier.fillMaxWidth().testTag("input_perfume_name"),
-                        colors = fieldColors(),
-                        shape = RoundedCornerShape(12.dp)
-                    )'''
+old_list_forEach = """
+                            listOf("Já possuo", "Decant", "Quero ter", "Graal", "Nenhum").forEach { st ->
+"""
 
-name_field_new = '''                    Row(
-                        modifier = Modifier.fillMaxWidth(),
-                        verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.spacedBy(8.dp)
-                    ) {
-                        OutlinedTextField(
-                            value = name,
-                            onValueChange = { name = it },
-                            label = { Text("Nome do Perfume *") },
-                            singleLine = true,
-                            modifier = Modifier.weight(1f).testTag("input_perfume_name"),
-                            colors = fieldColors(),
-                            shape = RoundedCornerShape(12.dp)
-                        )
-                        
-                        IconButton(
-                            onClick = {
-                                if (name.isNotBlank()) {
-                                    isAutoFilling = true
-                                    viewModel.autoFillPerfume(name) { jsonResult ->
-                                        isAutoFilling = false
-                                        try {
-                                            val json = JSONObject(jsonResult)
-                                            if (json.has("brand")) brand = json.getString("brand")
-                                            if (json.has("family")) family = json.getString("family")
-                                            if (json.has("topNotes")) topNotes = json.getString("topNotes")
-                                            if (json.has("heartNotes")) heartNotes = json.getString("heartNotes")
-                                            if (json.has("baseNotes")) baseNotes = json.getString("baseNotes")
-                                            if (json.has("fixation")) fixation = json.getInt("fixation")
-                                            if (json.has("projection")) projection = json.getInt("projection")
-                                        } catch (e: Exception) {
-                                            e.printStackTrace()
-                                        }
-                                    }
-                                }
-                            },
-                            modifier = Modifier
-                                .size(50.dp)
-                                .background(Amber400, RoundedCornerShape(12.dp))
-                        ) {
-                            if (isAutoFilling) {
-                                CircularProgressIndicator(color = Slate950, modifier = Modifier.size(20.dp), strokeWidth = 2.dp)
-                            } else {
-                                Icon(Icons.Default.AutoAwesome, contentDescription = "Auto Preencher", tint = Slate950)
-                            }
-                        }
-                    }'''
+new_list_forEach = """
+                            listOf("Já possuo", "Quero ter", "Graal", "Nenhum").forEach { st ->
+"""
+content = content.replace(old_list_forEach.strip(), new_list_forEach.strip())
 
-code = code.replace(name_field_old, name_field_new)
+old_colors = """
+                                        selectedContainerColor = if (st == "Já possuo") Amber400 else if (st == "Decant") Emerald400 else if (st == "Quero ter") Cyan500 else if (st == "Graal") Purple500 else Slate700,
+"""
+new_colors = """
+                                        selectedContainerColor = if (st == "Já possuo") Amber400 else if (st == "Quero ter") Cyan500 else if (st == "Graal") Purple500 else Slate700,
+"""
+content = content.replace(old_colors.strip(), new_colors.strip())
 
-with open('app/src/main/java/com/aistudio/perfumatico/ui/screens/AddEditPerfumeDialog.kt', 'w') as f:
-    f.write(code)
+with open("app/src/main/java/com/aistudio/perfumatico/ui/screens/PerfumeDetailDialog.kt", "w") as f:
+    f.write(content)

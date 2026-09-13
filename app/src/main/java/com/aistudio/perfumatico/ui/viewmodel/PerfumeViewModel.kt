@@ -20,6 +20,7 @@ enum class MainTab {
     COLLECTION,
     DASHBOARD,
     DISCOVER,
+    ORACLE,
     CATALOG,
     CHATBOT
 }
@@ -27,7 +28,8 @@ enum class MainTab {
 enum class CollectionSubTab(val dbStatus: String) {
     HAVE("Frasco"),
     DECANT("Decant"),
-    WISH("Wishlist")
+    WANT("Quero ter"),
+    DREAM("Desejo")
 }
 
 enum class CatalogSubTab {

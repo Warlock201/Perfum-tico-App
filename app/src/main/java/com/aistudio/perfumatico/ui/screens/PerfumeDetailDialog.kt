@@ -54,9 +54,9 @@ fun PerfumeDetailDialog(
     var personalNotes by remember { mutableStateOf(perfume.personalNotes) }
     var status by remember { mutableStateOf(
         when (perfume.status) {
-            "Já possuo", "Frasco" -> "Frasco"
-            "Decant" -> "Decant"
-            "Pipeline", "Desejos", "Wishlist" -> "Wishlist"
+            "Já possuo", "Frasco", "Decant" -> "Já possuo"
+            "Quero ter", "Pipeline" -> "Quero ter"
+            "Desejo", "Desejos", "Wishlist" -> "Desejo"
             else -> "Nenhum"
         }
     ) }
@@ -371,14 +371,14 @@ fun PerfumeDetailDialog(
                             modifier = Modifier.fillMaxWidth(),
                             horizontalArrangement = Arrangement.spacedBy(6.dp)
                         ) {
-                            listOf("Frasco", "Decant", "Wishlist", "Nenhum").forEach { st ->
+                            listOf("Já possuo", "Quero ter", "Desejo", "Nenhum").forEach { st ->
                                 val isSel = status == st
                                 FilterChip(
                                     selected = isSel,
                                     onClick = { status = st },
                                     label = { Text(st, fontSize = 11.sp, textAlign = TextAlign.Center, modifier = Modifier.fillMaxWidth()) },
                                     colors = FilterChipDefaults.filterChipColors(
-                                        selectedContainerColor = if (st == "Frasco") Amber400 else if (st == "Decant") Emerald400 else if (st == "Wishlist") Cyan500 else Slate700,
+                                        selectedContainerColor = if (st == "Já possuo") Amber400 else if (st == "Quero ter") Cyan500 else if (st == "Desejo") Purple500 else Slate700,
                                         selectedLabelColor = if (st == "Nenhum" && isSel) Slate100 else Slate950,
                                         containerColor = Slate800,
                                         labelColor = Slate300
@@ -624,6 +624,24 @@ fun PerfumeDetailDialog(
                             }
                         }
                     }
+                }
+
+                Spacer(modifier = Modifier.height(14.dp))
+
+                val isCurrentlyNew = perfume.markedNewAt > 0L && (System.currentTimeMillis() - perfume.markedNewAt) < 14L * 24 * 60 * 60 * 1000
+                var markedNewToggle by remember { mutableStateOf(isCurrentlyNew) }
+
+                Row(
+                    modifier = Modifier.fillMaxWidth().padding(vertical = 6.dp),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
+                    Text("Exibir etiqueta NOVO (14 dias)", color = Slate300, fontSize = 13.sp, fontWeight = FontWeight.SemiBold)
+                    Switch(
+                        checked = markedNewToggle,
+                        onCheckedChange = { markedNewToggle = it },
+                        colors = SwitchDefaults.colors(checkedThumbColor = Emerald400, checkedTrackColor = Emerald400.copy(alpha=0.3f), uncheckedThumbColor = Slate400, uncheckedTrackColor = Slate700)
+                    )
                 }
 
                 Spacer(modifier = Modifier.height(14.dp))

@@ -53,10 +53,10 @@ val AVAILABLE_VOLUMES = listOf(
     "50ml",
     "30ml",
     "15ml",
+    "Decant 20ml",
     "Decant 10ml",
     "Decant 5ml",
-    "Amostra",
-    "DUPE"
+    "Amostra"
 )
 
 val AVAILABLE_FAMILIES = listOf(

@@ -100,6 +100,22 @@ object RetrofitClient {
 }
 
 object GeminiService {
+    private suspend fun <T> executeWithFallback(
+        models: List<String>,
+        action: suspend (String) -> T
+    ): T {
+        var lastError: Exception? = null
+        for (model in models) {
+            try {
+                return action(model)
+            } catch (e: Exception) {
+                lastError = e
+                // Continue to the next model
+            }
+        }
+        throw lastError ?: Exception("All models failed")
+    }
+
     suspend fun completeOlfactoryPyramid(perfumeName: String, brandName: String): String = withContext(Dispatchers.IO) {
         val apiKey = BuildConfig.GEMINI_API_KEY
         
@@ -119,7 +135,7 @@ object GeminiService {
         )
         
         try {
-            val response = RetrofitClient.service.generateContent("gemini-1.5-flash-latest", apiKey, request)
+            val response = executeWithFallback(listOf("gemini-3.5-flash", "gemini-3.1-flash-lite")) { model -> RetrofitClient.service.generateContent(model, apiKey, request) }
             response.candidates?.firstOrNull()?.content?.parts?.firstOrNull()?.text ?: ""
         } catch (e: Exception) {
             "Erro ao buscar notas com IA: ${e.message}"
@@ -152,7 +168,7 @@ object GeminiService {
         )
 
         try {
-            val response = RetrofitClient.service.generateContent("gemini-1.5-flash-latest", apiKey, request)
+            val response = executeWithFallback(listOf("gemini-3.5-flash", "gemini-3.1-flash-lite")) { model -> RetrofitClient.service.generateContent(model, apiKey, request) }
             response.candidates?.firstOrNull()?.content?.parts?.firstOrNull()?.text ?: "{}"
         } catch (e: Exception) {
             "{}"
@@ -162,7 +178,7 @@ object GeminiService {
     suspend fun chatWithSommelier(history: List<Content>, onToken: (String) -> Unit) = withContext(Dispatchers.IO) {
         val apiKey = BuildConfig.GEMINI_API_KEY
         val systemInstruction = Content(
-            parts = listOf(Part(text = "Você é um Sommelier de Perfumes. Sua função é dar dicas de fragrâncias, ajudar o usuário a escolher perfumes para ocasiões específicas e comentar sobre notas olfativas de forma educada e apaixonada pela perfumaria. Seja conciso e elegante." )),
+            parts = listOf(Part(text = "Você é um Sommelier de Perfumes. Sua função é dar dicas de fragrâncias e ajudar o usuário a escolher perfumes. IMPORTANTE: Se o usuário expressar que deseja adicionar um perfume conversado na sua coleção, você NÃO precisa perguntar em qual categoria, pois botões aparecerão na tela. Você DEVE APENAS retornar no final da sua mensagem o comando exato: [ASK_COLLECTION: <Nome do Perfume> | <Marca>]. Exemplo: [ASK_COLLECTION: Homem Dom | Natura]" )),
             role = "system"
         )
         
@@ -173,7 +189,7 @@ object GeminiService {
         )
 
         try {
-            val responseBody = RetrofitClient.service.streamGenerateContent("gemini-1.5-pro-latest", apiKey, request = request)
+            val responseBody = executeWithFallback(listOf("gemini-3.1-pro-preview", "gemini-3.5-flash", "gemini-3.1-flash-lite")) { model -> RetrofitClient.service.streamGenerateContent(model, apiKey, request = request) }
             responseBody.source().use { source ->
                 while (!source.exhausted()) {
                     val line = source.readUtf8Line() ?: break

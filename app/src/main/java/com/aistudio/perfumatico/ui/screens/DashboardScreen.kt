@@ -36,9 +36,9 @@ fun DashboardScreen(
 
     val currencyFormat = NumberFormat.getCurrencyInstance(Locale("pt", "BR"))
 
-    val haveList = perfumes.filter { it.status == "Já possuo" }
-    val toBuyList = perfumes.filter { it.status == "Pipeline" }
-    val wishList = perfumes.filter { it.status == "Desejos" }
+    val haveList = perfumes.filter { it.status == "Já possuo" || it.status == "Frasco" || it.status == "Decant" }
+    val toBuyList = perfumes.filter { it.status == "Quero ter" || it.status == "Pipeline" }
+    val wishList = perfumes.filter { it.status == "Desejo" || it.status == "Desejos" || it.status == "Wishlist" }
 
     val patrimonioMin = haveList.sumOf { it.priceMin }
     val patrimonioMax = haveList.sumOf { it.priceMax }
