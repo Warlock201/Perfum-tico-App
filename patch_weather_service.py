@@ -1,29 +1,24 @@
-package com.aistudio.perfumatico.utils
+import re
 
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
-import org.json.JSONObject
-import java.net.HttpURLConnection
-import java.net.URL
+with open("app/src/main/java/com/aistudio/perfumatico/utils/WeatherService.kt", "r") as f:
+    content = f.read()
 
-data class WeatherData(
-    val temperature: Float,
-    val humidity: Int,
-    val isDay: Boolean,
-    val city: String
-)
+old_logic = """
+            if (connection.responseCode == HttpURLConnection.HTTP_OK) {
+                val response = connection.inputStream.bufferedReader().use { it.readText() }
+                val json = JSONObject(response)
+                val current = json.getJSONObject("current")
+                
+                return@withContext WeatherData(
+                    temperature = current.getDouble("temperature_2m").toFloat(),
+                    humidity = current.getInt("relative_humidity_2m"),
+                    isDay = current.getInt("is_day") == 1,
+                    city = "Local Atual" // Real city would require reverse geocoding, we can keep it simple
+                )
+            }
+"""
 
-object WeatherService {
-    suspend fun getLocalWeather(lat: Double, lon: Double): WeatherData? = withContext(Dispatchers.IO) {
-        try {
-            // Using Open-Meteo API which doesn't require keys
-            val urlStr = "https://api.open-meteo.com/v1/forecast?latitude=$lat&longitude=$lon&current=temperature_2m,relative_humidity_2m,is_day&timezone=auto"
-            val url = URL(urlStr)
-            val connection = url.openConnection() as HttpURLConnection
-            connection.requestMethod = "GET"
-            connection.connectTimeout = 5000
-            connection.readTimeout = 5000
-
+new_logic = """
             if (connection.responseCode == HttpURLConnection.HTTP_OK) {
                 val response = connection.inputStream.bufferedReader().use { it.readText() }
                 val json = JSONObject(response)
@@ -58,9 +53,9 @@ object WeatherService {
                     city = cityName
                 )
             }
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
-        return@withContext null
-    }
-}
+"""
+
+content = content.replace(old_logic, new_logic)
+
+with open("app/src/main/java/com/aistudio/perfumatico/utils/WeatherService.kt", "w") as f:
+    f.write(content)
