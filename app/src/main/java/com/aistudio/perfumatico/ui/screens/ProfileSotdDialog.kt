@@ -1,3 +1,4 @@
+@file:Suppress("DEPRECATION")
 package com.aistudio.perfumatico.ui.screens
 
 import android.app.Activity

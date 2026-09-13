@@ -35,7 +35,9 @@ fun PerfumaticoTheme(
     val colorScheme = PerfumaticoColorScheme
     val view = LocalView.current
     if (!view.isInEditMode) {
-        SideEffect {
+        @Suppress("DEPRECATION")
+    SideEffect {
+            
             val window = (view.context as Activity).window
             window.statusBarColor = Slate950.toArgb()
             window.navigationBarColor = Slate950.toArgb()

@@ -1,6 +1,6 @@
 {
-  "versionCode": 5,
-  "versionName": "1.4",
-  "apkUrl": "https://raw.githubusercontent.com/Warlock201/Perfum-tico-App/main/releases/perfumatico-v1.4.apk",
-  "releaseNotes": "Versão 1.4: Correção do teclado subindo sozinho na tela inicial e chat."
+  "versionCode": 6,
+  "versionName": "1.5",
+  "apkUrl": "https://raw.githubusercontent.com/Warlock201/Perfum-tico-App/main/releases/perfumatico-v1.5.apk",
+  "releaseNotes": "Versão 1.5: Fix da API do Gemini (correção de histórico e chave de acesso) e resolução de warnings do sistema."
 }

@@ -1,40 +1,12 @@
 import re
 
-with open("app/src/main/java/com/aistudio/perfumatico/data/model/Models.kt", "r") as f:
+with open("app/src/main/java/com/aistudio/perfumatico/data/remote/GeminiService.kt", "r") as f:
     content = f.read()
 
-old_vols = """val AVAILABLE_VOLUMES = listOf(
-    "200ml",
-    "150ml",
-    "125ml",
-    "100ml",
-    "90ml",
-    "75ml",
-    "50ml",
-    "30ml",
-    "15ml",
-    "Decant 10ml",
-    "Decant 5ml",
-    "Amostra",
-    "DUPE"
-)"""
+new_models = 'listOf("gemini-2.5-pro", "gemini-2.5-flash", "gemini-1.5-flash", "gemini-1.5-pro")'
 
-new_vols = """val AVAILABLE_VOLUMES = listOf(
-    "200ml",
-    "150ml",
-    "125ml",
-    "100ml",
-    "90ml",
-    "75ml",
-    "50ml",
-    "30ml",
-    "15ml",
-    "Decant 20ml",
-    "Decant 10ml",
-    "Decant 5ml",
-    "Amostra"
-)"""
-content = content.replace(old_vols, new_vols)
+content = re.sub(r'listOf\("gemini-3\.5-flash", "gemini-3\.1-flash-lite"\)', new_models, content)
+content = re.sub(r'listOf\("gemini-3\.1-pro-preview", "gemini-3\.5-flash", "gemini-3\.1-flash-lite"\)', new_models, content)
 
-with open("app/src/main/java/com/aistudio/perfumatico/data/model/Models.kt", "w") as f:
+with open("app/src/main/java/com/aistudio/perfumatico/data/remote/GeminiService.kt", "w") as f:
     f.write(content)

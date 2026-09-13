@@ -34,7 +34,7 @@ fun DashboardScreen(
 ) {
     val perfumes by viewModel.myPerfumes.collectAsState()
 
-    val currencyFormat = NumberFormat.getCurrencyInstance(Locale("pt", "BR"))
+    val currencyFormat = NumberFormat.getCurrencyInstance(java.util.Locale.forLanguageTag("pt-BR"))
 
     val haveList = perfumes.filter { it.status == "Já possuo" || it.status == "Frasco" || it.status == "Decant" }
     val toBuyList = perfumes.filter { it.status == "Quero ter" || it.status == "Pipeline" }

@@ -3,7 +3,7 @@ package com.aistudio.perfumatico.data.remote
 import com.aistudio.perfumatico.BuildConfig
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
-import kotlinx.serialization.json.JsonObject
+import kotlinx.serialization.decodeFromString
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import okhttp3.ResponseBody
@@ -16,6 +16,7 @@ import retrofit2.http.Streaming
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.util.concurrent.TimeUnit
+import retrofit2.Response
 
 @Serializable
 data class GenerateContentRequest(
@@ -60,14 +61,13 @@ data class Tool(
 @Serializable
 class GoogleSearch
 
-
 interface GeminiApiService {
     @POST("v1beta/models/{model}:generateContent")
     suspend fun generateContent(
         @retrofit2.http.Path("model") model: String,
         @Query("key") apiKey: String,
         @Body request: GenerateContentRequest
-    ): GenerateContentResponse
+    ): Response<GenerateContentResponse>
 
     @POST("v1beta/models/{model}:streamGenerateContent")
     @Streaming
@@ -76,12 +76,12 @@ interface GeminiApiService {
         @Query("key") apiKey: String,
         @Query("alt") alt: String = "sse",
         @Body request: GenerateContentRequest
-    ): ResponseBody
+    ): Response<ResponseBody>
 }
 
 object RetrofitClient {
     private const val BASE_URL = "https://generativelanguage.googleapis.com/"
-
+    
     private val okHttpClient = OkHttpClient.Builder()
         .connectTimeout(60, TimeUnit.SECONDS)
         .readTimeout(60, TimeUnit.SECONDS)
@@ -100,24 +100,30 @@ object RetrofitClient {
 }
 
 object GeminiService {
+
     private suspend fun <T> executeWithFallback(
         models: List<String>,
-        action: suspend (String) -> T
+        action: suspend (String) -> Response<T>
     ): T {
         var lastError: Exception? = null
         for (model in models) {
             try {
-                return action(model)
+                val response = action(model)
+                if (response.isSuccessful) {
+                    return response.body()!!
+                } else {
+                    val errorBody = response.errorBody()?.string() ?: ""
+                    lastError = Exception("HTTP ${response.code()} - $errorBody")
+                }
             } catch (e: Exception) {
                 lastError = e
-                // Continue to the next model
             }
         }
-        throw lastError ?: Exception("All models failed")
+        throw Exception("Todos os modelos falharam. Último erro: ${lastError?.message}")
     }
 
     suspend fun completeOlfactoryPyramid(perfumeName: String, brandName: String): String = withContext(Dispatchers.IO) {
-        val apiKey = BuildConfig.GEMINI_API_KEY
+        val apiKey = BuildConfig.GEMINI_API_KEY_NEW
         
         val prompt = """
             Você é um especialista em perfumaria. Liste a pirâmide olfativa do perfume '$perfumeName' da marca '$brandName'.
@@ -135,16 +141,17 @@ object GeminiService {
         )
         
         try {
-            val response = executeWithFallback(listOf("gemini-3.5-flash", "gemini-3.1-flash-lite")) { model -> RetrofitClient.service.generateContent(model, apiKey, request) }
+            val response = executeWithFallback(listOf("gemini-3.6-flash", "gemini-1.5-flash", "gemini-1.5-pro")) { model -> 
+                RetrofitClient.service.generateContent(model, apiKey, request) 
+            }
             response.candidates?.firstOrNull()?.content?.parts?.firstOrNull()?.text ?: ""
         } catch (e: Exception) {
             "Erro ao buscar notas com IA: ${e.message}"
         }
     }
-
     
     suspend fun autoFillPerfume(perfumeName: String): String = withContext(Dispatchers.IO) {
-        val apiKey = BuildConfig.GEMINI_API_KEY
+        val apiKey = BuildConfig.GEMINI_API_KEY_NEW
         val prompt = """
             Você é um assistente de banco de dados de perfumaria. O usuário quer adicionar o perfume '$perfumeName'.
             Faça uma pesquisa atualizada na internet para confirmar os detalhes reais desse perfume.
@@ -168,7 +175,9 @@ object GeminiService {
         )
 
         try {
-            val response = executeWithFallback(listOf("gemini-3.5-flash", "gemini-3.1-flash-lite")) { model -> RetrofitClient.service.generateContent(model, apiKey, request) }
+            val response = executeWithFallback(listOf("gemini-3.6-flash", "gemini-1.5-flash", "gemini-1.5-pro")) { model -> 
+                RetrofitClient.service.generateContent(model, apiKey, request) 
+            }
             response.candidates?.firstOrNull()?.content?.parts?.firstOrNull()?.text ?: "{}"
         } catch (e: Exception) {
             "{}"
@@ -176,10 +185,9 @@ object GeminiService {
     }
 
     suspend fun chatWithSommelier(history: List<Content>, onToken: (String) -> Unit) = withContext(Dispatchers.IO) {
-        val apiKey = BuildConfig.GEMINI_API_KEY
+        val apiKey = BuildConfig.GEMINI_API_KEY_NEW
         val systemInstruction = Content(
-            parts = listOf(Part(text = "Você é um Sommelier de Perfumes. Sua função é dar dicas de fragrâncias e ajudar o usuário a escolher perfumes. IMPORTANTE: Se o usuário expressar que deseja adicionar um perfume conversado na sua coleção, você NÃO precisa perguntar em qual categoria, pois botões aparecerão na tela. Você DEVE APENAS retornar no final da sua mensagem o comando exato: [ASK_COLLECTION: <Nome do Perfume> | <Marca>]. Exemplo: [ASK_COLLECTION: Homem Dom | Natura]" )),
-            role = "system"
+            parts = listOf(Part(text = "Você é um Sommelier de Perfumes. Sua função é dar dicas de fragrâncias e ajudar o usuário a escolher perfumes. IMPORTANTE: Se o usuário expressar que deseja adicionar um perfume conversado na sua coleção, você NÃO precisa perguntar em qual categoria, pois botões aparecerão na tela. Você DEVE APENAS retornar no final da sua mensagem o comando exato: [ADD_PERFUME: <Nome do Perfume> | <Marca> | <Status>]. Exemplo: [ADD_PERFUME: Homem Dom | Natura | Quero ter]" ))
         )
         
         val request = GenerateContentRequest(
@@ -189,7 +197,10 @@ object GeminiService {
         )
 
         try {
-            val responseBody = executeWithFallback(listOf("gemini-3.1-pro-preview", "gemini-3.5-flash", "gemini-3.1-flash-lite")) { model -> RetrofitClient.service.streamGenerateContent(model, apiKey, request = request) }
+            val responseBody = executeWithFallback(listOf("gemini-3.6-flash", "gemini-1.5-flash", "gemini-1.5-pro")) { model -> 
+                RetrofitClient.service.streamGenerateContent(model, apiKey, request = request) 
+            }
+            
             responseBody.source().use { source ->
                 while (!source.exhausted()) {
                     val line = source.readUtf8Line() ?: break

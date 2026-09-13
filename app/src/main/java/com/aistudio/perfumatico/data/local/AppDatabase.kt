@@ -36,7 +36,7 @@ abstract class AppDatabase : RoomDatabase() {
                     context.applicationContext,
                     AppDatabase::class.java,
                     "perfumatico_db"
-                ).addMigrations(MIGRATION_3_4).fallbackToDestructiveMigration().build()
+                ).addMigrations(MIGRATION_3_4).fallbackToDestructiveMigration(dropAllTables = true).build()
                 INSTANCE = instance
                 instance
             }
