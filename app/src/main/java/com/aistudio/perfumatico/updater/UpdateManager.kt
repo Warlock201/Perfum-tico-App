@@ -68,6 +68,16 @@ class UpdateManager(private val context: Context) {
     }
 
     fun downloadAndInstallUpdate(apkUrl: String, fileName: String = "perfumatico-update.apk") {
+        try {
+            // Remove qualquer versão baixada anteriormente para evitar instalar arquivos corrompidos ou antigos
+            val oldFile = File(context.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS), fileName)
+            if (oldFile.exists()) {
+                oldFile.delete()
+            }
+        } catch (e: Exception) {
+            Log.w("UpdateManager", "Não foi possível remover arquivo anterior: ${e.message}")
+        }
+
         val request = DownloadManager.Request(Uri.parse(apkUrl))
             .setTitle("Atualizando Perfumático")
             .setDescription("Baixando a nova versão...")
@@ -84,7 +94,11 @@ class UpdateManager(private val context: Context) {
                 val id = intent.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1)
                 if (id == downloadId) {
                     installApk(context, fileName)
-                    context.unregisterReceiver(this)
+                    try {
+                        context.unregisterReceiver(this)
+                    } catch (e: Exception) {
+                        // Receiver já desregistrado
+                    }
                 }
             }
         }
@@ -98,19 +112,36 @@ class UpdateManager(private val context: Context) {
 
     private fun installApk(context: Context, fileName: String) {
         val file = File(context.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS), fileName)
-        if (file.exists()) {
-            val uri = FileProvider.getUriForFile(
-                context,
-                "${BuildConfig.APPLICATION_ID}.fileprovider",
-                file
-            )
-
-            val installIntent = Intent(Intent.ACTION_VIEW).apply {
-                setDataAndType(uri, "application/vnd.android.package-archive")
-                flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_GRANT_READ_URI_PERMISSION
-            }
-
-            context.startActivity(installIntent)
+        if (!file.exists()) {
+            Log.e("UpdateManager", "Arquivo APK não encontrado em: ${file.absolutePath}")
+            return
         }
+
+        // No Android 8.0+ (Oreo), verifica permissão para instalar fontes desconhecidas
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            if (!context.packageManager.canRequestPackageInstalls()) {
+                val permissionIntent = Intent(android.provider.Settings.ACTION_MANAGE_UNKNOWN_APP_SOURCES).apply {
+                    data = Uri.parse("package:${context.packageName}")
+                    flags = Intent.FLAG_ACTIVITY_NEW_TASK
+                }
+                context.startActivity(permissionIntent)
+                return
+            }
+        }
+
+        val uri = FileProvider.getUriForFile(
+            context,
+            "${BuildConfig.APPLICATION_ID}.fileprovider",
+            file
+        )
+
+        val installIntent = Intent(Intent.ACTION_VIEW).apply {
+            setDataAndType(uri, "application/vnd.android.package-archive")
+            flags = Intent.FLAG_ACTIVITY_NEW_TASK or 
+                    Intent.FLAG_GRANT_READ_URI_PERMISSION or
+                    Intent.FLAG_ACTIVITY_CLEAR_TOP
+        }
+
+        context.startActivity(installIntent)
     }
 }
