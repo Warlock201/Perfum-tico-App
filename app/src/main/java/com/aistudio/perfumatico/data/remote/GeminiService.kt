@@ -1,6 +1,8 @@
 package com.aistudio.perfumatico.data.remote
 
+import android.content.Context
 import com.aistudio.perfumatico.BuildConfig
+import com.aistudio.perfumatico.data.local.ApiKeyManager
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.decodeFromString
@@ -101,7 +103,17 @@ object RetrofitClient {
 
 object GeminiService {
 
-    private val ACTIVE_MODELS = listOf("gemini-3.6-flash", "gemini-3.8-flash", "gemini-flash-latest")
+    private var appContext: Context? = null
+
+    fun init(context: Context) {
+        appContext = context.applicationContext
+    }
+
+    fun getApiKey(): String {
+        return ApiKeyManager.getEffectiveApiKey(appContext)
+    }
+
+    private val ACTIVE_MODELS = listOf("gemini-3.8-flash", "gemini-2.5-flash", "gemini-3.5-flash", "gemini-flash-latest")
 
     private suspend fun <T> executeWithFallback(
         models: List<String> = ACTIVE_MODELS,
@@ -125,7 +137,7 @@ object GeminiService {
     }
 
     suspend fun completeOlfactoryPyramid(perfumeName: String, brandName: String): String = withContext(Dispatchers.IO) {
-        val apiKey = BuildConfig.GEMINI_API_KEY_NEW
+        val apiKey = getApiKey()
         
         val prompt = """
             Você é um especialista em perfumaria. Liste a pirâmide olfativa do perfume '$perfumeName' da marca '$brandName'.
@@ -148,12 +160,17 @@ object GeminiService {
             }
             response.candidates?.firstOrNull()?.content?.parts?.firstOrNull()?.text ?: ""
         } catch (e: Exception) {
-            "Erro ao buscar notas com IA: ${e.message}"
+            val msg = e.message ?: ""
+            if (msg.contains("API_KEY_INVALID") || msg.contains("400")) {
+                "Erro: Chave de API do Gemini inválida. Configure uma chave válida no ícone 🔑 do Sommelier ou no painel de Segredos."
+            } else {
+                "Erro ao buscar notas com IA: ${e.message}"
+            }
         }
     }
     
     suspend fun autoFillPerfume(perfumeName: String): String = withContext(Dispatchers.IO) {
-        val apiKey = BuildConfig.GEMINI_API_KEY_NEW
+        val apiKey = getApiKey()
         val prompt = """
             Você é o maior especialista e enciclopédia viva de perfumaria do mundo (Fragrantica, Parfumo, Basenotes).
             O usuário quer cadastrar a fragrância: "$perfumeName".
@@ -206,7 +223,7 @@ object GeminiService {
     }
 
     suspend fun chatWithSommelier(history: List<Content>, onToken: (String) -> Unit) = withContext(Dispatchers.IO) {
-        val apiKey = BuildConfig.GEMINI_API_KEY_NEW
+        val apiKey = getApiKey()
         val systemInstruction = Content(
             parts = listOf(Part(text = "Você é um Sommelier de Perfumes do Perfumático. Sua função é dar dicas de fragrâncias e ajudar o usuário a escolher perfumes. IMPORTANTE: Se o usuário expressar que deseja adicionar um perfume conversado na sua coleção, você NÃO precisa perguntar em qual categoria, pois botões aparecerão na tela. Você DEVE APENAS retornar no final da sua mensagem o comando exato: [ADD_PERFUME: <Nome do Perfume> | <Marca> | <Status>]. Exemplo: [ADD_PERFUME: Homem Dom | Natura | Quero ter]" ))
         )
@@ -243,7 +260,18 @@ object GeminiService {
                 }
             }
         } catch (e: Exception) {
-            withContext(Dispatchers.Main) { onToken("\n[Erro de conexão: ${e.message}]") }
+            val msg = e.message ?: ""
+            val userFriendlyError = when {
+                msg.contains("API_KEY_INVALID", ignoreCase = true) || msg.contains("API key not valid", ignoreCase = true) ->
+                    "⚠️ Chave de API do Gemini inválida.\n\nA chave atual não foi reconhecida pelo Google.\n\n👉 Toque no ícone de chave 🔑 no topo da tela para inserir sua chave correta do Google AI Studio (aistudio.google.com/app/apikey)."
+                msg.contains("API_KEY_SERVICE_BLOCKED", ignoreCase = true) ->
+                    "⚠️ Chave bloqueada para a API Gemini (Generative Language API).\n\n👉 Toque no ícone de chave 🔑 no topo para configurar uma chave nova gerada no Google AI Studio."
+                msg.contains("RESOURCE_EXHAUSTED", ignoreCase = true) || msg.contains("429") ->
+                    "⚠️ Limite temporário de requisições do Gemini atingido. Aguarde alguns instantes e tente novamente."
+                else ->
+                    "⚠️ Falha de comunicação com o Sommelier IA: $msg"
+            }
+            withContext(Dispatchers.Main) { onToken("\n$userFriendlyError") }
         }
     }
 
@@ -260,7 +288,7 @@ object GeminiService {
         temperatureCustomDetails: String,
         perfumes: List<com.aistudio.perfumatico.data.local.PerfumeEntity>
     ): Pair<String, String>? = withContext(Dispatchers.IO) {
-        val apiKey = BuildConfig.GEMINI_API_KEY_NEW
+        val apiKey = getApiKey()
         if (perfumes.isEmpty()) return@withContext null
 
         val perfumeSummaries = perfumes.take(30).joinToString("\n") { p ->

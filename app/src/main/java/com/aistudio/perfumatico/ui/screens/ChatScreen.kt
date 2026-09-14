@@ -1,6 +1,8 @@
 package com.aistudio.perfumatico.ui.screens
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.navigationBarsPadding
@@ -11,6 +13,8 @@ import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.Send
+import androidx.compose.material.icons.filled.AutoAwesome
+import androidx.compose.material.icons.filled.Key
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -18,8 +22,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.aistudio.perfumatico.ui.components.ApiKeyConfigDialog
 import com.aistudio.perfumatico.ui.theme.*
 import com.aistudio.perfumatico.ui.viewmodel.ChatViewModel
 import kotlinx.coroutines.launch
@@ -29,6 +35,7 @@ fun ChatScreen(viewModel: ChatViewModel) {
     val chatHistory by viewModel.chatHistory.collectAsState()
     val isChatLoading by viewModel.isChatLoading.collectAsState()
     var messageText by remember { mutableStateOf("") }
+    var showKeyDialog by remember { mutableStateOf(false) }
     val listState = rememberLazyListState()
     val focusManager = LocalFocusManager.current
     LaunchedEffect(Unit) {
@@ -58,13 +65,43 @@ fun ChatScreen(viewModel: ChatViewModel) {
             if (chatHistory.isEmpty()) {
                 item {
                     Box(modifier = Modifier.fillParentMaxSize(), contentAlignment = Alignment.Center) {
-                        Text(
-                            text = "Olá! Sou seu Sommelier de Perfumes. Como posso ajudar a encontrar a fragrância perfeita hoje?",
-                            color = Slate400,
-                            fontSize = 14.sp,
-                            fontWeight = FontWeight.Medium,
+                        Column(
+                            horizontalAlignment = Alignment.CenterHorizontally,
+                            verticalArrangement = Arrangement.spacedBy(12.dp),
                             modifier = Modifier.padding(32.dp)
-                        )
+                        ) {
+                            Box(
+                                modifier = Modifier
+                                    .size(54.dp)
+                                    .clip(RoundedCornerShape(16.dp))
+                                    .background(Amber400.copy(alpha = 0.15f)),
+                                contentAlignment = Alignment.Center
+                            ) {
+                                Icon(
+                                    imageVector = Icons.Default.AutoAwesome,
+                                    contentDescription = null,
+                                    tint = Amber400,
+                                    modifier = Modifier.size(28.dp)
+                                )
+                            }
+                            Text(
+                                text = "Olá! Sou seu Sommelier de Perfumes. Como posso ajudar a encontrar a fragrância perfeita hoje?",
+                                color = Slate300,
+                                fontSize = 14.sp,
+                                fontWeight = FontWeight.Medium,
+                                textAlign = TextAlign.Center
+                            )
+                            OutlinedButton(
+                                onClick = { showKeyDialog = true },
+                                colors = ButtonDefaults.outlinedButtonColors(contentColor = Slate300),
+                                border = BorderStroke(1.dp, Slate800),
+                                shape = RoundedCornerShape(12.dp)
+                            ) {
+                                Icon(Icons.Default.Key, contentDescription = null, modifier = Modifier.size(15.dp), tint = Amber400)
+                                Spacer(modifier = Modifier.width(6.dp))
+                                Text("Configurar Chave Gemini IA", fontSize = 12.sp)
+                            }
+                        }
                     }
                 }
             }
@@ -100,6 +137,20 @@ fun ChatScreen(viewModel: ChatViewModel) {
                                 lineHeight = 20.sp
                             )
                             
+                            if (!isUser && (cleanText.contains("Chave") || cleanText.contains("⚠️") || cleanText.contains("API_KEY"))) {
+                                Spacer(modifier = Modifier.height(12.dp))
+                                Button(
+                                    onClick = { showKeyDialog = true },
+                                    colors = ButtonDefaults.buttonColors(containerColor = Amber400, contentColor = Slate950),
+                                    shape = RoundedCornerShape(12.dp),
+                                    modifier = Modifier.fillMaxWidth()
+                                ) {
+                                    Icon(Icons.Default.Key, contentDescription = null, modifier = Modifier.size(16.dp))
+                                    Spacer(modifier = Modifier.width(6.dp))
+                                    Text("Configurar Chave Gemini", fontWeight = FontWeight.Bold, fontSize = 13.sp)
+                                }
+                            }
+
                             if (match != null && !isUser) {
                                 val perfumeName = match.groupValues[1].trim()
                                 val perfumeBrand = match.groupValues[2].trim()
@@ -200,6 +251,10 @@ fun ChatScreen(viewModel: ChatViewModel) {
                     modifier = Modifier.size(20.dp)
                 )
             }
+        }
+
+        if (showKeyDialog) {
+            ApiKeyConfigDialog(onDismiss = { showKeyDialog = false })
         }
     }
 }

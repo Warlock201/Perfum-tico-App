@@ -34,6 +34,7 @@ import androidx.compose.ui.unit.sp
 import androidx.core.content.ContextCompat
 import com.aistudio.perfumatico.data.local.PerfumeEntity
 import com.aistudio.perfumatico.data.remote.GeminiService
+import com.aistudio.perfumatico.ui.components.ApiKeyConfigDialog
 import com.aistudio.perfumatico.ui.components.PerfumeCard
 import com.aistudio.perfumatico.ui.theme.*
 import com.aistudio.perfumatico.ui.viewmodel.PerfumeViewModel
@@ -70,6 +71,7 @@ fun OracleScreen(
     var isLoading by remember { mutableStateOf(false) }
     var weatherData by remember { mutableStateOf<WeatherData?>(null) }
     var permissionDenied by remember { mutableStateOf(false) }
+    var showApiKeyDialog by remember { mutableStateOf(false) }
 
     // Place state
     val placeOptions = listOf(
@@ -138,45 +140,72 @@ fun OracleScreen(
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(horizontal = 16.dp, vertical = 8.dp)
-                    .clip(RoundedCornerShape(12.dp))
-                    .background(Slate900)
-                    .border(1.dp, Slate800, RoundedCornerShape(12.dp))
-                    .padding(4.dp),
-                horizontalArrangement = Arrangement.spacedBy(4.dp)
+                    .padding(horizontal = 16.dp, vertical = 8.dp),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.spacedBy(8.dp)
             ) {
-                Button(
-                    onClick = { aiSection = OracleAiSection.WEATHER_ORACLE },
-                    colors = ButtonDefaults.buttonColors(
-                        containerColor = if (aiSection == OracleAiSection.WEATHER_ORACLE) Amber400 else Color.Transparent,
-                        contentColor = if (aiSection == OracleAiSection.WEATHER_ORACLE) Slate950 else Slate400
-                    ),
-                    shape = RoundedCornerShape(8.dp),
-                    elevation = null,
-                    modifier = Modifier.weight(1f),
-                    contentPadding = PaddingValues(vertical = 8.dp)
+                Row(
+                    modifier = Modifier
+                        .weight(1f)
+                        .clip(RoundedCornerShape(12.dp))
+                        .background(Slate900)
+                        .border(1.dp, Slate800, RoundedCornerShape(12.dp))
+                        .padding(4.dp),
+                    horizontalArrangement = Arrangement.spacedBy(4.dp)
                 ) {
-                    Icon(Icons.Default.AutoAwesome, contentDescription = null, modifier = Modifier.size(15.dp))
-                    Spacer(modifier = Modifier.width(6.dp))
-                    Text("ORÁCULO CLIMA", fontSize = 11.sp, fontWeight = FontWeight.Black)
+                    Button(
+                        onClick = { aiSection = OracleAiSection.WEATHER_ORACLE },
+                        colors = ButtonDefaults.buttonColors(
+                            containerColor = if (aiSection == OracleAiSection.WEATHER_ORACLE) Amber400 else Color.Transparent,
+                            contentColor = if (aiSection == OracleAiSection.WEATHER_ORACLE) Slate950 else Slate400
+                        ),
+                        shape = RoundedCornerShape(8.dp),
+                        elevation = null,
+                        modifier = Modifier.weight(1f),
+                        contentPadding = PaddingValues(vertical = 8.dp)
+                    ) {
+                        Icon(Icons.Default.AutoAwesome, contentDescription = null, modifier = Modifier.size(15.dp))
+                        Spacer(modifier = Modifier.width(6.dp))
+                        Text("ORÁCULO CLIMA", fontSize = 11.sp, fontWeight = FontWeight.Black)
+                    }
+
+                    Button(
+                        onClick = { aiSection = OracleAiSection.SOMMELIER_CHAT },
+                        colors = ButtonDefaults.buttonColors(
+                            containerColor = if (aiSection == OracleAiSection.SOMMELIER_CHAT) Amber400 else Color.Transparent,
+                            contentColor = if (aiSection == OracleAiSection.SOMMELIER_CHAT) Slate950 else Slate400
+                        ),
+                        shape = RoundedCornerShape(8.dp),
+                        elevation = null,
+                        modifier = Modifier.weight(1f),
+                        contentPadding = PaddingValues(vertical = 8.dp)
+                    ) {
+                        Icon(Icons.Default.VoiceChat, contentDescription = null, modifier = Modifier.size(15.dp))
+                        Spacer(modifier = Modifier.width(6.dp))
+                        Text("SOMMELIER IA", fontSize = 11.sp, fontWeight = FontWeight.Black)
+                    }
                 }
 
-                Button(
-                    onClick = { aiSection = OracleAiSection.SOMMELIER_CHAT },
-                    colors = ButtonDefaults.buttonColors(
-                        containerColor = if (aiSection == OracleAiSection.SOMMELIER_CHAT) Amber400 else Color.Transparent,
-                        contentColor = if (aiSection == OracleAiSection.SOMMELIER_CHAT) Slate950 else Slate400
-                    ),
-                    shape = RoundedCornerShape(8.dp),
-                    elevation = null,
-                    modifier = Modifier.weight(1f),
-                    contentPadding = PaddingValues(vertical = 8.dp)
+                IconButton(
+                    onClick = { showApiKeyDialog = true },
+                    modifier = Modifier
+                        .size(46.dp)
+                        .clip(RoundedCornerShape(12.dp))
+                        .background(Slate900)
+                        .border(1.dp, Slate800, RoundedCornerShape(12.dp))
                 ) {
-                    Icon(Icons.Default.VoiceChat, contentDescription = null, modifier = Modifier.size(15.dp))
-                    Spacer(modifier = Modifier.width(6.dp))
-                    Text("SOMMELIER IA", fontSize = 11.sp, fontWeight = FontWeight.Black)
+                    Icon(
+                        imageVector = Icons.Default.Key,
+                        contentDescription = "Configurar Chave Gemini",
+                        tint = Amber400,
+                        modifier = Modifier.size(20.dp)
+                    )
                 }
             }
+        }
+
+        if (showApiKeyDialog) {
+            ApiKeyConfigDialog(onDismiss = { showApiKeyDialog = false })
         }
 
         if (aiSection == OracleAiSection.SOMMELIER_CHAT && chatViewModel != null) {

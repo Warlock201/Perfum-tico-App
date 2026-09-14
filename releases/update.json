@@ -1,6 +1,6 @@
 {
-  "versionCode": 15,
-  "versionName": "2.4",
-  "apkUrl": "https://raw.githubusercontent.com/Warlock201/Perfum-tico-App/main/releases/perfumatico-v2.4.apk",
-  "releaseNotes": "Versão 2.4: Coleção pessoal limpa ao reinstalar (remoção dos perfumes Nitro forçados, permitindo que sejam escolhidos livremente no catálogo)."
+  "versionCode": 17,
+  "versionName": "2.6",
+  "apkUrl": "https://raw.githubusercontent.com/Warlock201/Perfum-tico-App/main/releases/perfumatico-v2.6.apk",
+  "releaseNotes": "Versão 2.6: Suporte oficial para as novas chaves do Gemini (iniciadas com AQ. ou AIza) e atualização para o modelo mais recente gemini-3.8-flash."
 }
