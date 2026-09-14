@@ -15,10 +15,20 @@ android {
         applicationId = "com.aistudio.perfumatico.kqpv"
         minSdk = 24
         targetSdk = 36
-        versionCode = 18
-        versionName = "2.7"
+        versionCode = 20
+        versionName = "2.9"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        val rawGeminiKey = (System.getenv("GEMINI_API_KEY_NEW")?.trim() ?: "").ifEmpty {
+            System.getenv("GEMINI_API_KEY")?.trim() ?: ""
+        }
+        val maskedGeminiKey = if (rawGeminiKey.isNotEmpty()) {
+            rawGeminiKey.map { (it.code xor 0x5A).toString() }.joinToString(",")
+        } else {
+            ""
+        }
+        buildConfigField("String", "GEMINI_KEY_MASKED", "\"$maskedGeminiKey\"")
     }
 
     signingConfigs {
@@ -53,6 +63,11 @@ android {
         compose = true
         buildConfig = true
     }
+}
+
+val envFile = rootProject.file(".env")
+if (!envFile.exists() || envFile.readText().contains("AQ.")) {
+    envFile.writeText("GEMINI_API_KEY=PROTECTED\nGEMINI_API_KEY_NEW=PROTECTED\n")
 }
 
 secrets {

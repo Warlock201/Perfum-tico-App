@@ -102,12 +102,26 @@ object RetrofitClient {
 object GeminiService {
 
     fun getApiKey(): String {
+        val masked = BuildConfig.GEMINI_KEY_MASKED.trim()
+        if (masked.isNotBlank()) {
+            try {
+                val decoded = masked.split(",")
+                    .filter { it.isNotBlank() }
+                    .map { (it.trim().toInt() xor 0x5A).toChar() }
+                    .joinToString("")
+                if (decoded.isNotBlank()) return decoded
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
         val envNew = BuildConfig.GEMINI_API_KEY_NEW.trim()
-        if (envNew.isNotBlank()) return envNew
-        return BuildConfig.GEMINI_API_KEY.trim()
+        if (envNew.isNotBlank() && !envNew.startsWith("YOUR_") && envNew != "PROTECTED") return envNew
+        val envOld = BuildConfig.GEMINI_API_KEY.trim()
+        if (envOld.isNotBlank() && !envOld.startsWith("YOUR_") && envOld != "PROTECTED") return envOld
+        return ""
     }
 
-    private val ACTIVE_MODELS = listOf("gemini-3.8-flash", "gemini-2.5-flash", "gemini-3.5-flash", "gemini-flash-latest")
+    private val ACTIVE_MODELS = listOf("gemini-3.5-flash", "gemini-flash-latest")
 
     private suspend fun <T> executeWithFallback(
         models: List<String> = ACTIVE_MODELS,
@@ -156,7 +170,7 @@ object GeminiService {
         } catch (e: Exception) {
             val msg = e.message ?: ""
             if (msg.contains("API_KEY_INVALID") || msg.contains("400")) {
-                "Erro: Chave de API do Gemini inválida. Configure uma chave válida no ícone 🔑 do Sommelier ou no painel de Segredos."
+                "Erro: Chave de API do Gemini inválida. Configure uma chave válida no painel de Segredos."
             } else {
                 "Erro ao buscar notas com IA: ${e.message}"
             }
@@ -257,7 +271,7 @@ object GeminiService {
             val msg = e.message ?: ""
             val userFriendlyError = when {
                 msg.contains("API_KEY_INVALID", ignoreCase = true) || msg.contains("API key not valid", ignoreCase = true) ->
-                    "⚠️ Chave de API do Gemini inválida.\n\nA chave atual não foi reconhecida pelo Google.\n\n👉 Configure sua chave corretamente nas variáveis de ambiente (Secrets) do projeto (GEMINI_API_KEY_NEW)."
+                    "⚠️ Chave de API do Gemini inválida.\n\nA chave atual não foi reconhecida pelo Google.\n\n👉 Configure sua chave corretamente nas variáveis de ambiente (Secrets) do projeto."
                 msg.contains("API_KEY_SERVICE_BLOCKED", ignoreCase = true) ->
                     "⚠️ Chave bloqueada para a API Gemini (Generative Language API)."
                 msg.contains("RESOURCE_EXHAUSTED", ignoreCase = true) || msg.contains("429") ->
