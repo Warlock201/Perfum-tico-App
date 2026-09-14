@@ -53,6 +53,7 @@ fun AddEditPerfumeDialog(
     var isAutoFilling by remember { mutableStateOf(false) }
     var fixation by remember { mutableStateOf(perfumeToEdit?.fixation ?: 7) }
     var projection by remember { mutableStateOf(perfumeToEdit?.projection ?: 7) }
+    var aiFeedbackMessage by remember { mutableStateOf<String?>(null) }
     val coroutineScope = rememberCoroutineScope()
 
     val isEditing = perfumeToEdit != null
@@ -128,23 +129,100 @@ fun AddEditPerfumeDialog(
                             onClick = {
                                 if (name.isNotBlank()) {
                                     isAutoFilling = true
+                                    aiFeedbackMessage = null
                                     viewModel.autoFillPerfume(name) { jsonResult ->
                                         isAutoFilling = false
                                         try {
-                                            val json = JSONObject(jsonResult)
-                                            if (json.has("brand")) brand = json.getString("brand")
-                                            if (json.has("family")) family = json.getString("family")
-                                            if (json.has("topNotes")) topNotes = json.getString("topNotes")
-                                            if (json.has("heartNotes")) heartNotes = json.getString("heartNotes")
-                                            if (json.has("baseNotes")) baseNotes = json.getString("baseNotes")
-                                            if (json.has("fixation")) fixation = json.getInt("fixation")
-                                            if (json.has("projection")) projection = json.getInt("projection")
+                                            val cleaned = jsonResult.replace("```json", "").replace("```", "").trim()
+                                            val start = cleaned.indexOf('{')
+                                            val end = cleaned.lastIndexOf('}')
+                                            val jsonStr = if (start != -1 && end != -1 && end > start) {
+                                                cleaned.substring(start, end + 1)
+                                            } else cleaned
                                             
-                                            
+                                            val json = JSONObject(jsonStr)
+                                            var filledSomething = false
+
+                                            if (json.has("name") && json.getString("name").isNotBlank()) {
+                                                val officialName = json.getString("name").trim()
+                                                if (!officialName.equals(name, ignoreCase = true)) {
+                                                    name = officialName
+                                                }
+                                                filledSomething = true
+                                            }
+                                            if (json.has("brand") && json.getString("brand").isNotBlank()) {
+                                                brand = json.getString("brand").trim()
+                                                filledSomething = true
+                                            }
+                                            if (json.has("family")) {
+                                                val rawFam = json.getString("family").trim()
+                                                val matched = AVAILABLE_FAMILIES.firstOrNull { 
+                                                    it.equals(rawFam, ignoreCase = true) || rawFam.contains(it, ignoreCase = true)
+                                                }
+                                                if (matched != null) {
+                                                    family = matched
+                                                    filledSomething = true
+                                                } else if (rawFam.isNotBlank()) {
+                                                    family = rawFam
+                                                    filledSomething = true
+                                                }
+                                            }
+
+                                            fun extractNotes(key: String): String {
+                                                if (!json.has(key)) return ""
+                                                val opt = json.opt(key) ?: return ""
+                                                return when (opt) {
+                                                    is org.json.JSONArray -> {
+                                                        (0 until opt.length())
+                                                            .map { opt.optString(it).trim() }
+                                                            .filter { it.isNotBlank() }
+                                                            .joinToString(", ")
+                                                    }
+                                                    else -> opt.toString().trim()
+                                                }
+                                            }
+
+                                            val tNotes = extractNotes("topNotes")
+                                            if (tNotes.isNotBlank()) { topNotes = tNotes; filledSomething = true }
+
+                                            val hNotes = extractNotes("heartNotes")
+                                            if (hNotes.isNotBlank()) { heartNotes = hNotes; filledSomething = true }
+
+                                            val bNotes = extractNotes("baseNotes")
+                                            if (bNotes.isNotBlank()) { baseNotes = bNotes; filledSomething = true }
+
+                                            if (json.has("fixation")) {
+                                                val fix = json.optInt("fixation", 0)
+                                                if (fix in 1..10) { fixation = fix; filledSomething = true }
+                                            }
+                                            if (json.has("projection")) {
+                                                val proj = json.optInt("projection", 0)
+                                                if (proj in 1..10) { projection = proj; filledSomething = true }
+                                            }
+                                            if (json.has("referenceName") && json.getString("referenceName").isNotBlank()) {
+                                                referenceName = json.getString("referenceName").trim()
+                                            }
+                                            if (json.has("priceMin")) {
+                                                val pMin = json.optInt("priceMin", 0)
+                                                if (pMin > 0) priceMin = pMin.toString()
+                                            }
+                                            if (json.has("priceMax")) {
+                                                val pMax = json.optInt("priceMax", 0)
+                                                if (pMax > 0) priceMax = pMax.toString()
+                                            }
+
+                                            aiFeedbackMessage = if (filledSomething) {
+                                                "✨ Pirâmide olfativa e dados preenchidos pela IA!"
+                                            } else {
+                                                "⚠️ Fragrância não detalhada. Você pode preencher manualmente abaixo."
+                                            }
                                         } catch (e: Exception) {
                                             e.printStackTrace()
+                                            aiFeedbackMessage = "⚠️ Não foi possível carregar as notas automaticamente. Preencha manualmente."
                                         }
                                     }
+                                } else {
+                                    aiFeedbackMessage = "Digite o nome do perfume antes de acionar a IA."
                                 }
                             },
                             modifier = Modifier
@@ -154,8 +232,25 @@ fun AddEditPerfumeDialog(
                             if (isAutoFilling) {
                                 CircularProgressIndicator(color = Slate950, modifier = Modifier.size(20.dp), strokeWidth = 2.dp)
                             } else {
-                                Icon(Icons.Default.AutoAwesome, contentDescription = "Auto Preencher", tint = Slate950)
+                                Icon(Icons.Default.AutoAwesome, contentDescription = "Auto Preencher com IA", tint = Slate950)
                             }
+                        }
+                    }
+
+                    if (aiFeedbackMessage != null) {
+                        Surface(
+                            shape = RoundedCornerShape(8.dp),
+                            color = if (aiFeedbackMessage!!.startsWith("✨")) Amber400.copy(alpha = 0.15f) else Slate800,
+                            border = androidx.compose.foundation.BorderStroke(1.dp, if (aiFeedbackMessage!!.startsWith("✨")) Amber400.copy(alpha = 0.5f) else Slate700),
+                            modifier = Modifier.fillMaxWidth()
+                        ) {
+                            Text(
+                                text = aiFeedbackMessage!!,
+                                color = if (aiFeedbackMessage!!.startsWith("✨")) Amber400 else Slate300,
+                                fontSize = 12.sp,
+                                fontWeight = FontWeight.Medium,
+                                modifier = Modifier.padding(horizontal = 12.dp, vertical = 8.dp)
+                            )
                         }
                     }
 

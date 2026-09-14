@@ -145,7 +145,7 @@ fun PerfumaticoTopBar(
                         )
                         Spacer(modifier = Modifier.width(4.dp))
                         Text(
-                            text = "NOVO",
+                            text = "ADICIONAR",
                             fontSize = 11.sp,
                             fontWeight = FontWeight.Black
                         )
@@ -185,29 +185,33 @@ fun PerfumaticoBottomNav(
     ) {
         val items = listOf(
             Triple(MainTab.COLLECTION, "Meus", Icons.Default.Diamond),
-            Triple(MainTab.DASHBOARD, "Painel", Icons.Default.Analytics),
-            Triple(MainTab.DISCOVER, "Descubra", Icons.Default.Search),
-            Triple(MainTab.ORACLE, "Oráculo", Icons.Default.AutoAwesome),
-            Triple(MainTab.CHATBOT, "Chat", Icons.Default.VoiceChat)
+            Triple(MainTab.DISCOVER, "Explorar", Icons.Default.Explore),
+            Triple(MainTab.ORACLE, "Oráculo IA", Icons.Default.AutoAwesome),
+            Triple(MainTab.DASHBOARD, "Painel", Icons.Default.Analytics)
         )
 
         items.forEach { (tab, label, icon) ->
-            val selected = currentTab == tab
+            val selected = when (tab) {
+                MainTab.DISCOVER -> currentTab == MainTab.DISCOVER || currentTab == MainTab.CATALOG
+                MainTab.ORACLE -> currentTab == MainTab.ORACLE || currentTab == MainTab.CHATBOT
+                else -> currentTab == tab
+            }
             NavigationBarItem(
+                alwaysShowLabel = true,
                 selected = selected,
                 onClick = { onTabSelected(tab) },
                 icon = {
                     Icon(
                         imageVector = icon,
                         contentDescription = label,
-                        modifier = Modifier.size(22.dp)
+                        modifier = Modifier.size(24.dp)
                     )
                 },
                 label = {
                     Text(
                         text = label,
                         fontSize = 11.sp,
-                        fontWeight = if (selected) FontWeight.Bold else FontWeight.Normal
+                        fontWeight = if (selected) FontWeight.Bold else FontWeight.Medium
                     )
                 },
                 colors = NavigationBarItemDefaults.colors(
@@ -217,7 +221,7 @@ fun PerfumaticoBottomNav(
                     unselectedIconColor = Slate500,
                     unselectedTextColor = Slate500
                 ),
-                modifier = Modifier.testTag("nav_tab_${label.lowercase()}")
+                modifier = Modifier.testTag("nav_tab_${label.lowercase().replace(" ", "_")}")
             )
         }
     }
@@ -310,7 +314,7 @@ fun PerfumeCard(
                                 border = androidx.compose.foundation.BorderStroke(1.dp, Emerald500)
                             ) {
                                 Text(
-                                    text = "NOVO",
+                                    text = "ADICIONAR",
                                     color = Emerald400,
                                     fontSize = 8.sp,
                                     fontWeight = FontWeight.Black,

@@ -33,8 +33,8 @@ fun DiscoverScreen(
     modifier: Modifier = Modifier
 ) {
     val myPerfumes by viewModel.myPerfumes.collectAsState()
-    val globalPerfumes = viewModel.globalPerfumes
-    val olfactoryNotes = viewModel.olfactoryNotes
+    val globalPerfumes by viewModel.globalPerfumes.collectAsState()
+    val olfactoryNotes by viewModel.olfactoryNotes.collectAsState()
 
     val userAnalysis = remember(myPerfumes) {
         viewModel.getUserProfileAnalysis(myPerfumes)
@@ -45,12 +45,13 @@ fun DiscoverScreen(
 
     var manualSearchQuery by remember { mutableStateOf("") }
     var snackbarMessage by remember { mutableStateOf<String?>(null) }
+    var refreshKey by remember { mutableStateOf(0) }
 
     // Existing perfume IDs to exclude from recommendations
     val myIds = remember(myPerfumes) { myPerfumes.map { it.id }.toSet() }
 
     // Recommendations by Family
-    val recommendationsByFamily = remember(userAnalysis, globalPerfumes, myIds) {
+    val recommendationsByFamily = remember(userAnalysis, globalPerfumes, myIds, refreshKey) {
         if (userAnalysis == null) emptyList()
         else {
             globalPerfumes
@@ -60,7 +61,7 @@ fun DiscoverScreen(
     }
 
     // Recommendations by Notes
-    val recommendationsByNotes = remember(userAnalysis, globalPerfumes, myIds) {
+    val recommendationsByNotes = remember(userAnalysis, globalPerfumes, myIds, refreshKey) {
         if (userAnalysis == null || userAnalysis.topNotes.isEmpty()) emptyList()
         else {
             globalPerfumes
@@ -74,7 +75,7 @@ fun DiscoverScreen(
     }
 
     // Manual Discovery Matches
-    val manualMatches = remember(selectedFamily, selectedNotes, manualSearchQuery, globalPerfumes, myIds) {
+    val manualMatches = remember(selectedFamily, selectedNotes, manualSearchQuery, globalPerfumes, myIds, refreshKey) {
         if (selectedFamily == null && selectedNotes.isEmpty() && manualSearchQuery.isBlank()) {
             emptyList()
         } else {
@@ -123,14 +124,46 @@ fun DiscoverScreen(
             contentPadding = PaddingValues(bottom = 24.dp)
         ) {
             item {
-                Text(
-                    text = "DESCUBRA NOVAS FRAGRÂNCIAS",
-                    color = Slate400,
-                    fontSize = 11.sp,
-                    fontWeight = FontWeight.Black,
-                    letterSpacing = 1.sp,
-                    modifier = Modifier.padding(top = 8.dp)
-                )
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(top = 8.dp),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Text(
+                        text = "DESCUBRA NOVAS FRAGRÂNCIAS",
+                        color = Slate400,
+                        fontSize = 11.sp,
+                        fontWeight = FontWeight.Black,
+                        letterSpacing = 1.sp
+                    )
+                    FilledTonalButton(
+                        onClick = {
+                            refreshKey++
+                            snackbarMessage = "Recomendações atualizadas com sucesso!"
+                        },
+                        colors = ButtonDefaults.filledTonalButtonColors(
+                            containerColor = Slate900,
+                            contentColor = Amber400
+                        ),
+                        shape = RoundedCornerShape(8.dp),
+                        contentPadding = PaddingValues(horizontal = 10.dp, vertical = 4.dp),
+                        border = androidx.compose.foundation.BorderStroke(1.dp, Slate800)
+                    ) {
+                        Icon(
+                            imageVector = Icons.Default.Refresh,
+                            contentDescription = "Atualizar Recomendações",
+                            modifier = Modifier.size(14.dp)
+                        )
+                        Spacer(modifier = Modifier.width(4.dp))
+                        Text(
+                            text = "ATUALIZAR",
+                            fontSize = 10.sp,
+                            fontWeight = FontWeight.Bold
+                        )
+                    }
+                }
             }
 
             // AI/Algorithm Smart Recommendations Section

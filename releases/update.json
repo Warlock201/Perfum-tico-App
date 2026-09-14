@@ -1,6 +1,6 @@
 {
-  "versionCode": 8,
-  "versionName": "1.7",
-  "apkUrl": "https://raw.githubusercontent.com/Warlock201/Perfum-tico-App/main/releases/perfumatico-v1.7.apk",
-  "releaseNotes": "Versão 1.7: Correção na configuração de assinatura."
+  "versionCode": 11,
+  "versionName": "2.0",
+  "apkUrl": "https://raw.githubusercontent.com/Warlock201/Perfum-tico-App/main/releases/perfumatico-v2.0.apk",
+  "releaseNotes": "Versão 2.0: Interface limpa e minimalista mantendo apenas o botão flutuante para adicionar fragrâncias, eliminando botões redundantes no topo e na lista."
 }

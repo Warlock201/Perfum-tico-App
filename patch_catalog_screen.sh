@@ -1,1 +1,0 @@
-sed -i 's/import java.text.Normalizer/import java.text.Normalizer\nimport android.content.Context\nimport com.aistudio.perfumatico.utils.getNoteDrawableResId\nimport androidx.compose.ui.res.painterResource\nimport androidx.compose.ui.platform.LocalContext/g' app/src/main/java/com/aistudio/perfumatico/ui/screens/CatalogScreen.kt

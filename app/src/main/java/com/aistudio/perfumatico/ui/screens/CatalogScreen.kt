@@ -42,8 +42,8 @@ fun CatalogScreen(
     val currentSubTab by viewModel.catalogSubTab.collectAsState()
     val noteImages by viewModel.noteImages.collectAsState()
     
-    val globalPerfumes = viewModel.globalPerfumes
-    val olfactoryNotes = viewModel.olfactoryNotes
+    val globalPerfumes by viewModel.globalPerfumes.collectAsState()
+    val olfactoryNotes by viewModel.olfactoryNotes.collectAsState()
     val searchNotes by viewModel.searchNotes.collectAsState()
 
     var searchQuery by remember { mutableStateOf("") }
@@ -106,7 +106,7 @@ fun CatalogScreen(
                 .padding(horizontal = 16.dp)
                 .testTag("catalog_screen")
         ) {
-            // Subtabs: CATÁLOGO GERAL / NOTAS OLFATIVAS
+            // Subtabs: CATÁLOGO GERAL / RECOMENDAÇÕES / NOTAS OLFATIVAS
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -126,9 +126,23 @@ fun CatalogScreen(
                     shape = RoundedCornerShape(8.dp),
                     elevation = null,
                     modifier = Modifier.weight(1f),
-                    contentPadding = PaddingValues(vertical = 10.dp)
+                    contentPadding = PaddingValues(vertical = 8.dp)
                 ) {
-                    Text("CATÁLOGO GERAL", fontSize = 11.sp, fontWeight = FontWeight.Black)
+                    Text("CATÁLOGO", fontSize = 10.sp, fontWeight = FontWeight.Black)
+                }
+
+                Button(
+                    onClick = { viewModel.setCatalogSubTab(CatalogSubTab.RECOMMENDATIONS) },
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = if (currentSubTab == CatalogSubTab.RECOMMENDATIONS) Amber400 else Color.Transparent,
+                        contentColor = if (currentSubTab == CatalogSubTab.RECOMMENDATIONS) Slate950 else Slate400
+                    ),
+                    shape = RoundedCornerShape(8.dp),
+                    elevation = null,
+                    modifier = Modifier.weight(1.2f),
+                    contentPadding = PaddingValues(vertical = 8.dp)
+                ) {
+                    Text("RECOMENDAÇÕES", fontSize = 10.sp, fontWeight = FontWeight.Black)
                 }
 
                 Button(
@@ -139,15 +153,21 @@ fun CatalogScreen(
                     ),
                     shape = RoundedCornerShape(8.dp),
                     elevation = null,
-                    modifier = Modifier.weight(1f),
-                    contentPadding = PaddingValues(vertical = 10.dp)
+                    modifier = Modifier.weight(0.9f),
+                    contentPadding = PaddingValues(vertical = 8.dp)
                 ) {
-                    Text("NOTAS OLFATIVAS", fontSize = 11.sp, fontWeight = FontWeight.Black)
+                    Text("NOTAS", fontSize = 10.sp, fontWeight = FontWeight.Black)
                 }
             }
 
-            // Search input
-            OutlinedTextField(
+            if (currentSubTab == CatalogSubTab.RECOMMENDATIONS) {
+                DiscoverScreen(
+                    viewModel = viewModel,
+                    modifier = Modifier.fillMaxSize()
+                )
+            } else {
+                // Search input
+                OutlinedTextField(
                 value = searchQuery,
                 onValueChange = { searchQuery = it },
                 placeholder = {
@@ -337,6 +357,7 @@ fun CatalogScreen(
                         }
                     }
                 }
+            }
             }
         }
     }

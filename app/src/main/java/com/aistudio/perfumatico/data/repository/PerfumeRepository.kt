@@ -14,6 +14,9 @@ import com.google.gson.reflect.TypeToken
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -55,12 +58,14 @@ class PerfumeRepository(private val context: Context) {
     val firebaseManager = FirebaseManager.getInstance(context)
 
     // In-memory catalog of all 200+ global reference perfumes from dataset
-    private val _globalPerfumes = mutableListOf<PerfumeEntity>()
-    val globalPerfumes: List<PerfumeEntity> get() = _globalPerfumes
+    private val _globalPerfumesList = mutableListOf<PerfumeEntity>()
+    private val _globalPerfumes = MutableStateFlow<List<PerfumeEntity>>(emptyList())
+    val globalPerfumes: StateFlow<List<PerfumeEntity>> = _globalPerfumes.asStateFlow()
 
     // In-memory olfactory notes
-    private val _olfactoryNotes = mutableListOf<OlfactoryNote>()
-    val olfactoryNotes: List<OlfactoryNote> get() = _olfactoryNotes
+    private val _olfactoryNotesList = mutableListOf<OlfactoryNote>()
+    private val _olfactoryNotes = MutableStateFlow<List<OlfactoryNote>>(emptyList())
+    val olfactoryNotes: StateFlow<List<OlfactoryNote>> = _olfactoryNotes.asStateFlow()
 
     val myPerfumes: Flow<List<PerfumeEntity>> = perfumeDao.getAllPerfumes()
     val sotdHistory: Flow<List<SotdEntity>> = sotdDao.getAllSotd()
@@ -93,7 +98,7 @@ class PerfumeRepository(private val context: Context) {
     }
 
     suspend fun initializeCatalog() = withContext(Dispatchers.IO) {
-        if (_globalPerfumes.isNotEmpty()) return@withContext
+        if (_globalPerfumesList.isNotEmpty()) return@withContext
 
         try {
             // Load base perfumes
@@ -128,7 +133,8 @@ class PerfumeRepository(private val context: Context) {
                             isCustom = false
                         )
                     }
-                    _globalPerfumes.addAll(converted)
+                    _globalPerfumesList.addAll(converted)
+                    _globalPerfumes.value = _globalPerfumesList.toList()
                 }
             }
         } catch (e: Exception) {
@@ -148,7 +154,8 @@ class PerfumeRepository(private val context: Context) {
                             imageUrl = raw.imageUrl ?: ""
                         )
                     }.filter { it.nome.isNotBlank() }
-                    _olfactoryNotes.addAll(converted)
+                    _olfactoryNotesList.addAll(converted)
+                    _olfactoryNotes.value = _olfactoryNotesList.toList()
                 }
             }
         } catch (e: Exception) {
@@ -164,38 +171,15 @@ class PerfumeRepository(private val context: Context) {
             noteImageDao.insertAll(entities)
         }
 
-        // Seed initial collection only if completely empty and no user logged in yet
-        val currentCount = perfumeDao.getCount()
-        if (currentCount == 0 && _globalPerfumes.isNotEmpty()) {
-            val starterItems = _globalPerfumes.take(8).mapIndexed { idx, p ->
-                val status = when (idx % 3) {
-                    0 -> "Já possuo"
-                    1 -> "Pipeline"
-                    else -> "Desejos"
-                }
-                p.copy(
-                    id = "my_${UUID.randomUUID()}",
-                    status = status,
-                    tags = when (idx % 4) {
-                        0 -> "DIA A DIA, TRABALHO"
-                        1 -> "ENCONTRO, NOITE"
-                        2 -> "CALOR, PRAIA"
-                        else -> "ASSINATURA, BALADA"
-                    },
-                    fixation = 8,
-                    projection = 8,
-                    personalNotes = "Fragrância excelente para ocasiões especiais."
-                )
-            }
-            perfumeDao.insertAll(starterItems)
-
-            // Seed default profile
+        // Seed default profile if empty (do NOT seed demo perfumes into user collection)
+        val profile = userProfileDao.getProfile().first()
+        if (profile == null) {
             userProfileDao.saveProfile(
                 UserProfileEntity(
                     id = 1,
                     displayName = "Colecionador Perfumático",
                     bio = "Amante da perfumaria de nicho e designers.",
-                    signaturePerfumeName = starterItems.firstOrNull()?.name ?: ""
+                    signaturePerfumeName = ""
                 )
             )
         }

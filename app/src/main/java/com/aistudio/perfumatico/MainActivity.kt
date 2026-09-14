@@ -87,6 +87,7 @@ fun PerfumaticoApp(viewModel: PerfumeViewModel, chatViewModel: ChatViewModel) {
     val currentTab by viewModel.currentTab.collectAsState()
     val userProfile by viewModel.userProfile.collectAsState()
     val selectedPerfume by viewModel.selectedPerfume.collectAsState()
+    val isAddChooserOpen by viewModel.isAddChooserOpen.collectAsState()
     val isAddEditOpen by viewModel.isAddEditOpen.collectAsState()
     val perfumeToEdit by viewModel.perfumeToEdit.collectAsState()
     val isProfileModalOpen by viewModel.isProfileModalOpen.collectAsState()
@@ -144,8 +145,8 @@ fun PerfumaticoApp(viewModel: PerfumeViewModel, chatViewModel: ChatViewModel) {
                 isCloudConnected = currentUser != null,
                 isAdmin = viewModel.isAdmin,
                 onProfileClick = { viewModel.openProfileModal() },
-                onAddClick = { viewModel.openAddEdit() },
-                showAddButton = currentTab == MainTab.COLLECTION || currentTab == MainTab.CATALOG
+                onAddClick = { viewModel.openAddChooser() },
+                showAddButton = false
             )
         },
         bottomBar = {
@@ -169,14 +170,25 @@ fun PerfumaticoApp(viewModel: PerfumeViewModel, chatViewModel: ChatViewModel) {
             when (currentTab) {
                 MainTab.COLLECTION -> MyPerfumesScreen(viewModel = viewModel)
                 MainTab.DASHBOARD -> DashboardScreen(viewModel = viewModel)
-                MainTab.DISCOVER -> DiscoverScreen(viewModel = viewModel)
-                MainTab.ORACLE -> com.aistudio.perfumatico.ui.screens.OracleScreen(viewModel = viewModel)
-                MainTab.CATALOG -> CatalogScreen(viewModel = viewModel)
-                MainTab.CHATBOT -> ChatScreen(viewModel = chatViewModel)
+                MainTab.DISCOVER, MainTab.CATALOG -> CatalogScreen(viewModel = viewModel)
+                MainTab.ORACLE, MainTab.CHATBOT -> com.aistudio.perfumatico.ui.screens.OracleScreen(viewModel = viewModel, chatViewModel = chatViewModel)
             }
         }
 
         // Modals / Dialogs
+        if (isAddChooserOpen) {
+            com.aistudio.perfumatico.ui.components.AddPerfumeChooserDialog(
+                onDismiss = { viewModel.closeAddChooser() },
+                onAddNewWithAi = {
+                    viewModel.closeAddChooser()
+                    viewModel.openAddEdit(null)
+                },
+                onSelectFromCatalog = {
+                    viewModel.navigateToCatalog()
+                }
+            )
+        }
+
         selectedPerfume?.let { perfume ->
             PerfumeDetailDialog(
                 perfume = perfume,

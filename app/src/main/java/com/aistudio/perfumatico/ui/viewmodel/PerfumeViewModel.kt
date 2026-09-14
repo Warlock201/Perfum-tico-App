@@ -34,6 +34,7 @@ enum class CollectionSubTab(val dbStatus: String) {
 
 enum class CatalogSubTab {
     PERFUMES,
+    RECOMMENDATIONS,
     NOTES
 }
 
@@ -86,6 +87,10 @@ class PerfumeViewModel(application: Application) : AndroidViewModel(application)
     // Selected Perfume for modal
     private val _selectedPerfume = MutableStateFlow<PerfumeEntity?>(null)
     val selectedPerfume: StateFlow<PerfumeEntity?> = _selectedPerfume.asStateFlow()
+
+    // Add Chooser Modal
+    private val _isAddChooserOpen = MutableStateFlow(false)
+    val isAddChooserOpen: StateFlow<Boolean> = _isAddChooserOpen.asStateFlow()
 
     // Add / Edit Modal
     private val _isAddEditOpen = MutableStateFlow(false)
@@ -183,7 +188,7 @@ class PerfumeViewModel(application: Application) : AndroidViewModel(application)
         val myNotes = perfume.notes.split("|").map { it.trim().lowercase() }.filter { it.isNotBlank() }.toSet()
         if (myNotes.isEmpty()) return emptyList()
 
-        return repository.globalPerfumes
+        return repository.globalPerfumes.value
             .filter { it.id != perfume.id }
             .map { other ->
                 val otherNotes = other.notes.split("|").map { it.trim().lowercase() }.filter { it.isNotBlank() }.toSet()
@@ -196,8 +201,8 @@ class PerfumeViewModel(application: Application) : AndroidViewModel(application)
             .take(5)
     }
 
-    val globalPerfumes: List<PerfumeEntity> get() = repository.globalPerfumes
-    val olfactoryNotes: List<OlfactoryNote> get() = repository.olfactoryNotes
+    val globalPerfumes: StateFlow<List<PerfumeEntity>> = repository.globalPerfumes
+    val olfactoryNotes: StateFlow<List<OlfactoryNote>> = repository.olfactoryNotes
 
     private val _noteImages = MutableStateFlow<Map<String, String>>(emptyMap())
     val noteImages: StateFlow<Map<String, String>> = _noteImages.asStateFlow()
@@ -221,8 +226,29 @@ class PerfumeViewModel(application: Application) : AndroidViewModel(application)
         }
     }
 
+    fun openAddChooser() {
+        _isAddChooserOpen.value = true
+    }
+
+    fun closeAddChooser() {
+        _isAddChooserOpen.value = false
+    }
+
+    fun navigateToCatalog() {
+        _isAddChooserOpen.value = false
+        _currentTab.value = MainTab.DISCOVER
+        _catalogSubTab.value = CatalogSubTab.PERFUMES
+    }
+
     fun setTab(tab: MainTab) {
-        _currentTab.value = tab
+        if (tab == MainTab.CATALOG) {
+            _currentTab.value = MainTab.DISCOVER
+            _catalogSubTab.value = CatalogSubTab.PERFUMES
+        } else if (tab == MainTab.CHATBOT) {
+            _currentTab.value = MainTab.ORACLE
+        } else {
+            _currentTab.value = tab
+        }
     }
 
     fun setCollectionSubTab(subTab: CollectionSubTab) {

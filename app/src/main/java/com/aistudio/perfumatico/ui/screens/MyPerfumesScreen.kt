@@ -27,6 +27,7 @@ import com.aistudio.perfumatico.data.model.AVAILABLE_TAGS
 import com.aistudio.perfumatico.ui.components.PerfumeCard
 import com.aistudio.perfumatico.ui.theme.*
 import com.aistudio.perfumatico.ui.viewmodel.CollectionSubTab
+import com.aistudio.perfumatico.ui.viewmodel.MainTab
 import com.aistudio.perfumatico.ui.viewmodel.PerfumeViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -67,12 +68,16 @@ fun MyPerfumesScreen(
         )
     }
 
-    Column(
+    Box(
         modifier = modifier
             .fillMaxSize()
             .background(Slate950)
-            .padding(horizontal = 16.dp)
     ) {
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(horizontal = 16.dp)
+        ) {
         // Subtabs selector: FRASCOS, DECANTS, WISHLIST
         Row(
             modifier = Modifier
@@ -314,11 +319,24 @@ fun MyPerfumesScreen(
                         fontSize = 16.sp
                     )
                     Text(
-                        text = "Experimente buscar outro termo ou adicione novos perfumes pelo catálogo ou botão '+'.",
+                        text = "Sua coleção está vazia nesta categoria.\nToque no botão flutuante + abaixo para adicionar!",
                         color = Slate500,
                         fontSize = 12.sp,
                         textAlign = TextAlign.Center
                     )
+                    Spacer(modifier = Modifier.height(8.dp))
+                    OutlinedButton(
+                        onClick = { viewModel.navigateToCatalog() },
+                        colors = ButtonDefaults.outlinedButtonColors(
+                            contentColor = Amber400
+                        ),
+                        border = androidx.compose.foundation.BorderStroke(1.dp, Slate800),
+                        shape = RoundedCornerShape(10.dp)
+                    ) {
+                        Icon(Icons.Default.MenuBook, contentDescription = null, modifier = Modifier.size(16.dp))
+                        Spacer(modifier = Modifier.width(6.dp))
+                        Text("Explorar Catálogo", fontWeight = FontWeight.Bold, fontSize = 12.sp)
+                    }
                 }
             }
         } else {
@@ -337,6 +355,21 @@ fun MyPerfumesScreen(
                     )
                 }
             }
+        }
+        }
+
+        ExtendedFloatingActionButton(
+            onClick = { viewModel.openAddChooser() },
+            containerColor = Amber400,
+            contentColor = Slate950,
+            modifier = Modifier
+                .align(Alignment.BottomEnd)
+                .padding(16.dp)
+                .testTag("fab_add_perfume")
+        ) {
+            Icon(Icons.Default.Add, contentDescription = "Adicionar Perfume", modifier = Modifier.size(20.dp))
+            Spacer(modifier = Modifier.width(6.dp))
+            Text("ADICIONAR", fontWeight = FontWeight.Black, fontSize = 12.sp)
         }
     }
 }

@@ -101,8 +101,10 @@ object RetrofitClient {
 
 object GeminiService {
 
+    private val ACTIVE_MODELS = listOf("gemini-3.6-flash", "gemini-3.8-flash", "gemini-flash-latest")
+
     private suspend fun <T> executeWithFallback(
-        models: List<String>,
+        models: List<String> = ACTIVE_MODELS,
         action: suspend (String) -> Response<T>
     ): T {
         var lastError: Exception? = null
@@ -141,7 +143,7 @@ object GeminiService {
         )
         
         try {
-            val response = executeWithFallback(listOf("gemini-3.6-flash", "gemini-1.5-flash", "gemini-1.5-pro")) { model -> 
+            val response = executeWithFallback(ACTIVE_MODELS) { model -> 
                 RetrofitClient.service.generateContent(model, apiKey, request) 
             }
             response.candidates?.firstOrNull()?.content?.parts?.firstOrNull()?.text ?: ""
@@ -153,33 +155,52 @@ object GeminiService {
     suspend fun autoFillPerfume(perfumeName: String): String = withContext(Dispatchers.IO) {
         val apiKey = BuildConfig.GEMINI_API_KEY_NEW
         val prompt = """
-            Você é um assistente de banco de dados de perfumaria. O usuário quer adicionar o perfume '$perfumeName'.
-            Faça uma pesquisa atualizada na internet para confirmar os detalhes reais desse perfume.
-            Retorne um objeto JSON ESTRITO com a seguinte estrutura:
+            Você é o maior especialista e enciclopédia viva de perfumaria do mundo (Fragrantica, Parfumo, Basenotes).
+            O usuário quer cadastrar a fragrância: "$perfumeName".
+            
+            Sua missão é identificar com máxima exatidão este perfume e extrair a sua pirâmide olfativa oficial completa e características.
+            
+            Retorne APENAS um objeto JSON ESTRITO com o seguinte formato:
             {
-                "brand": "Marca do Perfume",
-                "family": "Família Olfativa principal (ex: Cítrico, Amadeirado, Oriental, Floral, etc)",
-                "topNotes": "Nota 1, Nota 2",
-                "heartNotes": "Nota 3, Nota 4",
-                "baseNotes": "Nota 5, Nota 6",
-                "fixation": 8, // Inteiro de 1 a 10
-                "projection": 7 // Inteiro de 1 a 10
+                "name": "Nome Oficial do Perfume",
+                "brand": "Marca / Casa Oficial (ex: Dior, Chanel, Natura, O Boticário, Lattafa, Paco Rabanne, Tom Ford)",
+                "family": "Família Olfativa principal (escolha entre: Fresco, Amadeirado, Oriental, Aromático, Cítrico, Gourmand, Floral, Chypre, Fougère, Couro, Aquático)",
+                "topNotes": "Notas de Saída/Topo separadas por vírgula (ex: Bergamota da Calábria, Pimenta)",
+                "heartNotes": "Notas de Coração/Corpo separadas por vírgula (ex: Pimenta de Szechuan, Lavanda, Pimenta Rosa, Vetiver, Patchouli, Gerânio, Elemi)",
+                "baseNotes": "Notas de Fundo/Base separadas por vírgula (ex: Ambroxan, Cedro, Ládano)",
+                "fixation": 8,
+                "projection": 8,
+                "priceMin": 250,
+                "priceMax": 450,
+                "referenceName": "Se for contratipo/clone de outro clássico (ex: Inspirado no Aventus), informe aqui. Se for original, deixe vazio."
             }
-            IMPORTANTE: Não adicione nenhum markdown, backticks (```) ou texto fora do JSON. Apenas o JSON puro.
+            
+            DIRETRIZES FUNDAMENTAIS:
+            1. Preencha SEMPRE as notas de saída (topNotes), coração (heartNotes) e fundo (baseNotes) com as notas oficiais conhecidas dessa fragrância.
+            2. Não deixe as notas em branco.
+            3. Retorne APENAS o JSON puro, sem crases, markdown ou qualquer texto adicional.
         """.trimIndent()
 
         val request = GenerateContentRequest(
             contents = listOf(Content(parts = listOf(Part(text = prompt)))),
-            generationConfig = GenerationConfig(temperature = 0.1f, responseMimeType = "application/json"),
-            tools = listOf(Tool(googleSearch = GoogleSearch()))
+            generationConfig = GenerationConfig(temperature = 0.1f, responseMimeType = "application/json")
         )
 
         try {
-            val response = executeWithFallback(listOf("gemini-3.6-flash", "gemini-1.5-flash", "gemini-1.5-pro")) { model -> 
+            val response = executeWithFallback(ACTIVE_MODELS) { model -> 
                 RetrofitClient.service.generateContent(model, apiKey, request) 
             }
-            response.candidates?.firstOrNull()?.content?.parts?.firstOrNull()?.text ?: "{}"
+            val raw = response.candidates?.firstOrNull()?.content?.parts?.firstOrNull()?.text ?: "{}"
+            val cleaned = raw.replace("```json", "").replace("```", "").trim()
+            val start = cleaned.indexOf('{')
+            val end = cleaned.lastIndexOf('}')
+            if (start != -1 && end != -1 && end > start) {
+                cleaned.substring(start, end + 1)
+            } else {
+                cleaned
+            }
         } catch (e: Exception) {
+            e.printStackTrace()
             "{}"
         }
     }
@@ -187,7 +208,7 @@ object GeminiService {
     suspend fun chatWithSommelier(history: List<Content>, onToken: (String) -> Unit) = withContext(Dispatchers.IO) {
         val apiKey = BuildConfig.GEMINI_API_KEY_NEW
         val systemInstruction = Content(
-            parts = listOf(Part(text = "Você é um Sommelier de Perfumes. Sua função é dar dicas de fragrâncias e ajudar o usuário a escolher perfumes. IMPORTANTE: Se o usuário expressar que deseja adicionar um perfume conversado na sua coleção, você NÃO precisa perguntar em qual categoria, pois botões aparecerão na tela. Você DEVE APENAS retornar no final da sua mensagem o comando exato: [ADD_PERFUME: <Nome do Perfume> | <Marca> | <Status>]. Exemplo: [ADD_PERFUME: Homem Dom | Natura | Quero ter]" ))
+            parts = listOf(Part(text = "Você é um Sommelier de Perfumes do Perfumático. Sua função é dar dicas de fragrâncias e ajudar o usuário a escolher perfumes. IMPORTANTE: Se o usuário expressar que deseja adicionar um perfume conversado na sua coleção, você NÃO precisa perguntar em qual categoria, pois botões aparecerão na tela. Você DEVE APENAS retornar no final da sua mensagem o comando exato: [ADD_PERFUME: <Nome do Perfume> | <Marca> | <Status>]. Exemplo: [ADD_PERFUME: Homem Dom | Natura | Quero ter]" ))
         )
         
         val request = GenerateContentRequest(
@@ -197,7 +218,7 @@ object GeminiService {
         )
 
         try {
-            val responseBody = executeWithFallback(listOf("gemini-3.6-flash", "gemini-1.5-flash", "gemini-1.5-pro")) { model -> 
+            val responseBody = executeWithFallback(ACTIVE_MODELS) { model -> 
                 RetrofitClient.service.streamGenerateContent(model, apiKey, request = request) 
             }
             
@@ -223,6 +244,72 @@ object GeminiService {
             }
         } catch (e: Exception) {
             withContext(Dispatchers.Main) { onToken("\n[Erro de conexão: ${e.message}]") }
+        }
+    }
+
+    @Serializable
+    private data class OracleAiResponse(
+        val perfumeId: String = "",
+        val reasoning: String = ""
+    )
+
+    suspend fun consultOracleAI(
+        place: String,
+        placeCustomDetails: String,
+        temperature: String,
+        temperatureCustomDetails: String,
+        perfumes: List<com.aistudio.perfumatico.data.local.PerfumeEntity>
+    ): Pair<String, String>? = withContext(Dispatchers.IO) {
+        val apiKey = BuildConfig.GEMINI_API_KEY_NEW
+        if (perfumes.isEmpty()) return@withContext null
+
+        val perfumeSummaries = perfumes.take(30).joinToString("\n") { p ->
+            "- ID: ${p.id} | Nome: ${p.name} | Marca: ${p.brand} | Família: ${p.family} | Notas: ${p.notes} | Tags: ${p.tags} | Fixação: ${p.fixation} | Projeção: ${p.projection}"
+        }
+
+        val prompt = """
+            Você é o Oráculo Olfativo do aplicativo Perfumático, sommelier supremo de perfumaria.
+            O usuário precisa da melhor escolha de perfume da sua própria coleção para a situação:
+            - LUGAR / OCASIÃO: $place
+            - DETALHES DO LUGAR: ${if (placeCustomDetails.isNotBlank()) placeCustomDetails else "Nenhum detalhe extra"}
+            - TEMPERATURA / CLIMA: $temperature
+            - DETALHES DO CLIMA/SENSAÇÃO: ${if (temperatureCustomDetails.isNotBlank()) temperatureCustomDetails else "Nenhum detalhe extra"}
+
+            COLEÇÃO DISPONÍVEL DO USUÁRIO:
+            $perfumeSummaries
+
+            Analise a harmonia entre as notas olfativas e o ambiente/temperatura descritos.
+            Escolha o perfume MAIS ADEQUADO da coleção.
+            Retorne APENAS um objeto JSON ESTRITO com o seguinte formato:
+            {
+              "perfumeId": "<ID exato do perfume escolhido da lista acima>",
+              "reasoning": "<Explicação elegante e persuasiva de 2 a 3 frases em português sobre por que esta fragrância se adapta perfeitamente ao local e clima descritos>"
+            }
+            IMPORTANTE: Sem blocos markdown, crases ou texto fora do JSON.
+        """.trimIndent()
+
+        val request = GenerateContentRequest(
+            contents = listOf(Content(parts = listOf(Part(text = prompt)))),
+            generationConfig = GenerationConfig(temperature = 0.2f, responseMimeType = "application/json")
+        )
+
+        try {
+            val response = executeWithFallback(ACTIVE_MODELS) { model ->
+                RetrofitClient.service.generateContent(model, apiKey, request)
+            }
+            val rawText = response.candidates?.firstOrNull()?.content?.parts?.firstOrNull()?.text ?: ""
+            val cleaned = rawText.replace("```json", "").replace("```", "").trim()
+            val start = cleaned.indexOf('{')
+            val end = cleaned.lastIndexOf('}')
+            val jsonStr = if (start != -1 && end != -1 && end > start) cleaned.substring(start, end + 1) else cleaned
+            val json = Json { ignoreUnknownKeys = true }
+            val parsed = json.decodeFromString<OracleAiResponse>(jsonStr)
+            if (parsed.perfumeId.isNotBlank()) {
+                Pair(parsed.perfumeId, parsed.reasoning)
+            } else null
+        } catch (e: Exception) {
+            e.printStackTrace()
+            null
         }
     }
 }
