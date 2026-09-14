@@ -1,6 +1,6 @@
 {
-  "versionCode": 11,
-  "versionName": "2.0",
-  "apkUrl": "https://raw.githubusercontent.com/Warlock201/Perfum-tico-App/main/releases/perfumatico-v2.0.apk",
-  "releaseNotes": "Versão 2.0: Interface limpa e minimalista mantendo apenas o botão flutuante para adicionar fragrâncias, eliminando botões redundantes no topo e na lista."
+  "versionCode": 13,
+  "versionName": "2.2",
+  "apkUrl": "https://raw.githubusercontent.com/Warlock201/Perfum-tico-App/main/releases/perfumatico-v2.2.apk",
+  "releaseNotes": "Versão 2.2: Integração oficial do arquivo google-services.json atualizado com a credencial SHA-1 autorizada no Firebase Console para o login com Google."
 }

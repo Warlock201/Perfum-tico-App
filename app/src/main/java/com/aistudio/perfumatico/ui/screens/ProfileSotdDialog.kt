@@ -21,6 +21,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
@@ -28,6 +29,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
+import android.util.Log
 import com.aistudio.perfumatico.R
 import com.aistudio.perfumatico.ui.theme.*
 import com.aistudio.perfumatico.ui.viewmodel.PerfumeViewModel
@@ -61,11 +63,16 @@ fun ProfileSotdDialog(
     var errorMessage by remember { mutableStateOf<String?>(null) }
     var isLoading by remember { mutableStateOf(false) }
 
+    val clipboardManager = androidx.compose.ui.platform.LocalClipboardManager.current
+    val sha1Fingerprint = "39:24:B3:A6:91:F4:A5:87:39:01:99:60:92:F1:C8:F5:55:E0:60:4A"
+    var showFirebaseHelp by remember { mutableStateOf(false) }
+
     val googleSignInLauncher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.StartActivityForResult()
     ) { result ->
-        if (result.resultCode == Activity.RESULT_OK) {
-            val task = GoogleSignIn.getSignedInAccountFromIntent(result.data)
+        val data = result.data
+        if (data != null) {
+            val task = GoogleSignIn.getSignedInAccountFromIntent(data)
             try {
                 val account = task.getResult(ApiException::class.java)
                 val idToken = account.idToken
@@ -74,14 +81,42 @@ fun ProfileSotdDialog(
                     viewModel.signInWithGoogleIdToken(idToken) { success, error ->
                         isLoading = false
                         if (!success) {
-                            errorMessage = error ?: "Falha ao autenticar com Google."
+                            errorMessage = error ?: "Falha ao autenticar com Google no Firebase."
                         }
                     }
                 } else {
-                    errorMessage = "Não foi possível obter o token do Google."
+                    errorMessage = "Não foi possível obter a credencial do Google (idToken nulo)."
                 }
             } catch (e: ApiException) {
-                errorMessage = "Google Sign-In falhou. Verifique a internet e a configuração do Firebase."
+                isLoading = false
+                val code = e.statusCode
+                Log.e("GoogleSignIn", "Falha de autenticação Google. Código: $code", e)
+                when (code) {
+                    10 -> {
+                        showFirebaseHelp = true
+                        errorMessage = "Erro 10 (DEVELOPER_ERROR): A impressão digital SHA-1 deste APK ou o pacote '${context.packageName}' precisa ser cadastrado no Firebase Console."
+                    }
+                    12500 -> {
+                        errorMessage = "Erro 12500 (SIGN_IN_FAILED): Verifique se o provedor Google está ativado em 'Firebase Console > Authentication > Sign-in method'."
+                    }
+                    12501 -> {
+                        // Usuário fechou ou cancelou o seletor de contas
+                    }
+                    7 -> {
+                        errorMessage = "Erro 7 (NETWORK_ERROR): Sem conexão com a internet. Verifique sua rede."
+                    }
+                    else -> {
+                        errorMessage = "Google Sign-In retornou o código $code. Verifique o Google Play Services e a conta selecionada."
+                    }
+                }
+            } catch (e: Exception) {
+                isLoading = false
+                errorMessage = "Erro no Google Sign-In: ${e.localizedMessage}"
+            }
+        } else {
+            isLoading = false
+            if (result.resultCode != Activity.RESULT_OK) {
+                errorMessage = "Seleção de conta Google cancelada ou indisponível."
             }
         }
     }
@@ -428,6 +463,8 @@ fun ProfileSotdDialog(
                             // Google Sign-In Button
                             Button(
                                 onClick = {
+                                    errorMessage = null
+                                    isLoading = true
                                     val webClientId = try {
                                         context.getString(R.string.default_web_client_id)
                                     } catch (e: Exception) {
@@ -439,8 +476,17 @@ fun ProfileSotdDialog(
                                         .requestEmail()
                                         .build()
                                     val client = GoogleSignIn.getClient(context, gso)
-                                    googleSignInLauncher.launch(client.signInIntent)
+                                    // Limpa qualquer sessão travada anterior antes de abrir
+                                    client.signOut().addOnCompleteListener {
+                                        isLoading = false
+                                        try {
+                                            googleSignInLauncher.launch(client.signInIntent)
+                                        } catch (e: Exception) {
+                                            errorMessage = "Não foi possível abrir o Google Sign-In: ${e.localizedMessage}"
+                                        }
+                                    }
                                 },
+                                enabled = !isLoading,
                                 colors = ButtonDefaults.buttonColors(
                                     containerColor = Slate100,
                                     contentColor = Slate950
@@ -451,22 +497,26 @@ fun ProfileSotdDialog(
                                     .height(46.dp)
                                     .testTag("google_signin_button")
                             ) {
-                                Icon(
-                                    imageVector = Icons.Default.AccountCircle,
-                                    contentDescription = null,
-                                    tint = Slate950,
-                                    modifier = Modifier.size(20.dp)
-                                )
-                                Spacer(modifier = Modifier.width(8.dp))
-                                Text(
-                                    text = "ENTRAR COM O GOOGLE",
-                                    fontWeight = FontWeight.Black,
-                                    fontSize = 12.sp
-                                )
+                                if (isLoading) {
+                                    CircularProgressIndicator(color = Slate950, modifier = Modifier.size(20.dp), strokeWidth = 2.dp)
+                                } else {
+                                    Icon(
+                                        imageVector = Icons.Default.AccountCircle,
+                                        contentDescription = null,
+                                        tint = Slate950,
+                                        modifier = Modifier.size(20.dp)
+                                    )
+                                    Spacer(modifier = Modifier.width(8.dp))
+                                    Text(
+                                        text = "ENTRAR COM O GOOGLE",
+                                        fontWeight = FontWeight.Black,
+                                        fontSize = 12.sp
+                                    )
+                                }
                             }
-        
+
                             Spacer(modifier = Modifier.height(12.dp))
-        
+
                             Row(
                                 modifier = Modifier.fillMaxWidth(),
                                 verticalAlignment = Alignment.CenterVertically,
@@ -476,9 +526,9 @@ fun ProfileSotdDialog(
                                 Text("OU POR E-MAIL", color = Slate500, fontSize = 10.sp, fontWeight = FontWeight.Bold)
                                 HorizontalDivider(modifier = Modifier.weight(1f), color = Slate800)
                             }
-        
+
                             Spacer(modifier = Modifier.height(12.dp))
-        
+
                             OutlinedTextField(
                                 value = email,
                                 onValueChange = { email = it },
@@ -496,9 +546,9 @@ fun ProfileSotdDialog(
                                 shape = RoundedCornerShape(12.dp),
                                 modifier = Modifier.fillMaxWidth().testTag("auth_email_input")
                             )
-        
+
                             Spacer(modifier = Modifier.height(8.dp))
-        
+
                             OutlinedTextField(
                                 value = password,
                                 onValueChange = { password = it },
@@ -517,15 +567,103 @@ fun ProfileSotdDialog(
                                 shape = RoundedCornerShape(12.dp),
                                 modifier = Modifier.fillMaxWidth().testTag("auth_password_input")
                             )
-        
+
                             if (errorMessage != null) {
                                 Spacer(modifier = Modifier.height(8.dp))
-                                Text(
-                                    text = errorMessage!!,
-                                    color = Rose500,
-                                    fontSize = 11.sp,
-                                    fontWeight = FontWeight.Medium
+                                Surface(
+                                    color = Rose500.copy(alpha = 0.12f),
+                                    shape = RoundedCornerShape(8.dp),
+                                    border = androidx.compose.foundation.BorderStroke(1.dp, Rose500.copy(alpha = 0.3f)),
+                                    modifier = Modifier.fillMaxWidth()
+                                ) {
+                                    Text(
+                                        text = errorMessage!!,
+                                        color = Rose500,
+                                        fontSize = 11.sp,
+                                        lineHeight = 15.sp,
+                                        fontWeight = FontWeight.Medium,
+                                        modifier = Modifier.padding(10.dp)
+                                    )
+                                }
+                            }
+
+                            Spacer(modifier = Modifier.height(6.dp))
+
+                            // Helper button to show SHA-1 & Firebase config info
+                            TextButton(
+                                onClick = { showFirebaseHelp = !showFirebaseHelp },
+                                modifier = Modifier.align(Alignment.CenterHorizontally)
+                            ) {
+                                Icon(
+                                    imageVector = if (showFirebaseHelp) Icons.Default.KeyboardArrowUp else Icons.Default.Info,
+                                    contentDescription = null,
+                                    tint = Amber400,
+                                    modifier = Modifier.size(14.dp)
                                 )
+                                Spacer(modifier = Modifier.width(4.dp))
+                                Text(
+                                    text = if (showFirebaseHelp) "Ocultar dados do Firebase" else "Configuração Firebase (SHA-1 / Pacote)",
+                                    color = Amber400,
+                                    fontSize = 11.sp,
+                                    fontWeight = FontWeight.Bold
+                                )
+                            }
+
+                            if (showFirebaseHelp) {
+                                Surface(
+                                    color = Slate950,
+                                    shape = RoundedCornerShape(10.dp),
+                                    border = androidx.compose.foundation.BorderStroke(1.dp, Slate800),
+                                    modifier = Modifier.fillMaxWidth()
+                                ) {
+                                    Column(modifier = Modifier.padding(10.dp)) {
+                                        Text(
+                                            text = "Para o Google Sign-In funcionar, o Firebase exige:",
+                                            color = Slate300,
+                                            fontSize = 11.sp,
+                                            fontWeight = FontWeight.SemiBold
+                                        )
+                                        Spacer(modifier = Modifier.height(6.dp))
+                                        Text(
+                                            text = "Pacote: ${context.packageName}",
+                                            color = Slate400,
+                                            fontSize = 10.sp
+                                        )
+                                        Spacer(modifier = Modifier.height(4.dp))
+                                        Text(
+                                            text = "SHA-1: $sha1Fingerprint",
+                                            color = Amber400,
+                                            fontSize = 10.sp,
+                                            lineHeight = 13.sp
+                                        )
+                                        Spacer(modifier = Modifier.height(8.dp))
+                                        Button(
+                                            onClick = {
+                                                clipboardManager.setText(AnnotatedString(sha1Fingerprint))
+                                                errorMessage = "SHA-1 copiado para a área de transferência!"
+                                            },
+                                            colors = ButtonDefaults.buttonColors(
+                                                containerColor = Amber400,
+                                                contentColor = Slate950
+                                            ),
+                                            shape = RoundedCornerShape(8.dp),
+                                            modifier = Modifier.fillMaxWidth().height(34.dp)
+                                        ) {
+                                            Icon(
+                                                imageVector = Icons.Default.Check,
+                                                contentDescription = null,
+                                                tint = Slate950,
+                                                modifier = Modifier.size(14.dp)
+                                            )
+                                            Spacer(modifier = Modifier.width(6.dp))
+                                            Text(
+                                                "COPIAR SHA-1 DO APP",
+                                                fontWeight = FontWeight.Black,
+                                                fontSize = 10.sp
+                                            )
+                                        }
+                                    }
+                                }
                             }
         
                             Spacer(modifier = Modifier.height(14.dp))
