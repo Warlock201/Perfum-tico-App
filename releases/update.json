@@ -1,6 +1,6 @@
 {
-  "versionCode": 26,
-  "versionName": "3.5",
-  "apkUrl": "https://raw.githubusercontent.com/Warlock201/Perfum-tico-App/main/releases/perfumatico-v3.5.apk",
-  "releaseNotes": "Versão 3.5: Correção da visualização do Perfume do Dia. Agora o sistema reconhece a data corretamente (ignorando problemas de fuso-horário) e exibe o perfume em destaque logo no topo da aba Dashboard, além da aba de Meus Perfumes!"
+  "versionCode": 27,
+  "versionName": "3.6",
+  "apkUrl": "https://raw.githubusercontent.com/Warlock201/Perfum-tico-App/main/releases/perfumatico-v3.6.apk",
+  "releaseNotes": "Versão 3.6: Opção de desmarcar o Perfume do Dia (SOTD)! Basta clicar no ícone do Sol novamente para remover a marcação. Perfeito para quem quer trocar de perfume ao longo do dia ou corrigir uma seleção feita por engano."
 }

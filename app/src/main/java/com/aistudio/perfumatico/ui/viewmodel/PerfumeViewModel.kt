@@ -473,17 +473,24 @@ class PerfumeViewModel(application: Application) : AndroidViewModel(application)
         viewModelScope.launch {
             val dateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
             val dateStr = dateFormat.format(Date())
-            repository.addSotd(
-                SotdEntity(
-                    perfumeId = perfume.id,
-                    perfumeName = perfume.name,
-                    perfumeBrand = perfume.brand,
-                    perfumeImage = perfume.imageUrl,
-                    date = dateStr,
-                    comment = comment.ifBlank { "Usando hoje!" }
+            
+            val currentSotd = todaySotd.value
+            if (currentSotd != null && currentSotd.perfumeId == perfume.id) {
+                repository.deleteSotd(currentSotd.id)
+                _userMessageEvent.emit("Perfume do Dia desmarcado!")
+            } else {
+                repository.addSotd(
+                    SotdEntity(
+                        perfumeId = perfume.id,
+                        perfumeName = perfume.name,
+                        perfumeBrand = perfume.brand,
+                        perfumeImage = perfume.imageUrl,
+                        date = dateStr,
+                        comment = comment.ifBlank { "Usando hoje!" }
+                    )
                 )
-            )
-            _userMessageEvent.emit("☀️ '${perfume.name}' definido como Perfume do Dia!")
+                _userMessageEvent.emit("☀️ '${perfume.name}' definido como Perfume do Dia!")
+            }
         }
     }
 
