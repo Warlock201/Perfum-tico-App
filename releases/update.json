@@ -1,6 +1,6 @@
 {
-  "versionCode": 14,
-  "versionName": "2.3",
-  "apkUrl": "https://raw.githubusercontent.com/Warlock201/Perfum-tico-App/main/releases/perfumatico-v2.3.apk",
-  "releaseNotes": "Versão 2.3: Correção no sistema de atualização interna (limpeza de versões temporárias anteriores e solicitação automática de permissão para instalar fontes desconhecidas)."
+  "versionCode": 15,
+  "versionName": "2.4",
+  "apkUrl": "https://raw.githubusercontent.com/Warlock201/Perfum-tico-App/main/releases/perfumatico-v2.4.apk",
+  "releaseNotes": "Versão 2.4: Coleção pessoal limpa ao reinstalar (remoção dos perfumes Nitro forçados, permitindo que sejam escolhidos livremente no catálogo)."
 }

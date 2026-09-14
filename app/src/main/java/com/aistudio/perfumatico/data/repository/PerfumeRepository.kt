@@ -79,8 +79,24 @@ class PerfumeRepository(private val context: Context) {
                     firebaseManager.startListeningToUserData(
                         onPerfumesUpdated = { cloudPerfumes ->
                             CoroutineScope(Dispatchers.IO).launch {
-                                if (cloudPerfumes.isNotEmpty()) {
-                                    perfumeDao.insertAll(cloudPerfumes)
+                                val validPerfumes = cloudPerfumes.filterNot { p ->
+                                    p.id.startsWith("catalog_") || p.id.startsWith("demo_") ||
+                                    (!p.isCustom && p.name.contains("Nitro", ignoreCase = true) && p.brand.contains("Dumont", ignoreCase = true))
+                                }
+                                if (validPerfumes.isNotEmpty()) {
+                                    perfumeDao.insertAll(validPerfumes)
+                                }
+                                // Remove legacy forced Nitros from Cloud so they never return
+                                val forcedNitros = cloudPerfumes.filter { p ->
+                                    p.id.startsWith("catalog_") || p.id.startsWith("demo_") ||
+                                    (!p.isCustom && p.name.contains("Nitro", ignoreCase = true) && p.brand.contains("Dumont", ignoreCase = true))
+                                }
+                                for (forced in forcedNitros) {
+                                    try {
+                                        firebaseManager.deletePerfume(forced.id)
+                                    } catch (e: Exception) {
+                                        // ignore
+                                    }
                                 }
                             }
                         },
@@ -125,7 +141,7 @@ class PerfumeRepository(private val context: Context) {
                             heartNotes = heart,
                             baseNotes = base,
                             referenceName = raw.referencia?.trim() ?: "",
-                            status = "Já possuo",
+                            status = "Catálogo",
                             fixation = raw.longevidade ?: 7,
                             projection = raw.projeção ?: 7,
                             tags = "DIA A DIA, ASSINATURA",
@@ -211,6 +227,27 @@ class PerfumeRepository(private val context: Context) {
         } catch (e: Exception) {
             e.printStackTrace()
         }
+
+        // Clean legacy forced Nitros or demo items from personal collection
+        try {
+            val existingPerfumes = perfumeDao.getAllPerfumes().first()
+            val forcedPerfumes = existingPerfumes.filter { p ->
+                p.id.startsWith("catalog_") || p.id.startsWith("demo_") ||
+                (!p.isCustom && p.name.contains("Nitro", ignoreCase = true) && p.brand.contains("Dumont", ignoreCase = true))
+            }
+            if (forcedPerfumes.isNotEmpty()) {
+                for (fp in forcedPerfumes) {
+                    perfumeDao.delete(fp)
+                    try {
+                        firebaseManager.deletePerfume(fp.id)
+                    } catch (e: Exception) {
+                        // ignore
+                    }
+                }
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
     }
 
     suspend fun savePerfume(perfume: PerfumeEntity) = withContext(Dispatchers.IO) {
@@ -272,6 +309,7 @@ class PerfumeRepository(private val context: Context) {
         val userCopy = catalogPerfume.copy(
             id = "my_${UUID.randomUUID()}",
             status = targetStatus,
+            isCustom = true,
             createdAt = System.currentTimeMillis()
         )
         perfumeDao.insertOrUpdate(userCopy)
