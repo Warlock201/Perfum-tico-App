@@ -113,6 +113,12 @@ fun PerfumaticoApp(viewModel: PerfumeViewModel, chatViewModel: ChatViewModel) {
         }
     }
 
+    LaunchedEffect(viewModel) {
+        viewModel.userMessageEvent.collect { message ->
+            Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+        }
+    }
+
 
     if (!isInitialized) {
         Box(

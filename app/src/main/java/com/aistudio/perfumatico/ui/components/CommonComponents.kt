@@ -232,14 +232,20 @@ fun PerfumeCard(
     perfume: PerfumeEntity,
     onClick: () -> Unit,
     onSotdClick: (() -> Unit)? = null,
+    isTodaySotd: Boolean = false,
+    onStarClick: (() -> Unit)? = null,
     modifier: Modifier = Modifier
 ) {
     Card(
         onClick = onClick,
         colors = CardDefaults.cardColors(containerColor = Slate900),
         shape = RoundedCornerShape(18.dp),
-        border = CardDefaults.outlinedCardBorder().copy(brush = Brush.verticalGradient(listOf(Slate800, Slate900))),
-        elevation = CardDefaults.cardElevation(defaultElevation = 2.dp),
+        border = if (isTodaySotd) {
+            androidx.compose.foundation.BorderStroke(1.5.dp, Amber400)
+        } else {
+            CardDefaults.outlinedCardBorder().copy(brush = Brush.verticalGradient(listOf(Slate800, Slate900)))
+        },
+        elevation = CardDefaults.cardElevation(defaultElevation = if (isTodaySotd) 6.dp else 2.dp),
         modifier = modifier
             .fillMaxWidth()
             .testTag("perfume_card_${perfume.id}")
@@ -260,7 +266,7 @@ fun PerfumeCard(
                         .size(64.dp)
                         .clip(RoundedCornerShape(14.dp))
                         .background(Slate800)
-                        .border(1.dp, Slate700, RoundedCornerShape(14.dp)),
+                        .border(1.dp, if (isTodaySotd) Amber400 else Slate700, RoundedCornerShape(14.dp)),
                     contentAlignment = Alignment.Center
                 ) {
                     if (perfume.imageUrl.isNotBlank()) {
@@ -314,8 +320,24 @@ fun PerfumeCard(
                                 border = androidx.compose.foundation.BorderStroke(1.dp, Emerald500)
                             ) {
                                 Text(
-                                    text = "ADICIONAR",
+                                    text = "NOVO",
                                     color = Emerald400,
+                                    fontSize = 8.sp,
+                                    fontWeight = FontWeight.Black,
+                                    modifier = Modifier.padding(horizontal = 4.dp, vertical = 2.dp)
+                                )
+                            }
+                        }
+                        if (isTodaySotd) {
+                            Spacer(modifier = Modifier.width(6.dp))
+                            Surface(
+                                color = Amber400.copy(alpha = 0.25f),
+                                shape = RoundedCornerShape(4.dp),
+                                border = androidx.compose.foundation.BorderStroke(1.dp, Amber400)
+                            ) {
+                                Text(
+                                    text = "☀️ HOJE",
+                                    color = Amber400,
                                     fontSize = 8.sp,
                                     fontWeight = FontWeight.Black,
                                     modifier = Modifier.padding(horizontal = 4.dp, vertical = 2.dp)
@@ -324,13 +346,30 @@ fun PerfumeCard(
                         }
                         if (perfume.tags.contains("ASSINATURA", true)) {
                             Spacer(modifier = Modifier.width(6.dp))
-                            Icon(Icons.Default.Star, contentDescription = "Assinatura", tint = Amber400, modifier = Modifier.size(14.dp))
-                        } else if (perfume.userPreference == 1) {
-                            Spacer(modifier = Modifier.width(6.dp))
-                            Icon(Icons.Default.Favorite, contentDescription = "Amo", tint = Rose500, modifier = Modifier.size(14.dp))
-                        } else if (perfume.userPreference == 2) {
-                            Spacer(modifier = Modifier.width(6.dp))
-                            Icon(Icons.Default.ThumbUp, contentDescription = "Gosto", tint = Amber400, modifier = Modifier.size(14.dp))
+                            Icon(
+                                Icons.Default.Star, 
+                                contentDescription = "Assinatura", 
+                                tint = Amber400, 
+                                modifier = Modifier.size(16.dp).clickable { onStarClick?.invoke() }
+                            )
+                        }
+                        when (perfume.userPreference) {
+                            1 -> {
+                                Spacer(modifier = Modifier.width(6.dp))
+                                Icon(Icons.Default.Favorite, contentDescription = "Amo", tint = Rose500, modifier = Modifier.size(15.dp))
+                            }
+                            2 -> {
+                                Spacer(modifier = Modifier.width(6.dp))
+                                Icon(Icons.Default.ThumbUp, contentDescription = "Gosto", tint = Amber400, modifier = Modifier.size(15.dp))
+                            }
+                            3 -> {
+                                Spacer(modifier = Modifier.width(6.dp))
+                                Icon(Icons.Default.Check, contentDescription = "Ok", tint = Emerald400, modifier = Modifier.size(15.dp))
+                            }
+                            4 -> {
+                                Spacer(modifier = Modifier.width(6.dp))
+                                Icon(Icons.Default.ThumbDown, contentDescription = "Não Gosto", tint = Slate500, modifier = Modifier.size(15.dp))
+                            }
                         }
                     }
                     Spacer(modifier = Modifier.height(4.dp))
@@ -424,12 +463,12 @@ fun PerfumeCard(
                         modifier = Modifier
                             .size(32.dp)
                             .clip(CircleShape)
-                            .background(Slate800)
+                            .background(if (isTodaySotd) Amber400 else Slate800)
                     ) {
                         Icon(
                             imageVector = Icons.Default.WbSunny,
-                            contentDescription = "Scent of the Day",
-                            tint = Amber400,
+                            contentDescription = if (isTodaySotd) "Perfume do Dia Atual" else "Definir Perfume do Dia",
+                            tint = if (isTodaySotd) Slate950 else Amber400,
                             modifier = Modifier.size(16.dp)
                         )
                     }

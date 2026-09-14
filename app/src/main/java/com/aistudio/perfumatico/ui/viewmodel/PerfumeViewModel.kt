@@ -58,6 +58,20 @@ class PerfumeViewModel(application: Application) : AndroidViewModel(application)
     val sotdHistory: StateFlow<List<SotdEntity>> = repository.sotdHistory
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), emptyList())
 
+    val todaySotd: StateFlow<SotdEntity?> = sotdHistory.map { list ->
+        val todayStr = java.text.SimpleDateFormat("dd/MM/yyyy", java.util.Locale.getDefault()).format(java.util.Date())
+        list.firstOrNull { it.date == todayStr }
+    }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), null)
+
+    private val _userMessageEvent = MutableSharedFlow<String>()
+    val userMessageEvent = _userMessageEvent.asSharedFlow()
+
+    fun notifyUser(message: String) {
+        viewModelScope.launch {
+            _userMessageEvent.emit(message)
+        }
+    }
+
     val userProfile: StateFlow<UserProfileEntity?> = repository.userProfile
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), null)
 
@@ -322,6 +336,35 @@ class PerfumeViewModel(application: Application) : AndroidViewModel(application)
     
     fun autoFillPerfume(perfumeName: String, onResult: (String) -> Unit) {
         viewModelScope.launch {
+            val trimmed = perfumeName.trim()
+            val localMatch = globalPerfumes.value.firstOrNull { 
+                it.name.equals(trimmed, ignoreCase = true) 
+            } ?: globalPerfumes.value.firstOrNull {
+                it.name.contains(trimmed, ignoreCase = true) || (trimmed.length >= 4 && trimmed.contains(it.name, ignoreCase = true))
+            }
+
+            if (localMatch != null) {
+                val json = org.json.JSONObject().apply {
+                    put("source", "catalog")
+                    put("name", localMatch.name)
+                    put("brand", localMatch.brand)
+                    put("family", localMatch.family)
+                    put("topNotes", localMatch.topNotes)
+                    put("heartNotes", localMatch.heartNotes)
+                    put("baseNotes", localMatch.baseNotes)
+                    put("fixation", localMatch.fixation)
+                    put("projection", localMatch.projection)
+                    put("priceMin", localMatch.priceMin)
+                    put("priceMax", localMatch.priceMax)
+                    put("referenceName", localMatch.referenceName)
+                    put("imageUrl", localMatch.imageUrl)
+                }
+                withContext(Dispatchers.Main) {
+                    onResult(json.toString())
+                }
+                return@launch
+            }
+
             val result = com.aistudio.perfumatico.data.remote.GeminiService.autoFillPerfume(perfumeName)
             withContext(Dispatchers.Main) {
                 onResult(result)
@@ -422,6 +465,7 @@ class PerfumeViewModel(application: Application) : AndroidViewModel(application)
     fun quickAddFromCatalog(catalogPerfume: PerfumeEntity, targetStatus: String) {
         viewModelScope.launch {
             repository.addFromCatalog(catalogPerfume, targetStatus)
+            _userMessageEvent.emit("✨ '${catalogPerfume.name}' adicionado ao seu acervo!")
         }
     }
 
@@ -436,9 +480,75 @@ class PerfumeViewModel(application: Application) : AndroidViewModel(application)
                     perfumeBrand = perfume.brand,
                     perfumeImage = perfume.imageUrl,
                     date = dateStr,
-                    comment = comment
+                    comment = comment.ifBlank { "Usando hoje!" }
                 )
             )
+            _userMessageEvent.emit("☀️ '${perfume.name}' definido como Perfume do Dia!")
+        }
+    }
+
+    fun toggleSignature(perfume: PerfumeEntity) {
+        viewModelScope.launch {
+            val isCurrentSignature = perfume.tags.contains("ASSINATURA", ignoreCase = true)
+            val allUserPerfumes = myPerfumes.value
+            if (isCurrentSignature) {
+                val newTags = perfume.tags.split(",")
+                    .map { it.trim() }
+                    .filter { !it.equals("ASSINATURA", ignoreCase = true) }
+                    .joinToString(", ")
+                    .ifBlank { "DIA A DIA" }
+                val updated = perfume.copy(tags = newTags)
+                repository.savePerfume(updated)
+                if (_selectedPerfume.value?.id == perfume.id) {
+                    _selectedPerfume.value = updated
+                }
+                val profile = userProfile.value
+                if (profile?.signaturePerfumeName.equals(perfume.name, ignoreCase = true)) {
+                    repository.saveProfile(profile!!.copy(signaturePerfumeName = ""))
+                }
+                _userMessageEvent.emit("⭐ '${perfume.name}' removido de Assinatura.")
+            } else {
+                allUserPerfumes.forEach { other ->
+                    if (other.id != perfume.id && other.tags.contains("ASSINATURA", ignoreCase = true)) {
+                        val cleanedTags = other.tags.split(",")
+                            .map { it.trim() }
+                            .filter { !it.equals("ASSINATURA", ignoreCase = true) }
+                            .joinToString(", ")
+                            .ifBlank { "DIA A DIA" }
+                        repository.savePerfume(other.copy(tags = cleanedTags))
+                    }
+                }
+                val tagsList = perfume.tags.split(",").map { it.trim() }.filter { it.isNotBlank() }.toMutableList()
+                if (!tagsList.any { it.equals("ASSINATURA", ignoreCase = true) }) {
+                    tagsList.add("ASSINATURA")
+                }
+                val updated = perfume.copy(tags = tagsList.joinToString(", "))
+                repository.savePerfume(updated)
+                if (_selectedPerfume.value?.id == perfume.id) {
+                    _selectedPerfume.value = updated
+                }
+                val profile = userProfile.value ?: UserProfileEntity(1, "Colecionador", "", "")
+                repository.saveProfile(profile.copy(signaturePerfumeName = perfume.name))
+                _userMessageEvent.emit("⭐ '${perfume.name}' definido como seu Perfume Assinatura!")
+            }
+        }
+    }
+
+    fun setUserPreference(perfume: PerfumeEntity, preference: Int) {
+        viewModelScope.launch {
+            val updated = perfume.copy(userPreference = preference)
+            repository.savePerfume(updated)
+            if (_selectedPerfume.value?.id == perfume.id) {
+                _selectedPerfume.value = updated
+            }
+            val prefText = when (preference) {
+                1 -> "Amei ❤️"
+                2 -> "Gostei 👍"
+                3 -> "Ok 👌"
+                4 -> "Não curti 👎"
+                else -> "Avaliação removida"
+            }
+            _userMessageEvent.emit("Marcado como: $prefText")
         }
     }
 

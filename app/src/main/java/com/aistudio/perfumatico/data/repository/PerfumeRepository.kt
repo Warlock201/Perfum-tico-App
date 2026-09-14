@@ -144,7 +144,7 @@ class PerfumeRepository(private val context: Context) {
                             status = "Catálogo",
                             fixation = raw.longevidade ?: 7,
                             projection = raw.projeção ?: 7,
-                            tags = "DIA A DIA, ASSINATURA",
+                            tags = "DIA A DIA",
                             bottlesJson = "[\"100ml\"]",
                             isCustom = false
                         )
@@ -245,6 +245,22 @@ class PerfumeRepository(private val context: Context) {
                     }
                 }
             }
+
+            // Clean accidental ASSINATURA tags seeded into user collection
+            val cleanTagsList = existingPerfumes.filter { p ->
+                p.tags.contains("ASSINATURA", ignoreCase = true) &&
+                (profile?.signaturePerfumeName.isNullOrBlank() || !p.name.equals(profile?.signaturePerfumeName, ignoreCase = true))
+            }
+            if (cleanTagsList.isNotEmpty()) {
+                val cleaned = cleanTagsList.map { p ->
+                    val newTags = p.tags.split(",")
+                        .map { it.trim() }
+                        .filter { !it.equals("ASSINATURA", ignoreCase = true) }
+                        .joinToString(", ")
+                    p.copy(tags = newTags.ifBlank { "DIA A DIA" })
+                }
+                perfumeDao.insertAll(cleaned)
+            }
         } catch (e: Exception) {
             e.printStackTrace()
         }
@@ -306,10 +322,18 @@ class PerfumeRepository(private val context: Context) {
 
     // Quick add from catalog to collection
     suspend fun addFromCatalog(catalogPerfume: PerfumeEntity, targetStatus: String) = withContext(Dispatchers.IO) {
+        val cleanTags = catalogPerfume.tags.split(",")
+            .map { it.trim() }
+            .filter { !it.equals("ASSINATURA", ignoreCase = true) }
+            .joinToString(", ")
+            .ifBlank { "DIA A DIA" }
+
         val userCopy = catalogPerfume.copy(
             id = "my_${UUID.randomUUID()}",
             status = targetStatus,
+            tags = cleanTags,
             isCustom = true,
+            markedNewAt = System.currentTimeMillis(),
             createdAt = System.currentTimeMillis()
         )
         perfumeDao.insertOrUpdate(userCopy)

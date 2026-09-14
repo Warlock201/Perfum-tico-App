@@ -61,6 +61,8 @@ fun PerfumeDetailDialog(
         }
     ) }
     var userPreference by remember { mutableIntStateOf(perfume.userPreference) }
+    val todaySotd by viewModel.todaySotd.collectAsState()
+    val isTodaySotd = todaySotd?.perfumeId == perfume.id
     
     val noteImages by viewModel.noteImages.collectAsState()
     var editingNoteName by remember { mutableStateOf<String?>(null) }
@@ -630,9 +632,111 @@ fun PerfumeDetailDialog(
 
                 val isCurrentlyNew = perfume.markedNewAt > 0L && (System.currentTimeMillis() - perfume.markedNewAt) < 14L * 24 * 60 * 60 * 1000
                 var markedNewToggle by remember { mutableStateOf(isCurrentlyNew) }
+                var isSignature by remember { mutableStateOf(currentTags.any { it.equals("ASSINATURA", ignoreCase = true) }) }
+
+                // Marcar como Novo Switch Card
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .background(if (markedNewToggle) Emerald500.copy(alpha = 0.15f) else Slate800, RoundedCornerShape(12.dp))
+                        .border(1.dp, if (markedNewToggle) Emerald500 else Slate700, RoundedCornerShape(12.dp))
+                        .padding(horizontal = 14.dp, vertical = 10.dp),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        Icon(
+                            imageVector = Icons.Default.NewReleases,
+                            contentDescription = null,
+                            tint = if (markedNewToggle) Emerald500 else Slate400,
+                            modifier = Modifier.size(20.dp)
+                        )
+                        Spacer(modifier = Modifier.width(10.dp))
+                        Column {
+                            Text(
+                                "Recém-Adquirido (Novo)",
+                                color = if (markedNewToggle) Emerald500 else Slate200,
+                                fontSize = 13.sp,
+                                fontWeight = FontWeight.Bold
+                            )
+                            Text(
+                                "Destacar como novidade na coleção",
+                                color = Slate400,
+                                fontSize = 10.sp
+                            )
+                        }
+                    }
+                    Switch(
+                        checked = markedNewToggle,
+                        onCheckedChange = { markedNewToggle = it },
+                        colors = SwitchDefaults.colors(
+                            checkedThumbColor = Emerald500,
+                            checkedTrackColor = Emerald500.copy(alpha = 0.3f),
+                            uncheckedThumbColor = Slate400,
+                            uncheckedTrackColor = Slate700
+                        )
+                    )
+                }
+
+                Spacer(modifier = Modifier.height(10.dp))
+
+                // Perfume Assinatura Switch Card
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .background(if (isSignature) Amber400.copy(alpha = 0.15f) else Slate800, RoundedCornerShape(12.dp))
+                        .border(1.dp, if (isSignature) Amber400 else Slate700, RoundedCornerShape(12.dp))
+                        .padding(horizontal = 14.dp, vertical = 10.dp),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        Icon(
+                            imageVector = Icons.Default.Star,
+                            contentDescription = null,
+                            tint = if (isSignature) Amber400 else Slate400,
+                            modifier = Modifier.size(20.dp)
+                        )
+                        Spacer(modifier = Modifier.width(10.dp))
+                        Column {
+                            Text(
+                                "Perfume Assinatura ⭐",
+                                color = if (isSignature) Amber400 else Slate200,
+                                fontSize = 13.sp,
+                                fontWeight = FontWeight.Bold
+                            )
+                            Text(
+                                "Sua fragrância marca registrada",
+                                color = Slate400,
+                                fontSize = 10.sp
+                            )
+                        }
+                    }
+                    Switch(
+                        checked = isSignature,
+                        onCheckedChange = { checked ->
+                            isSignature = checked
+                            if (checked) {
+                                if (!currentTags.any { it.equals("ASSINATURA", ignoreCase = true) }) {
+                                    currentTags.add("ASSINATURA")
+                                }
+                            } else {
+                                currentTags.removeAll { it.equals("ASSINATURA", ignoreCase = true) }
+                            }
+                        },
+                        colors = SwitchDefaults.colors(
+                            checkedThumbColor = Amber400,
+                            checkedTrackColor = Amber400.copy(alpha = 0.3f),
+                            uncheckedThumbColor = Slate400,
+                            uncheckedTrackColor = Slate700
+                        )
+                    )
+                }
+
+                Spacer(modifier = Modifier.height(10.dp))
 
                 Row(
-                    modifier = Modifier.fillMaxWidth().padding(vertical = 6.dp),
+                    modifier = Modifier.fillMaxWidth().padding(vertical = 4.dp),
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
@@ -651,23 +755,44 @@ fun PerfumeDetailDialog(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.spacedBy(10.dp)
                 ) {
-                    OutlinedButton(
-                        onClick = {
-                            viewModel.registerSotd(perfume, "Fragrância do dia!")
-                            onDismiss()
-                        },
-                        colors = ButtonDefaults.outlinedButtonColors(contentColor = Amber400),
-                        border = androidx.compose.foundation.BorderStroke(1.dp, Amber400),
-                        shape = RoundedCornerShape(12.dp),
-                        modifier = Modifier.weight(1f)
-                    ) {
-                        Icon(imageVector = Icons.Default.WbSunny, contentDescription = null, modifier = Modifier.size(16.dp))
-                        Spacer(modifier = Modifier.width(6.dp))
-                        Text("Usar Hoje", fontWeight = FontWeight.Bold, fontSize = 13.sp)
+                    if (isTodaySotd) {
+                        Button(
+                            onClick = {
+                                viewModel.registerSotd(perfume, "Reafirmado como fragrância de hoje!")
+                                onDismiss()
+                            },
+                            colors = ButtonDefaults.buttonColors(containerColor = Amber400, contentColor = Slate950),
+                            shape = RoundedCornerShape(12.dp),
+                            modifier = Modifier.weight(1f)
+                        ) {
+                            Icon(imageVector = Icons.Default.WbSunny, contentDescription = null, modifier = Modifier.size(16.dp))
+                            Spacer(modifier = Modifier.width(6.dp))
+                            Text("Usando Hoje ☀️", fontWeight = FontWeight.Black, fontSize = 13.sp)
+                        }
+                    } else {
+                        OutlinedButton(
+                            onClick = {
+                                viewModel.registerSotd(perfume, "Fragrância do dia!")
+                                onDismiss()
+                            },
+                            colors = ButtonDefaults.outlinedButtonColors(contentColor = Amber400),
+                            border = androidx.compose.foundation.BorderStroke(1.dp, Amber400),
+                            shape = RoundedCornerShape(12.dp),
+                            modifier = Modifier.weight(1f)
+                        ) {
+                            Icon(imageVector = Icons.Default.WbSunny, contentDescription = null, modifier = Modifier.size(16.dp))
+                            Spacer(modifier = Modifier.width(6.dp))
+                            Text("Usar Hoje ☀️", fontWeight = FontWeight.Bold, fontSize = 13.sp)
+                        }
                     }
 
                     Button(
                         onClick = {
+                            val newMarkedNewAt = if (markedNewToggle) {
+                                if (perfume.markedNewAt > 0L) perfume.markedNewAt else System.currentTimeMillis()
+                            } else {
+                                0L
+                            }
                             val updated = perfume.copy(
                                 status = status,
                                 userPreference = userPreference,
@@ -675,7 +800,8 @@ fun PerfumeDetailDialog(
                                 projection = projection.toInt(),
                                 tags = currentTags.joinToString(", "),
                                 personalNotes = personalNotes.trim(),
-                                bottlesJson = "[{\"size\":\"${bottleSize.trim()}\", \"level\":${bottleLevel.toInt()}}]"
+                                bottlesJson = "[{\"size\":\"${bottleSize.trim()}\", \"level\":${bottleLevel.toInt()}}]",
+                                markedNewAt = newMarkedNewAt
                             )
                             viewModel.savePerfume(updated)
                             onDismiss()

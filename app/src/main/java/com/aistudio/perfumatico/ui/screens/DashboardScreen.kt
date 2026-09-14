@@ -33,6 +33,7 @@ fun DashboardScreen(
     modifier: Modifier = Modifier
 ) {
     val perfumes by viewModel.myPerfumes.collectAsState()
+    val todaySotd by viewModel.todaySotd.collectAsState()
 
     val currencyFormat = NumberFormat.getCurrencyInstance(java.util.Locale.forLanguageTag("pt-BR"))
 
@@ -76,6 +77,26 @@ fun DashboardScreen(
             .testTag("dashboard_screen"),
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
+        if (todaySotd != null) {
+            val sotdPerfume = perfumes.find { it.id == todaySotd!!.perfumeId }
+            if (sotdPerfume != null) {
+                Text(
+                    text = "☀️ PERFUME DO DIA",
+                    color = Amber400,
+                    fontSize = 11.sp,
+                    fontWeight = FontWeight.Black,
+                    letterSpacing = 1.sp
+                )
+                com.aistudio.perfumatico.ui.components.PerfumeCard(
+                    perfume = sotdPerfume,
+                    onClick = { viewModel.openPerfumeDetails(sotdPerfume) },
+                    isTodaySotd = true,
+                    onStarClick = { viewModel.toggleSignature(sotdPerfume) }
+                )
+                Spacer(modifier = Modifier.height(4.dp))
+            }
+        }
+
         Text(
             text = "VISÃO GERAL DO ACERVO",
             color = Slate400,

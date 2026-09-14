@@ -38,6 +38,7 @@ fun MyPerfumesScreen(
     modifier: Modifier = Modifier
 ) {
     val perfumes by viewModel.myPerfumes.collectAsState()
+    val todaySotd by viewModel.todaySotd.collectAsState()
     val currentSubTab by viewModel.collectionSubTab.collectAsState()
     val searchQuery by viewModel.searchQuery.collectAsState()
     val selectedTag by viewModel.selectedTagFilter.collectAsState()
@@ -346,10 +347,13 @@ fun MyPerfumesScreen(
                 contentPadding = PaddingValues(bottom = 24.dp)
             ) {
                 items(filteredList, key = { it.id }) { perfume ->
+                    val isTodaySotd = todaySotd?.perfumeId == perfume.id
                     PerfumeCard(
                         perfume = perfume,
                         onClick = { viewModel.openPerfumeDetails(perfume) },
-                        onSotdClick = { viewModel.registerSotd(perfume, "Fragrância do dia!") }
+                        onSotdClick = { viewModel.registerSotd(perfume, "Fragrância do dia!") },
+                        isTodaySotd = isTodaySotd,
+                        onStarClick = { viewModel.toggleSignature(perfume) }
                     )
                 }
             }

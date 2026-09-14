@@ -1,6 +1,6 @@
 {
-  "versionCode": 23,
-  "versionName": "3.2",
-  "apkUrl": "https://raw.githubusercontent.com/Warlock201/Perfum-tico-App/main/releases/perfumatico-v3.2.apk",
-  "releaseNotes": "Versão 3.2: Catálogo expandido para 775 perfumes! Integração completa da base personalizada: marcas In The Box (16 fragrâncias), Mary Kay (15 fragrâncias), The Blend, coleções completas Natura Homem e Humor, Aurora Scents, e mais perfumes árabes e importados."
+  "versionCode": 26,
+  "versionName": "3.5",
+  "apkUrl": "https://raw.githubusercontent.com/Warlock201/Perfum-tico-App/main/releases/perfumatico-v3.5.apk",
+  "releaseNotes": "Versão 3.5: Correção da visualização do Perfume do Dia. Agora o sistema reconhece a data corretamente (ignorando problemas de fuso-horário) e exibe o perfume em destaque logo no topo da aba Dashboard, além da aba de Meus Perfumes!"
 }
