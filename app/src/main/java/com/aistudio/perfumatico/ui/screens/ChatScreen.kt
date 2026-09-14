@@ -14,7 +14,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.Send
 import androidx.compose.material.icons.filled.AutoAwesome
-import androidx.compose.material.icons.filled.Key
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -25,7 +24,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.aistudio.perfumatico.ui.components.ApiKeyConfigDialog
 import com.aistudio.perfumatico.ui.theme.*
 import com.aistudio.perfumatico.ui.viewmodel.ChatViewModel
 import kotlinx.coroutines.launch
@@ -35,7 +33,6 @@ fun ChatScreen(viewModel: ChatViewModel) {
     val chatHistory by viewModel.chatHistory.collectAsState()
     val isChatLoading by viewModel.isChatLoading.collectAsState()
     var messageText by remember { mutableStateOf("") }
-    var showKeyDialog by remember { mutableStateOf(false) }
     val listState = rememberLazyListState()
     val focusManager = LocalFocusManager.current
     LaunchedEffect(Unit) {
@@ -91,16 +88,6 @@ fun ChatScreen(viewModel: ChatViewModel) {
                                 fontWeight = FontWeight.Medium,
                                 textAlign = TextAlign.Center
                             )
-                            OutlinedButton(
-                                onClick = { showKeyDialog = true },
-                                colors = ButtonDefaults.outlinedButtonColors(contentColor = Slate300),
-                                border = BorderStroke(1.dp, Slate800),
-                                shape = RoundedCornerShape(12.dp)
-                            ) {
-                                Icon(Icons.Default.Key, contentDescription = null, modifier = Modifier.size(15.dp), tint = Amber400)
-                                Spacer(modifier = Modifier.width(6.dp))
-                                Text("Configurar Chave Gemini IA", fontSize = 12.sp)
-                            }
                         }
                     }
                 }
@@ -136,20 +123,6 @@ fun ChatScreen(viewModel: ChatViewModel) {
                                 fontSize = 14.sp,
                                 lineHeight = 20.sp
                             )
-                            
-                            if (!isUser && (cleanText.contains("Chave") || cleanText.contains("⚠️") || cleanText.contains("API_KEY"))) {
-                                Spacer(modifier = Modifier.height(12.dp))
-                                Button(
-                                    onClick = { showKeyDialog = true },
-                                    colors = ButtonDefaults.buttonColors(containerColor = Amber400, contentColor = Slate950),
-                                    shape = RoundedCornerShape(12.dp),
-                                    modifier = Modifier.fillMaxWidth()
-                                ) {
-                                    Icon(Icons.Default.Key, contentDescription = null, modifier = Modifier.size(16.dp))
-                                    Spacer(modifier = Modifier.width(6.dp))
-                                    Text("Configurar Chave Gemini", fontWeight = FontWeight.Bold, fontSize = 13.sp)
-                                }
-                            }
 
                             if (match != null && !isUser) {
                                 val perfumeName = match.groupValues[1].trim()
@@ -251,10 +224,6 @@ fun ChatScreen(viewModel: ChatViewModel) {
                     modifier = Modifier.size(20.dp)
                 )
             }
-        }
-
-        if (showKeyDialog) {
-            ApiKeyConfigDialog(onDismiss = { showKeyDialog = false })
         }
     }
 }

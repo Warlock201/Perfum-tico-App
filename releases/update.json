@@ -1,6 +1,6 @@
 {
-  "versionCode": 17,
-  "versionName": "2.6",
-  "apkUrl": "https://raw.githubusercontent.com/Warlock201/Perfum-tico-App/main/releases/perfumatico-v2.6.apk",
-  "releaseNotes": "Versão 2.6: Suporte oficial para as novas chaves do Gemini (iniciadas com AQ. ou AIza) e atualização para o modelo mais recente gemini-3.8-flash."
+  "versionCode": 18,
+  "versionName": "2.7",
+  "apkUrl": "https://raw.githubusercontent.com/Warlock201/Perfum-tico-App/main/releases/perfumatico-v2.7.apk",
+  "releaseNotes": "Versão 2.7: Remoção da tela forçada de configuração de chaves dentro do app. A IA agora usa diretamente e silenciosamente a chave armazenada no painel de Segredos (Secrets)."
 }

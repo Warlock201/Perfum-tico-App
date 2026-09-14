@@ -32,7 +32,6 @@ import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import android.util.Log
 import com.aistudio.perfumatico.R
-import com.aistudio.perfumatico.ui.components.ApiKeyConfigDialog
 import com.aistudio.perfumatico.ui.theme.*
 import com.aistudio.perfumatico.ui.viewmodel.PerfumeViewModel
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -64,7 +63,6 @@ fun ProfileSotdDialog(
     var password by remember { mutableStateOf("") }
     var errorMessage by remember { mutableStateOf<String?>(null) }
     var isLoading by remember { mutableStateOf(false) }
-    var showApiKeyDialog by remember { mutableStateOf(false) }
 
     val clipboardManager = androidx.compose.ui.platform.LocalClipboardManager.current
     val sha1Fingerprint = "39:24:B3:A6:91:F4:A5:87:39:01:99:60:92:F1:C8:F5:55:E0:60:4A"
@@ -281,18 +279,6 @@ fun ProfileSotdDialog(
                             ),
                             shape = RoundedCornerShape(12.dp)
                         )
-
-                        OutlinedButton(
-                            onClick = { showApiKeyDialog = true },
-                            modifier = Modifier.fillMaxWidth().height(48.dp),
-                            colors = ButtonDefaults.outlinedButtonColors(containerColor = Slate950, contentColor = Amber400),
-                            border = BorderStroke(1.dp, Slate800),
-                            shape = RoundedCornerShape(12.dp)
-                        ) {
-                            Icon(Icons.Default.Key, contentDescription = null, modifier = Modifier.size(16.dp), tint = Amber400)
-                            Spacer(modifier = Modifier.width(8.dp))
-                            Text("CONFIGURAR CHAVE GEMINI IA", fontSize = 12.sp, fontWeight = FontWeight.Bold)
-                        }
 
                         Spacer(modifier = Modifier.weight(1f))
 
@@ -750,9 +736,5 @@ fun ProfileSotdDialog(
                 }
             }
         }
-    }
-
-    if (showApiKeyDialog) {
-        ApiKeyConfigDialog(onDismiss = { showApiKeyDialog = false })
     }
 }

@@ -54,7 +54,6 @@ class MainActivity : ComponentActivity() {
             window.setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE)
         }
         enableEdgeToEdge()
-        com.aistudio.perfumatico.data.remote.GeminiService.init(this)
         
         val imageLoader = ImageLoader.Builder(this)
             .okHttpClient {

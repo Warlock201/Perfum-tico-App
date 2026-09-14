@@ -1,8 +1,6 @@
 package com.aistudio.perfumatico.data.remote
 
-import android.content.Context
 import com.aistudio.perfumatico.BuildConfig
-import com.aistudio.perfumatico.data.local.ApiKeyManager
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.decodeFromString
@@ -103,14 +101,10 @@ object RetrofitClient {
 
 object GeminiService {
 
-    private var appContext: Context? = null
-
-    fun init(context: Context) {
-        appContext = context.applicationContext
-    }
-
     fun getApiKey(): String {
-        return ApiKeyManager.getEffectiveApiKey(appContext)
+        val envNew = BuildConfig.GEMINI_API_KEY_NEW.trim()
+        if (envNew.isNotBlank()) return envNew
+        return BuildConfig.GEMINI_API_KEY.trim()
     }
 
     private val ACTIVE_MODELS = listOf("gemini-3.8-flash", "gemini-2.5-flash", "gemini-3.5-flash", "gemini-flash-latest")
@@ -263,9 +257,9 @@ object GeminiService {
             val msg = e.message ?: ""
             val userFriendlyError = when {
                 msg.contains("API_KEY_INVALID", ignoreCase = true) || msg.contains("API key not valid", ignoreCase = true) ->
-                    "⚠️ Chave de API do Gemini inválida.\n\nA chave atual não foi reconhecida pelo Google.\n\n👉 Toque no ícone de chave 🔑 no topo da tela para inserir sua chave correta do Google AI Studio (aistudio.google.com/app/apikey)."
+                    "⚠️ Chave de API do Gemini inválida.\n\nA chave atual não foi reconhecida pelo Google.\n\n👉 Configure sua chave corretamente nas variáveis de ambiente (Secrets) do projeto (GEMINI_API_KEY_NEW)."
                 msg.contains("API_KEY_SERVICE_BLOCKED", ignoreCase = true) ->
-                    "⚠️ Chave bloqueada para a API Gemini (Generative Language API).\n\n👉 Toque no ícone de chave 🔑 no topo para configurar uma chave nova gerada no Google AI Studio."
+                    "⚠️ Chave bloqueada para a API Gemini (Generative Language API)."
                 msg.contains("RESOURCE_EXHAUSTED", ignoreCase = true) || msg.contains("429") ->
                     "⚠️ Limite temporário de requisições do Gemini atingido. Aguarde alguns instantes e tente novamente."
                 else ->
