@@ -1,6 +1,6 @@
 {
-  "versionCode": 6,
-  "versionName": "1.5",
-  "apkUrl": "https://raw.githubusercontent.com/Warlock201/Perfum-tico-App/main/releases/perfumatico-v1.5.apk",
-  "releaseNotes": "Versão 1.5: Fix da API do Gemini (correção de histórico e chave de acesso) e resolução de warnings do sistema."
+  "versionCode": 8,
+  "versionName": "1.7",
+  "apkUrl": "https://raw.githubusercontent.com/Warlock201/Perfum-tico-App/main/releases/perfumatico-v1.7.apk",
+  "releaseNotes": "Versão 1.7: Correção na configuração de assinatura."
 }
