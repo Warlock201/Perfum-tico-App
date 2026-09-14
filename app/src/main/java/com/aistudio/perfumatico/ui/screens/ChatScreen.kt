@@ -100,59 +100,61 @@ fun ChatScreen(viewModel: ChatViewModel) {
                 val match = askRegex.find(rawText)
                 val cleanText = rawText.replace(askRegex, "").trim()
 
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = if (isUser) Arrangement.End else Arrangement.Start
-                ) {
-                    Box(
-                        modifier = Modifier
-                            .fillMaxWidth(0.85f)
-                            .clip(RoundedCornerShape(
-                                topStart = 16.dp,
-                                topEnd = 16.dp,
-                                bottomStart = if (isUser) 16.dp else 4.dp,
-                                bottomEnd = if (isUser) 4.dp else 16.dp
-                            ))
-                            .background(if (isUser) Amber400 else Slate800)
-                            .padding(16.dp)
+                if (isUser || cleanText.isNotEmpty()) {
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = if (isUser) Arrangement.End else Arrangement.Start
                     ) {
-                        Column {
-                            Text(
-                                text = cleanText,
-                                color = if (isUser) Slate950 else Slate100,
-                                fontSize = 14.sp,
-                                lineHeight = 20.sp
-                            )
+                        Box(
+                            modifier = Modifier
+                                .fillMaxWidth(0.85f)
+                                .clip(RoundedCornerShape(
+                                    topStart = 16.dp,
+                                    topEnd = 16.dp,
+                                    bottomStart = if (isUser) 16.dp else 4.dp,
+                                    bottomEnd = if (isUser) 4.dp else 16.dp
+                                ))
+                                .background(if (isUser) Amber400 else Slate800)
+                                .padding(16.dp)
+                        ) {
+                            Column {
+                                Text(
+                                    text = cleanText,
+                                    color = if (isUser) Slate950 else Slate100,
+                                    fontSize = 14.sp,
+                                    lineHeight = 20.sp
+                                )
 
-                            if (match != null && !isUser) {
-                                val perfumeName = match.groupValues[1].trim()
-                                val perfumeBrand = match.groupValues[2].trim()
-                                
-                                Spacer(modifier = Modifier.height(12.dp))
-                                Text("Onde deseja guardar '$perfumeName'?", color = Slate400, fontSize = 12.sp, fontWeight = FontWeight.Bold)
-                                Spacer(modifier = Modifier.height(8.dp))
-                                
-                                Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                                    Button(
-                                        onClick = { viewModel.addPerfumeFromUI(perfumeName, perfumeBrand, "Já possuo", index) },
-                                        colors = ButtonDefaults.buttonColors(containerColor = Amber400, contentColor = Slate950),
-                                        modifier = Modifier.fillMaxWidth(),
-                                        shape = RoundedCornerShape(12.dp)
-                                    ) { Text("Já possuo (ou A Caminho)", fontWeight = FontWeight.Bold) }
+                                if (match != null && !isUser) {
+                                    val perfumeName = match.groupValues[1].trim()
+                                    val perfumeBrand = match.groupValues[2].trim()
                                     
-                                    Button(
-                                        onClick = { viewModel.addPerfumeFromUI(perfumeName, perfumeBrand, "Quero ter", index) },
-                                        colors = ButtonDefaults.buttonColors(containerColor = Slate700, contentColor = Slate100),
-                                        modifier = Modifier.fillMaxWidth(),
-                                        shape = RoundedCornerShape(12.dp)
-                                    ) { Text("Quero ter (Próximos)", fontWeight = FontWeight.Bold) }
+                                    Spacer(modifier = Modifier.height(12.dp))
+                                    Text("Onde deseja guardar '$perfumeName'?", color = Slate400, fontSize = 12.sp, fontWeight = FontWeight.Bold)
+                                    Spacer(modifier = Modifier.height(8.dp))
                                     
-                                    Button(
-                                        onClick = { viewModel.addPerfumeFromUI(perfumeName, perfumeBrand, "Desejo", index) },
-                                        colors = ButtonDefaults.buttonColors(containerColor = Slate700, contentColor = Slate100),
-                                        modifier = Modifier.fillMaxWidth(),
-                                        shape = RoundedCornerShape(12.dp)
-                                    ) { Text("Desejo", fontWeight = FontWeight.Bold) }
+                                    Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                                        Button(
+                                            onClick = { viewModel.addPerfumeFromUI(perfumeName, perfumeBrand, "Já possuo", index) },
+                                            colors = ButtonDefaults.buttonColors(containerColor = Amber400, contentColor = Slate950),
+                                            modifier = Modifier.fillMaxWidth(),
+                                            shape = RoundedCornerShape(12.dp)
+                                        ) { Text("Já possuo (ou A Caminho)", fontWeight = FontWeight.Bold) }
+                                        
+                                        Button(
+                                            onClick = { viewModel.addPerfumeFromUI(perfumeName, perfumeBrand, "Quero ter", index) },
+                                            colors = ButtonDefaults.buttonColors(containerColor = Slate700, contentColor = Slate100),
+                                            modifier = Modifier.fillMaxWidth(),
+                                            shape = RoundedCornerShape(12.dp)
+                                        ) { Text("Quero ter (Próximos)", fontWeight = FontWeight.Bold) }
+                                        
+                                        Button(
+                                            onClick = { viewModel.addPerfumeFromUI(perfumeName, perfumeBrand, "Desejo", index) },
+                                            colors = ButtonDefaults.buttonColors(containerColor = Slate700, contentColor = Slate100),
+                                            modifier = Modifier.fillMaxWidth(),
+                                            shape = RoundedCornerShape(12.dp)
+                                        ) { Text("Desejo", fontWeight = FontWeight.Bold) }
+                                    }
                                 }
                             }
                         }

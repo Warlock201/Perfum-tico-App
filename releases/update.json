@@ -1,6 +1,6 @@
 {
-  "versionCode": 20,
-  "versionName": "2.9",
-  "apkUrl": "https://raw.githubusercontent.com/Warlock201/Perfum-tico-App/main/releases/perfumatico-v2.9.apk",
-  "releaseNotes": "Versão 2.9: Proteção e ofuscação da chave de API no código contra vazamentos no GitHub, com funcionamento garantido do Sommelier e do Oráculo."
+  "versionCode": 23,
+  "versionName": "3.2",
+  "apkUrl": "https://raw.githubusercontent.com/Warlock201/Perfum-tico-App/main/releases/perfumatico-v3.2.apk",
+  "releaseNotes": "Versão 3.2: Catálogo expandido para 775 perfumes! Integração completa da base personalizada: marcas In The Box (16 fragrâncias), Mary Kay (15 fragrâncias), The Blend, coleções completas Natura Homem e Humor, Aurora Scents, e mais perfumes árabes e importados."
 }

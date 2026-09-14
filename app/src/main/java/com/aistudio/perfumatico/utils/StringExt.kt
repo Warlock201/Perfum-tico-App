@@ -2,6 +2,7 @@ package com.aistudio.perfumatico.utils
 
 import android.content.Context
 import java.text.Normalizer
+import com.aistudio.perfumatico.data.local.PerfumeEntity
 
 fun String.cleanNotePrefix(): String {
     return this.trim()
@@ -146,4 +147,41 @@ fun String.getNoteImageUrl(): String {
 fun Context.getNoteDrawableResId(noteName: String): Int {
     val norm = noteName.normalizeNoteName()
     return this.resources.getIdentifier("note_$norm", "drawable", this.packageName)
+}
+
+fun String.unaccentAndNormalize(): String {
+    val normalized = Normalizer.normalize(this, Normalizer.Form.NFD)
+    return normalized.replace(Regex("\\p{InCombiningDiacriticalMarks}+"), "")
+        .lowercase()
+        .trim()
+}
+
+fun PerfumeEntity.matchesSearch(query: String): Boolean {
+    if (query.isBlank()) return true
+    val cleanQuery = query.unaccentAndNormalize()
+    val targetText = "$name $brand $family $notes $referenceName $tags".unaccentAndNormalize()
+    
+    // Direct match
+    if (targetText.contains(cleanQuery)) return true
+    
+    // Common brand alias and typo replacements (e.g. "lataffa" -> "lattafa")
+    val aliasQuery = when {
+        cleanQuery.contains("lataffa") -> cleanQuery.replace("lataffa", "lattafa")
+        cleanQuery.contains("lattafa") -> cleanQuery.replace("lattafa", "lataffa")
+        cleanQuery.contains("boticario") -> cleanQuery.replace("boticario", "o boticario")
+        cleanQuery.contains("rabane") -> cleanQuery.replace("rabane", "rabanne")
+        else -> null
+    }
+    if (aliasQuery != null && targetText.contains(aliasQuery)) return true
+    
+    // Multi-word search
+    val words = cleanQuery.split(Regex("\\s+")).filter { it.isNotBlank() }
+    if (words.size > 1) {
+        val allMatch = words.all { w ->
+            targetText.contains(w) || (w == "lataffa" && targetText.contains("lattafa"))
+        }
+        if (allMatch) return true
+    }
+    
+    return false
 }

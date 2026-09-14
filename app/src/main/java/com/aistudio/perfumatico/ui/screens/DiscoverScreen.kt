@@ -26,6 +26,7 @@ import com.aistudio.perfumatico.data.model.AVAILABLE_FAMILIES
 import com.aistudio.perfumatico.ui.components.PerfumeCard
 import com.aistudio.perfumatico.ui.theme.*
 import com.aistudio.perfumatico.ui.viewmodel.PerfumeViewModel
+import com.aistudio.perfumatico.utils.matchesSearch
 
 @Composable
 fun DiscoverScreen(
@@ -84,10 +85,7 @@ fun DiscoverScreen(
                 val matchesNotes = selectedNotes.isEmpty() || selectedNotes.any { note ->
                     p.notes.contains(note, ignoreCase = true)
                 }
-                val matchesSearch = manualSearchQuery.isBlank() ||
-                        p.name.contains(manualSearchQuery, ignoreCase = true) ||
-                        p.brand.contains(manualSearchQuery, ignoreCase = true) ||
-                        p.notes.contains(manualSearchQuery, ignoreCase = true)
+                val matchesSearch = p.matchesSearch(manualSearchQuery)
 
                 matchesFamily && matchesNotes && matchesSearch
             }.take(10)

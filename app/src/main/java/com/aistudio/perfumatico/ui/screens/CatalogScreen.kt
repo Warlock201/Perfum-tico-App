@@ -1,6 +1,8 @@
 package com.aistudio.perfumatico.ui.screens
 import androidx.compose.ui.platform.LocalContext
 import com.aistudio.perfumatico.utils.getNoteDrawableResId
+import com.aistudio.perfumatico.utils.matchesSearch
+import com.aistudio.perfumatico.utils.unaccentAndNormalize
 import androidx.compose.ui.res.painterResource
 import androidx.compose.foundation.Image
 import androidx.compose.ui.text.style.TextAlign
@@ -61,10 +63,7 @@ fun CatalogScreen(
         }
         if (searchQuery.isNotBlank()) {
             result = result.filter { p ->
-                p.name.contains(searchQuery, ignoreCase = true) ||
-                        p.brand.contains(searchQuery, ignoreCase = true) ||
-                        p.family.contains(searchQuery, ignoreCase = true) ||
-                        p.notes.contains(searchQuery, ignoreCase = true)
+                p.matchesSearch(searchQuery)
             }
         }
         result
@@ -73,8 +72,9 @@ fun CatalogScreen(
     val filteredNotes = remember(olfactoryNotes, searchQuery) {
         if (searchQuery.isBlank()) olfactoryNotes
         else {
+            val q = searchQuery.unaccentAndNormalize()
             olfactoryNotes.filter { n ->
-                n.nome.contains(searchQuery, ignoreCase = true)
+                n.nome.unaccentAndNormalize().contains(q)
             }
         }
     }

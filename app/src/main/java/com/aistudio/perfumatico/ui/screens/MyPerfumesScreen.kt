@@ -28,6 +28,7 @@ import com.aistudio.perfumatico.ui.components.PerfumeCard
 import com.aistudio.perfumatico.ui.theme.*
 import com.aistudio.perfumatico.ui.viewmodel.CollectionSubTab
 import com.aistudio.perfumatico.ui.viewmodel.MainTab
+import com.aistudio.perfumatico.utils.matchesSearch
 import com.aistudio.perfumatico.ui.viewmodel.PerfumeViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -52,10 +53,7 @@ fun MyPerfumesScreen(
                 (currentSubTab == CollectionSubTab.WANT && (p.status == "Quero ter" || p.status == "Pipeline")) ||
                 (currentSubTab == CollectionSubTab.DREAM && (p.status == "Desejo" || p.status == "Desejos" || p.status == "Wishlist"))
 
-            val matchesSearch = searchQuery.isBlank() ||
-                    p.name.contains(searchQuery, ignoreCase = true) ||
-                    p.brand.contains(searchQuery, ignoreCase = true) ||
-                    p.notes.contains(searchQuery, ignoreCase = true)
+            val matchesSearch = p.matchesSearch(searchQuery)
 
             val matchesTag = selectedTag == null || p.tags.contains(selectedTag!!, ignoreCase = true)
             val matchesFamily = selectedFamily == null || p.family.equals(selectedFamily, ignoreCase = true)

@@ -121,7 +121,11 @@ object GeminiService {
         return ""
     }
 
-    private val ACTIVE_MODELS = listOf("gemini-3.5-flash", "gemini-flash-latest")
+    private val ACTIVE_MODELS = listOf(
+        "gemini-flash-lite-latest",
+        "gemini-3.1-flash-lite",
+        "gemini-3.5-flash-lite"
+    )
 
     private suspend fun <T> executeWithFallback(
         models: List<String> = ACTIVE_MODELS,
