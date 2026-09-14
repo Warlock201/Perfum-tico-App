@@ -141,6 +141,7 @@ class FirebaseManager private constructor(private val context: Context) {
             "bottlesJson" to perfume.bottlesJson,
             "macerationStart" to perfume.macerationStart,
             "isCustom" to perfume.isCustom,
+            "markedNewAt" to perfume.markedNewAt,
             "updatedAt" to System.currentTimeMillis()
         )
 
@@ -298,6 +299,7 @@ class FirebaseManager private constructor(private val context: Context) {
         val personalNotes = extractStringOrList(data, "personalNotes", "notasPessoais")
         val bottles = extractStringOrList(data, "bottlesJson", "frascos").ifBlank { "[\"100ml\"]" }
         val isCustom = (data["isCustom"] as? Boolean) ?: false
+        val markedNewAt = (data["markedNewAt"] as? Number)?.toLong() ?: 0L
 
         return PerfumeEntity(
             id = id,
@@ -319,7 +321,8 @@ class FirebaseManager private constructor(private val context: Context) {
             projection = projection,
             personalNotes = personalNotes,
             bottlesJson = bottles,
-            isCustom = isCustom
+            isCustom = isCustom,
+            markedNewAt = markedNewAt
         )
     }
 

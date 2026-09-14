@@ -638,6 +638,8 @@ fun PerfumeDetailDialog(
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
+                        .clip(RoundedCornerShape(12.dp))
+                        .clickable { markedNewToggle = !markedNewToggle }
                         .background(if (markedNewToggle) Emerald500.copy(alpha = 0.15f) else Slate800, RoundedCornerShape(12.dp))
                         .border(1.dp, if (markedNewToggle) Emerald500 else Slate700, RoundedCornerShape(12.dp))
                         .padding(horizontal = 14.dp, vertical = 10.dp),
@@ -684,6 +686,17 @@ fun PerfumeDetailDialog(
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
+                        .clip(RoundedCornerShape(12.dp))
+                        .clickable { 
+                            isSignature = !isSignature
+                            if (isSignature) {
+                                if (!currentTags.any { it.equals("ASSINATURA", ignoreCase = true) }) {
+                                    currentTags.add("ASSINATURA")
+                                }
+                            } else {
+                                currentTags.removeAll { it.equals("ASSINATURA", ignoreCase = true) }
+                            }
+                        }
                         .background(if (isSignature) Amber400.copy(alpha = 0.15f) else Slate800, RoundedCornerShape(12.dp))
                         .border(1.dp, if (isSignature) Amber400 else Slate700, RoundedCornerShape(12.dp))
                         .padding(horizontal = 14.dp, vertical = 10.dp),
@@ -735,18 +748,6 @@ fun PerfumeDetailDialog(
 
                 Spacer(modifier = Modifier.height(10.dp))
 
-                Row(
-                    modifier = Modifier.fillMaxWidth().padding(vertical = 4.dp),
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.SpaceBetween
-                ) {
-                    Text("Exibir etiqueta NOVO (14 dias)", color = Slate300, fontSize = 13.sp, fontWeight = FontWeight.SemiBold)
-                    Switch(
-                        checked = markedNewToggle,
-                        onCheckedChange = { markedNewToggle = it },
-                        colors = SwitchDefaults.colors(checkedThumbColor = Emerald400, checkedTrackColor = Emerald400.copy(alpha=0.3f), uncheckedThumbColor = Slate400, uncheckedTrackColor = Slate700)
-                    )
-                }
 
                 Spacer(modifier = Modifier.height(14.dp))
 

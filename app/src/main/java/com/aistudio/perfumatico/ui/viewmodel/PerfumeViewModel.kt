@@ -203,7 +203,7 @@ class PerfumeViewModel(application: Application) : AndroidViewModel(application)
         if (myNotes.isEmpty()) return emptyList()
 
         return repository.globalPerfumes.value
-            .filter { it.id != perfume.id }
+            .filter { it.id != perfume.id && it.name.trim().lowercase() != perfume.name.trim().lowercase() }
             .map { other ->
                 val otherNotes = other.notes.split("|").map { it.trim().lowercase() }.filter { it.isNotBlank() }.toSet()
                 val intersection = myNotes.intersect(otherNotes)

@@ -54,9 +54,7 @@ fun AddEditPerfumeDialog(
     var fixation by remember { mutableStateOf(perfumeToEdit?.fixation ?: 7) }
     var projection by remember { mutableStateOf(perfumeToEdit?.projection ?: 7) }
     var aiFeedbackMessage by remember { mutableStateOf<String?>(null) }
-    var isMarkedNew by remember { mutableStateOf(perfumeToEdit?.let { it.markedNewAt > 0L } ?: true) }
     val coroutineScope = rememberCoroutineScope()
-    val globalPerfumes by viewModel.globalPerfumes.collectAsState()
 
     val isEditing = perfumeToEdit != null
 
@@ -213,14 +211,7 @@ fun AddEditPerfumeDialog(
                                                 if (pMax > 0) priceMax = pMax.toString()
                                             }
 
-                                            if (json.has("imageUrl") && json.getString("imageUrl").isNotBlank()) {
-                                                imageUrl = json.getString("imageUrl").trim()
-                                            }
-
-                                            val isFromCatalog = json.optString("source") == "catalog"
-                                            aiFeedbackMessage = if (isFromCatalog) {
-                                                "✨ Dados completos carregados do Catálogo Perfumático!"
-                                            } else if (filledSomething) {
+                                            aiFeedbackMessage = if (filledSomething) {
                                                 "✨ Pirâmide olfativa e dados preenchidos pela IA!"
                                             } else {
                                                 "⚠️ Fragrância não detalhada. Você pode preencher manualmente abaixo."
@@ -361,48 +352,6 @@ fun AddEditPerfumeDialog(
                         )
                     }
 
-                    val nameSuggestions = remember(name, globalPerfumes) {
-                        if (name.length >= 2 && !isEditing) {
-                            globalPerfumes.filter { it.name.contains(name, ignoreCase = true) }.take(5)
-                        } else emptyList()
-                    }
-
-                    if (nameSuggestions.isNotEmpty()) {
-                        Row(
-                            modifier = Modifier.fillMaxWidth().horizontalScroll(rememberScrollState()),
-                            horizontalArrangement = Arrangement.spacedBy(6.dp)
-                        ) {
-                            nameSuggestions.forEach { suggestion ->
-                                SuggestionChip(
-                                    onClick = {
-                                        name = suggestion.name
-                                        brand = suggestion.brand
-                                        family = suggestion.family
-                                        topNotes = suggestion.topNotes
-                                        heartNotes = suggestion.heartNotes
-                                        baseNotes = suggestion.baseNotes
-                                        fixation = suggestion.fixation
-                                        projection = suggestion.projection
-                                        if (suggestion.imageUrl.isNotBlank()) imageUrl = suggestion.imageUrl
-                                        if (suggestion.referenceName.isNotBlank()) referenceName = suggestion.referenceName
-                                        if (suggestion.priceMin > 0) priceMin = suggestion.priceMin.toInt().toString()
-                                        if (suggestion.priceMax > 0) priceMax = suggestion.priceMax.toInt().toString()
-                                        aiFeedbackMessage = "✨ Dados completos de '${suggestion.name}' preenchidos do Catálogo!"
-                                    },
-                                    label = {
-                                        Text(
-                                            "${suggestion.name} • ${suggestion.brand}",
-                                            fontSize = 11.sp,
-                                            color = Amber400
-                                        )
-                                    },
-                                    colors = SuggestionChipDefaults.suggestionChipColors(containerColor = Slate800),
-                                    border = androidx.compose.foundation.BorderStroke(1.dp, Amber400.copy(alpha = 0.4f))
-                                )
-                            }
-                        }
-                    }
-
                     OutlinedTextField(
                         value = referenceName,
                         onValueChange = { referenceName = it },
@@ -422,24 +371,6 @@ fun AddEditPerfumeDialog(
                         colors = fieldColors(),
                         shape = RoundedCornerShape(12.dp)
                     )
-
-                    Row(
-                        modifier = Modifier.fillMaxWidth().padding(vertical = 4.dp),
-                        verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.SpaceBetween
-                    ) {
-                        Text("Destacar como NOVO (14 dias)", color = Slate300, fontSize = 13.sp, fontWeight = FontWeight.SemiBold)
-                        Switch(
-                            checked = isMarkedNew,
-                            onCheckedChange = { isMarkedNew = it },
-                            colors = SwitchDefaults.colors(
-                                checkedThumbColor = Emerald400,
-                                checkedTrackColor = Emerald400.copy(alpha = 0.3f),
-                                uncheckedThumbColor = Slate400,
-                                uncheckedTrackColor = Slate700
-                            )
-                        )
-                    }
                 }
 
                 Spacer(modifier = Modifier.height(14.dp))
@@ -468,8 +399,7 @@ fun AddEditPerfumeDialog(
                                 fixation = fixation,
                                 projection = projection,
                                 notes = allNotesStr,
-                                referenceName = referenceName.trim(),
-                                markedNewAt = if (isMarkedNew) (if (perfumeToEdit.markedNewAt > 0L) perfumeToEdit.markedNewAt else System.currentTimeMillis()) else 0L
+                                referenceName = referenceName.trim()
                             )
                         } else {
                             PerfumeEntity(
@@ -489,9 +419,9 @@ fun AddEditPerfumeDialog(
                                 referenceName = referenceName.trim(),
                                 status = status,
                                 tags = "DIA A DIA",
-                                markedNewAt = if (isMarkedNew) System.currentTimeMillis() else 0L,
+                                
                                 isCustom = true,
-                                createdAt = System.currentTimeMillis()
+                                markedNewAt = System.currentTimeMillis()
                             )
                         }
 
