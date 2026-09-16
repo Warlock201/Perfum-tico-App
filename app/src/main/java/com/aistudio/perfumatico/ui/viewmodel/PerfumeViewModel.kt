@@ -481,6 +481,7 @@ class PerfumeViewModel(application: Application) : AndroidViewModel(application)
             } else {
                 repository.addSotd(
                     SotdEntity(
+                        id = System.currentTimeMillis(),
                         perfumeId = perfume.id,
                         perfumeName = perfume.name,
                         perfumeBrand = perfume.brand,

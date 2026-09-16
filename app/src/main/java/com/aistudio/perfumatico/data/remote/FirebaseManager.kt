@@ -95,6 +95,11 @@ class FirebaseManager private constructor(private val context: Context) {
                     for (doc in snapshot.documents) {
                         try {
                             val data = doc.data ?: continue
+                            val parsedId = doc.getLong("id") ?: 0L
+                            if (parsedId == 0L || doc.id == "0") {
+                                doc.reference.delete()
+                                continue
+                            }
                             val entity = SotdEntity(
                                 id = doc.getLong("id") ?: System.currentTimeMillis(),
                                 perfumeId = data["perfumeId"] as? String ?: "",
