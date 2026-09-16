@@ -54,6 +54,69 @@ fun String.getNoteImageUrl(): String {
         "sal_marinho" -> "sea salt crystals"
         "amendoa_amarga" -> "bitter almond"
         "madeiras_claras" -> "light colored wood"
+        "notas_marinhas" -> "sea water waves"
+        "madeira_de_ambar" -> "amber wood chunk"
+        "folha_de_violeta" -> "violet leaves"
+        "madeira_de_guaiac" -> "guaiac wood"
+        "zimbro" -> "juniper berries"
+        "castanha" -> "chestnut nut"
+        "notas_frutadas" -> "mixed tropical fruits"
+        "agarwood_oud" -> "agarwood piece"
+        "laranja_sanguinea" -> "blood orange slice"
+        "carvalho" -> "oak wood"
+        "cominho" -> "cumin seeds"
+        "copaiba" -> "copaiba resin"
+        "madeiras_brancas" -> "white wood logs"
+        "madeiras_escuras" -> "dark wood logs"
+        "artemisia" -> "artemisia herb"
+        "ambreta" -> "ambrette seeds"
+        "folha_de_tabaco" -> "dried tobacco leaves"
+        "bagas_de_zimbro" -> "juniper berries"
+        "notas_oceanicas" -> "ocean breeze water splash"
+        "lucia_lima" -> "lemon verbena leaves"
+        "acucar" -> "sugar cubes"
+        "alcacuz" -> "licorice root"
+        "trufa" -> "black truffle"
+        "mandarina_verde" -> "green mandarin orange"
+        "resinas" -> "mixed natural resins"
+        "notas_especiadas" -> "mixed spices and herbs"
+        "tomilho" -> "thyme herb"
+        "angelica" -> "angelica root"
+        "cravo" -> "clove spice"
+        "tamaras" -> "date fruit"
+        "musk_branco" -> "white musk powder"
+        "avela" -> "hazelnut"
+        "laranja_amarga" -> "bitter orange"
+        "toffee" -> "caramel toffee"
+        "frutas_secas" -> "dried fruits mix"
+        "fumaca" -> "wispy smoke"
+        "priprioca" -> "priprioca root"
+        "groselha" -> "redcurrant berries"
+        "frutas_vermelhas" -> "mixed red berries"
+        "anis" -> "star anise spice"
+        "bambu" -> "green bamboo stalks"
+        "notas_solares" -> "bright glowing sun rays"
+        "notas_metalicas" -> "shiny silver metal texture"
+        "areia" -> "golden beach sand"
+        "polvora" -> "gunpowder sparks"
+        "leite" -> "splash of fresh milk"
+        "cannabis" -> "green hemp leaves"
+        "canhamo" -> "green hemp leaves"
+        "tinta" -> "black ink drop"
+        "agave" -> "green agave plant"
+        "cacto" -> "green cactus"
+        "gin" -> "gin cocktail glass"
+        "vinho" -> "glass of red wine"
+        "sal" -> "sea salt crystals"
+        "algodao" -> "soft white cotton"
+        "muguet" -> "lily of the valley flower"
+        "tiare" -> "tiare flower"
+        "flor_de_tiare" -> "tiare flower"
+        "frangipani" -> "frangipani flower"
+        "jasmim_manga" -> "frangipani flower"
+        "orquidea_negra" -> "dark black orchid flower"
+        "ebano" -> "dark ebony wood"
+        "madeira_de_ebano" -> "dark ebony wood"
         "limao_siciliano" -> "sicilian lemon fruit"
         "mandarina" -> "mandarin orange fruit"
         "toranja" -> "grapefruit slice"
@@ -183,6 +246,25 @@ fun String.unaccentAndNormalize(): String {
         .trim()
 }
 
+fun levenshtein(s1: String, s2: String): Int {
+    if (s1 == s2) return 0
+    if (s1.isEmpty()) return s2.length
+    if (s2.isEmpty()) return s1.length
+    var v0 = IntArray(s2.length + 1) { it }
+    var v1 = IntArray(s2.length + 1)
+    for (i in s1.indices) {
+        v1[0] = i + 1
+        for (j in s2.indices) {
+            val cost = if (s1[i] == s2[j]) 0 else 1
+            v1[j + 1] = minOf(v1[j] + 1, v0[j + 1] + 1, v0[j] + cost)
+        }
+        for (j in 0..s2.length) {
+            v0[j] = v1[j]
+        }
+    }
+    return v1[s2.length]
+}
+
 fun PerfumeEntity.matchesSearch(query: String): Boolean {
     if (query.isBlank()) return true
     val cleanQuery = query.unaccentAndNormalize()
@@ -191,21 +273,38 @@ fun PerfumeEntity.matchesSearch(query: String): Boolean {
     // Direct match
     if (targetText.contains(cleanQuery)) return true
     
-    // Common brand alias and typo replacements (e.g. "lataffa" -> "lattafa")
+    // Alias overrides
     val aliasQuery = when {
         cleanQuery.contains("lataffa") -> cleanQuery.replace("lataffa", "lattafa")
-        cleanQuery.contains("lattafa") -> cleanQuery.replace("lattafa", "lataffa")
         cleanQuery.contains("boticario") -> cleanQuery.replace("boticario", "o boticario")
         cleanQuery.contains("rabane") -> cleanQuery.replace("rabane", "rabanne")
         else -> null
     }
     if (aliasQuery != null && targetText.contains(aliasQuery)) return true
     
-    // Multi-word search
-    val words = cleanQuery.split(Regex("\\s+")).filter { it.isNotBlank() }
-    if (words.size > 1) {
-        val allMatch = words.all { w ->
-            targetText.contains(w) || (w == "lataffa" && targetText.contains("lattafa"))
+    // Multi-word search with fuzzy matching
+    val queryWords = cleanQuery.split(Regex("\\s+")).filter { it.isNotBlank() }
+    val targetWords = targetText.split(Regex("\\s+")).filter { it.isNotBlank() }
+    
+    if (queryWords.isNotEmpty()) {
+        val allMatch = queryWords.all { qWord ->
+            val aliasQWord = if (qWord == "lataffa") "lattafa" else qWord
+            if (targetText.contains(aliasQWord)) return@all true
+            
+            // Fuzzy match logic: allow 1 typo for words > 3 chars, 2 typos for words > 5 chars
+            val maxDistance = when {
+                aliasQWord.length <= 3 -> 0
+                aliasQWord.length <= 5 -> 1
+                else -> 2
+            }
+            
+            if (maxDistance > 0) {
+                targetWords.any { tWord -> 
+                    levenshtein(aliasQWord, tWord) <= maxDistance 
+                }
+            } else {
+                false
+            }
         }
         if (allMatch) return true
     }

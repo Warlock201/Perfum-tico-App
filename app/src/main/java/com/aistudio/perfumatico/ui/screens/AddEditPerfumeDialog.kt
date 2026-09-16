@@ -27,6 +27,13 @@ import com.aistudio.perfumatico.data.local.PerfumeEntity
 import com.aistudio.perfumatico.data.model.AVAILABLE_FAMILIES
 import com.aistudio.perfumatico.ui.theme.*
 import com.aistudio.perfumatico.ui.viewmodel.PerfumeViewModel
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
+import androidx.compose.foundation.layout.FlowRow
+import androidx.compose.ui.text.input.KeyboardCapitalization
+import com.aistudio.perfumatico.utils.unaccentAndNormalize
+import com.aistudio.perfumatico.utils.levenshtein
+
 import java.util.UUID
 import androidx.compose.material.icons.filled.AutoAwesome
 import org.json.JSONObject
@@ -457,3 +464,92 @@ private fun fieldColors() = OutlinedTextFieldDefaults.colors(
     focusedLabelColor = Amber400,
     unfocusedLabelColor = Slate400
 )
+
+
+private val commonNotes = listOf(
+    "Bergamota", "Baunilha", "Âmbar", "Patchouli", "Lavanda", "Sândalo", "Cedro", "Vetiver", "Musk", 
+    "Limão", "Fava Tonka", "Jasmim", "Couro", "Toranja", "Cardamomo", "Rosa", "Gerânio", "Maçã", 
+    "Sálvia", "Especiarias", "Canela", "Gengibre", "Oud", "Pimenta Preta", "Açafrão", "Pimenta Rosa", 
+    "Mandarina", "Notas Amadeiradas", "Íris", "Cítricos", "Madeiras", "Noz-moscada", "Almíscar", 
+    "Musgo", "Incenso", "Flor de Laranjeira", "Pimenta", "Musgo de Carvalho", "Abacaxi", "Alecrim", 
+    "Ambroxan", "Âmbar Cinzento", "Tabaco", "Notas Aquáticas", "Caramelo", "Hortelã", "Notas Florais", 
+    "Laranja", "Benjoim", "Baunilha Bourbon", "Notas Verdes", "Menta", "Amêndoa", "Cassis", "Groselha Preta", 
+    "Sálvia Esclareia", "Pralinê", "Café", "Aldeídos", "Madeira Guaiac", "Acorde Gourmand", "Madeira de Cedro", 
+    "Manga", "Melão", "Cereja", "Ameixa", "Maçã Verde", "Folhas de Violeta", "Lichia", "Mel", "Framboesa", 
+    "Coco", "Pêssego", "Ylang-Ylang", "Amora", "Orquídea", "Magnólia", "Lírio-do-Vale", "Peônia", "Eucalipto",
+    "Notas Marinhas", "Castanha", "Zimbro", "Fumaça", "Resinas", "Trufa", "Tinta", "Pólvora", "Sal", "Areia",
+    "Bambu", "Agave", "Leite", "Cannabis", "Vinho", "Gin", "Algodão", "Muguet", "Frangipani"
+).sorted()
+
+@OptIn(ExperimentalLayoutApi::class)
+@Composable
+fun NotesAutocompleteField(
+    value: String,
+    onValueChange: (String) -> Unit,
+    label: String,
+    placeholder: String
+) {
+    var expanded by remember { mutableStateOf(false) }
+    var currentTerm by remember { mutableStateOf("") }
+    
+    LaunchedEffect(value) {
+        val lastComma = value.lastIndexOf(",")
+        currentTerm = if (lastComma != -1) {
+            value.substring(lastComma + 1).trimStart()
+        } else {
+            value.trimStart()
+        }
+        expanded = currentTerm.length >= 2
+    }
+    
+    val suggestions = remember(currentTerm) {
+        if (currentTerm.length < 2) emptyList()
+        else {
+            val cleanTerm = currentTerm.unaccentAndNormalize()
+            commonNotes.filter { note ->
+                val cleanNote = note.unaccentAndNormalize()
+                cleanNote.contains(cleanTerm) || levenshtein(cleanTerm, cleanNote) <= 2
+            }.take(5)
+        }
+    }
+    
+    Column(modifier = Modifier.fillMaxWidth()) {
+        OutlinedTextField(
+            value = value,
+            onValueChange = onValueChange,
+            label = { Text(label) },
+            placeholder = { Text(placeholder) },
+            modifier = Modifier.fillMaxWidth(),
+            colors = fieldColors(),
+            keyboardOptions = KeyboardOptions(capitalization = KeyboardCapitalization.Words)
+        )
+        
+        AnimatedVisibility(visible = expanded && suggestions.isNotEmpty()) {
+            FlowRow(
+                modifier = Modifier.fillMaxWidth().padding(top = 4.dp, bottom = 8.dp),
+                horizontalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
+                suggestions.forEach { suggestion ->
+                    AssistChip(
+                        onClick = {
+                            val lastComma = value.lastIndexOf(",")
+                            val newValue = if (lastComma != -1) {
+                                value.substring(0, lastComma + 1) + " " + suggestion + ", "
+                            } else {
+                                "$suggestion, "
+                            }
+                            onValueChange(newValue)
+                            expanded = false
+                        },
+                        label = { Text(suggestion) },
+                        colors = AssistChipDefaults.assistChipColors(
+                            containerColor = Slate800,
+                            labelColor = Amber400
+                        ),
+                        border = null
+                    )
+                }
+            }
+        }
+    }
+}

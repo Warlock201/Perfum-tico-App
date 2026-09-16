@@ -55,7 +55,20 @@ class MainActivity : ComponentActivity() {
         }
         enableEdgeToEdge()
         
+        
         val imageLoader = ImageLoader.Builder(this)
+            .memoryCache {
+                coil.memory.MemoryCache.Builder(this)
+                    .maxSizePercent(0.25)
+                    .build()
+            }
+            .diskCache {
+                coil.disk.DiskCache.Builder()
+                    .directory(this.cacheDir.resolve("image_cache"))
+                    .maxSizePercent(0.05)
+                    .build()
+            }
+            .respectCacheHeaders(false)
             .okHttpClient {
                 OkHttpClient.Builder()
                     .connectTimeout(60, java.util.concurrent.TimeUnit.SECONDS)
