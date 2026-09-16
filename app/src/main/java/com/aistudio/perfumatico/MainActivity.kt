@@ -106,6 +106,7 @@ fun PerfumaticoApp(viewModel: PerfumeViewModel, chatViewModel: ChatViewModel) {
     val isProfileModalOpen by viewModel.isProfileModalOpen.collectAsState()
     val isAuthDialogOpen by viewModel.isAuthDialogOpen.collectAsState()
     val currentUser by viewModel.currentUser.collectAsState()
+    val isCommunityModalOpen by viewModel.isCommunityDialogOpen.collectAsState()
     val updateInfo by viewModel.updateInfo.collectAsState()
     val noUpdateAvailable by viewModel.noUpdateAvailable.collectAsState()
 
@@ -165,6 +166,7 @@ fun PerfumaticoApp(viewModel: PerfumeViewModel, chatViewModel: ChatViewModel) {
                 isAdmin = viewModel.isAdmin,
                 onProfileClick = { viewModel.openProfileModal() },
                 onAddClick = { viewModel.openAddChooser() },
+                onCommunityClick = { viewModel.openCommunityDialog() },
                 showAddButton = false
             )
         },
@@ -228,6 +230,14 @@ fun PerfumaticoApp(viewModel: PerfumeViewModel, chatViewModel: ChatViewModel) {
             ProfileSotdDialog(
                 viewModel = viewModel,
                 onDismiss = { viewModel.closeProfileModal() }
+            )
+        }
+
+        
+        if (isCommunityModalOpen) {
+            com.aistudio.perfumatico.ui.screens.CommunityDialog(
+                viewModel = viewModel,
+                onDismiss = { viewModel.closeCommunityDialog() }
             )
         }
 

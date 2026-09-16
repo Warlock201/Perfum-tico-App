@@ -32,9 +32,10 @@ import com.aistudio.perfumatico.ui.viewmodel.MainTab
 fun PerfumaticoTopBar(
     userName: String,
     isCloudConnected: Boolean,
-    isAdmin: Boolean,
+    isAdmin: Boolean = false,
     onProfileClick: () -> Unit,
-    onAddClick: () -> Unit,
+    onAddClick: () -> Unit = {},
+    onCommunityClick: () -> Unit = {},
     showAddButton: Boolean = true
 ) {
     Surface(

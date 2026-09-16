@@ -118,6 +118,25 @@ class PerfumeViewModel(application: Application) : AndroidViewModel(application)
     val isProfileModalOpen: StateFlow<Boolean> = _isProfileModalOpen.asStateFlow()
 
     // Firebase Auth & Cloud Sync
+    
+    private val _communitySotdList = MutableStateFlow<List<com.aistudio.perfumatico.data.remote.CommunitySotd>>(emptyList())
+    val communitySotdList: StateFlow<List<com.aistudio.perfumatico.data.remote.CommunitySotd>> = _communitySotdList
+    
+    private val _isCommunityDialogOpen = MutableStateFlow(false)
+    val isCommunityDialogOpen: StateFlow<Boolean> = _isCommunityDialogOpen
+    
+    fun openCommunityDialog() {
+        _isCommunityDialogOpen.value = true
+        repository.firebaseManager.startListeningToCommunity { list ->
+            _communitySotdList.value = list
+        }
+    }
+    
+    fun closeCommunityDialog() {
+        _isCommunityDialogOpen.value = false
+        repository.firebaseManager.stopListeningToCommunity()
+    }
+
     val currentUser = repository.firebaseManager.currentUser
     val syncStatus = repository.firebaseManager.syncStatus
     val isAdmin: Boolean get() = repository.firebaseManager.isAdmin

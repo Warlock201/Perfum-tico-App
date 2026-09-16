@@ -20,6 +20,17 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 
+
+data class CommunitySotd(
+    val userId: String = "",
+    val userName: String = "",
+    val perfumeId: String = "",
+    val perfumeName: String = "",
+    val perfumeBrand: String = "",
+    val perfumeImage: String = "",
+    val timestamp: Long = 0L
+)
+
 class FirebaseManager private constructor(private val context: Context) {
 
     private val auth: FirebaseAuth = FirebaseAuth.getInstance()
@@ -343,4 +354,35 @@ class FirebaseManager private constructor(private val context: Context) {
             }
         }
     }
+
+    private var communityListener: ListenerRegistration? = null
+    
+    fun startListeningToCommunity(onUpdate: (List<CommunitySotd>) -> Unit) {
+        communityListener?.remove()
+        communityListener = firestore.collection("community_sotd")
+            .orderBy("timestamp", com.google.firebase.firestore.Query.Direction.DESCENDING)
+            .limit(50)
+            .addSnapshotListener { snapshot, error ->
+                if (snapshot != null) {
+                    val list = snapshot.documents.map { doc ->
+                        CommunitySotd(
+                            userId = doc.getString("userId") ?: "",
+                            userName = doc.getString("userName") ?: "Colecionador",
+                            perfumeId = doc.getString("perfumeId") ?: "",
+                            perfumeName = doc.getString("perfumeName") ?: "",
+                            perfumeBrand = doc.getString("perfumeBrand") ?: "",
+                            perfumeImage = doc.getString("perfumeImage") ?: "",
+                            timestamp = doc.getLong("timestamp") ?: 0L
+                        )
+                    }
+                    onUpdate(list)
+                }
+            }
+    }
+    
+    fun stopListeningToCommunity() {
+        communityListener?.remove()
+        communityListener = null
+    }
+
 }
