@@ -15,8 +15,8 @@ android {
         applicationId = "com.aistudio.perfumatico.kqpv"
         minSdk = 24
         targetSdk = 36
-        versionCode = 38
-        versionName = "4.6.1"
+        versionCode = 41
+        versionName = "4.8"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 

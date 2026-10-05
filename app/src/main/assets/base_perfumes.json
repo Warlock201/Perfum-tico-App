@@ -764,7 +764,8 @@
     "longevidade": 8,
     "projeção": 8,
     "priceMin": 200,
-    "priceMax": 300
+    "priceMax": 300,
+    "imageUrl": "file:///android_asset/perfumes/fragrance_world_suits.webp"
   },
   {
     "nome": "Sultry Woods",
@@ -2044,7 +2045,8 @@
     "longevidade": 8,
     "projeção": 8,
     "priceMin": 250,
-    "priceMax": 350
+    "priceMax": 350,
+    "imageUrl": "file:///android_asset/perfumes/paris_corner_khair_pistachio.webp"
   },
   {
     "nome": "Killer Oud Death By Oud",
@@ -2144,7 +2146,8 @@
     "longevidade": 9,
     "projeção": 9,
     "priceMin": 300,
-    "priceMax": 400
+    "priceMax": 400,
+    "imageUrl": "file:///android_asset/perfumes/paris_corner_north_stag_quatre.webp"
   },
   {
     "nome": "North Stag Sept VII (7)",
@@ -2154,7 +2157,8 @@
     "longevidade": 8,
     "projeção": 8,
     "priceMin": 300,
-    "priceMax": 400
+    "priceMax": 400,
+    "imageUrl": "file:///android_asset/perfumes/paris_corner_north_stag_quatre.webp"
   },
   {
     "nome": "North Stag Huit VIII (8)",
@@ -2164,7 +2168,8 @@
     "longevidade": 9,
     "projeção": 9,
     "priceMin": 300,
-    "priceMax": 400
+    "priceMax": 400,
+    "imageUrl": "file:///android_asset/perfumes/paris_corner_north_stag_quatre.webp"
   },
   {
     "nome": "North Stag Phenomenal Quatorze XIV (14)",
@@ -2174,7 +2179,8 @@
     "longevidade": 9,
     "projeção": 9,
     "priceMin": 300,
-    "priceMax": 400
+    "priceMax": 400,
+    "imageUrl": "file:///android_asset/perfumes/paris_corner_north_stag_quatre.webp"
   },
   {
     "nome": "North Stag Expressions I (Une/1)",
@@ -2184,7 +2190,8 @@
     "longevidade": 8,
     "projeção": 8,
     "priceMin": 300,
-    "priceMax": 400
+    "priceMax": 400,
+    "imageUrl": "file:///android_asset/perfumes/paris_corner_north_stag_quatre.webp"
   },
   {
     "nome": "North Stag Expressions II (Deux/2)",
@@ -2194,7 +2201,8 @@
     "longevidade": 9,
     "projeção": 9,
     "priceMin": 300,
-    "priceMax": 400
+    "priceMax": 400,
+    "imageUrl": "file:///android_asset/perfumes/paris_corner_north_stag_quatre.webp"
   },
   {
     "nome": "North Stag Expressions III (Trois/3)",
@@ -2204,7 +2212,8 @@
     "longevidade": 10,
     "projeção": 9,
     "priceMin": 300,
-    "priceMax": 400
+    "priceMax": 400,
+    "imageUrl": "file:///android_asset/perfumes/paris_corner_north_stag_quatre.webp"
   },
   {
     "nome": "North Stag Expressions IV (Quatre/4)",
@@ -2214,7 +2223,8 @@
     "longevidade": 8,
     "projeção": 8,
     "priceMin": 300,
-    "priceMax": 400
+    "priceMax": 400,
+    "imageUrl": "file:///android_asset/perfumes/paris_corner_north_stag_quatre.webp"
   },
   {
     "nome": "Prive Zarah Barcode Signature",
@@ -2436,7 +2446,8 @@
     "longevidade": 9,
     "projeção": 9,
     "priceMin": 300,
-    "priceMax": 450
+    "priceMax": 450,
+    "imageUrl": "file:///android_asset/perfumes/afnan_rare_carbon.webp"
   },
   {
     "nome": "Rare Reef",
@@ -2719,7 +2730,7 @@
     "projeção": 9,
     "priceMin": 450,
     "priceMax": 650,
-    "imageUrl": "file:///android_asset/perfumes/pr_invictus_victory_elixir.webp"
+    "imageUrl": "file:///android_asset/perfumes/pr_invictus_edt.webp"
   },
   {
     "nome": "Invictus Legend",
@@ -2729,7 +2740,8 @@
     "longevidade": 9,
     "projeção": 9,
     "priceMin": 400,
-    "priceMax": 600
+    "priceMax": 600,
+    "imageUrl": "file:///android_asset/perfumes/pr_invictus_edt.webp"
   },
   {
     "nome": "Invictus Platinum",
@@ -2739,7 +2751,8 @@
     "longevidade": 9,
     "projeção": 9,
     "priceMin": 400,
-    "priceMax": 600
+    "priceMax": 600,
+    "imageUrl": "file:///android_asset/perfumes/pr_invictus_edt.webp"
   },
   {
     "nome": "1 Million EDT",
@@ -3010,7 +3023,8 @@
     "longevidade": 9,
     "projeção": 9,
     "priceMin": 700,
-    "priceMax": 900
+    "priceMax": 900,
+    "imageUrl": "file:///android_asset/perfumes/dior_sauvage_edp.webp"
   },
   {
     "nome": "Sauvage Elixir",
@@ -3020,7 +3034,8 @@
     "longevidade": 10,
     "projeção": 10,
     "priceMin": 900,
-    "priceMax": 1200
+    "priceMax": 1200,
+    "imageUrl": "file:///android_asset/perfumes/dior_sauvage_elixir.webp"
   },
   {
     "nome": "Homme Intense",
@@ -3070,7 +3085,8 @@
     "longevidade": 9,
     "projeção": 9,
     "priceMin": 600,
-    "priceMax": 800
+    "priceMax": 800,
+    "imageUrl": "file:///android_asset/perfumes/dior_fahrenheit.webp"
   },
   {
     "nome": "Fahrenheit Parfum",
@@ -3080,7 +3096,8 @@
     "longevidade": 10,
     "projeção": 10,
     "priceMin": 700,
-    "priceMax": 900
+    "priceMax": 900,
+    "imageUrl": "file:///android_asset/perfumes/dior_fahrenheit.webp"
   },
   {
     "nome": "Leather Oud",
@@ -3140,7 +3157,8 @@
     "longevidade": 9,
     "projeção": 9,
     "priceMin": 500,
-    "priceMax": 700
+    "priceMax": 700,
+    "imageUrl": "file:///android_asset/perfumes/ysl_y_edp.webp"
   },
   {
     "nome": "Y Eau Fraiche EDT",
@@ -3210,7 +3228,8 @@
     "longevidade": 8,
     "projeção": 8,
     "priceMin": 600,
-    "priceMax": 800
+    "priceMax": 800,
+    "imageUrl": "file:///android_asset/perfumes/ysl_la_nuit_de_lhomme.webp"
   },
   {
     "nome": "La Nuit de L'Homme Parfum",
@@ -3220,7 +3239,8 @@
     "longevidade": 9,
     "projeção": 9,
     "priceMin": 650,
-    "priceMax": 850
+    "priceMax": 850,
+    "imageUrl": "file:///android_asset/perfumes/ysl_la_nuit_de_lhomme.webp"
   },
   {
     "nome": "La Nuit de L'Homme L'Intense EDP",
@@ -3230,7 +3250,8 @@
     "longevidade": 9,
     "projeção": 8,
     "priceMin": 600,
-    "priceMax": 800
+    "priceMax": 800,
+    "imageUrl": "file:///android_asset/perfumes/ysl_la_nuit_de_lhomme.webp"
   },
   {
     "nome": "Pour Homme EDT",
@@ -3440,7 +3461,8 @@
     "longevidade": 9,
     "projeção": 9,
     "priceMin": 400,
-    "priceMax": 550
+    "priceMax": 550,
+    "imageUrl": "file:///android_asset/perfumes/azzaro_wanted_by_night.webp"
   },
   {
     "nome": "Wanted Eau de Parfum EDP",
@@ -3480,7 +3502,8 @@
     "longevidade": 10,
     "projeção": 9,
     "priceMin": 500,
-    "priceMax": 700
+    "priceMax": 700,
+    "imageUrl": "file:///android_asset/perfumes/azzaro_the_most_wanted.webp"
   },
   {
     "nome": "The Most Wanted Intense EDP",
@@ -3490,7 +3513,8 @@
     "longevidade": 9,
     "projeção": 9,
     "priceMin": 450,
-    "priceMax": 650
+    "priceMax": 650,
+    "imageUrl": "file:///android_asset/perfumes/azzaro_the_most_wanted.webp"
   },
   {
     "nome": "The Most Wanted Eau de Parfum EDP",
@@ -3500,7 +3524,8 @@
     "longevidade": 9,
     "projeção": 9,
     "priceMin": 450,
-    "priceMax": 650
+    "priceMax": 650,
+    "imageUrl": "file:///android_asset/perfumes/azzaro_the_most_wanted.webp"
   },
   {
     "nome": "Forever Wanted Elixir EDP",
@@ -3630,7 +3655,8 @@
     "longevidade": 8,
     "projeção": 8,
     "priceMin": 250,
-    "priceMax": 350
+    "priceMax": 350,
+    "imageUrl": "file:///android_asset/perfumes/al_haramain_laventure.webp"
   },
   {
     "nome": "L'Aventure Intense",
@@ -3640,7 +3666,8 @@
     "longevidade": 9,
     "projeção": 9,
     "priceMin": 280,
-    "priceMax": 380
+    "priceMax": 380,
+    "imageUrl": "file:///android_asset/perfumes/al_haramain_laventure.webp"
   },
   {
     "nome": "L'Aventure Knight",
@@ -3650,7 +3677,8 @@
     "longevidade": 8,
     "projeção": 8,
     "priceMin": 250,
-    "priceMax": 350
+    "priceMax": 350,
+    "imageUrl": "file:///android_asset/perfumes/al_haramain_laventure.webp"
   },
   {
     "nome": "Amber Oud Gold Edition",
@@ -3660,7 +3688,8 @@
     "longevidade": 9,
     "projeção": 9,
     "priceMin": 400,
-    "priceMax": 550
+    "priceMax": 550,
+    "imageUrl": "file:///android_asset/perfumes/al_haramain_amber_gold.webp"
   },
   {
     "nome": "Amber Oud White Edition",
@@ -3751,7 +3780,8 @@
     "longevidade": 8,
     "projeção": 7,
     "priceMin": 1800,
-    "priceMax": 2500
+    "priceMax": 2500,
+    "imageUrl": "file:///android_asset/perfumes/creed_silver_mountain_water.webp"
   },
   {
     "nome": "Green Irish Tweed",
@@ -3761,7 +3791,8 @@
     "longevidade": 8,
     "projeção": 8,
     "priceMin": 1800,
-    "priceMax": 2500
+    "priceMax": 2500,
+    "imageUrl": "file:///android_asset/perfumes/creed_green_irish_tweed.webp"
   },
   {
     "nome": "Millésime Impérial",
@@ -3771,7 +3802,8 @@
     "longevidade": 7,
     "projeção": 7,
     "priceMin": 1800,
-    "priceMax": 2500
+    "priceMax": 2500,
+    "imageUrl": "file:///android_asset/perfumes/creed_millesime_imperial.webp"
   },
   {
     "nome": "Original Vetiver",
@@ -3811,7 +3843,8 @@
     "longevidade": 7,
     "projeção": 7,
     "priceMin": 1800,
-    "priceMax": 2500
+    "priceMax": 2500,
+    "imageUrl": "file:///android_asset/perfumes/creed_virgin_island_water.webp"
   },
   {
     "nome": "Tabarome",
@@ -3841,7 +3874,8 @@
     "longevidade": 8,
     "projeção": 8,
     "priceMin": 1800,
-    "priceMax": 2500
+    "priceMax": 2500,
+    "imageUrl": "file:///android_asset/perfumes/creed_viking.webp"
   },
   {
     "nome": "Viking Cologne",
@@ -3851,7 +3885,8 @@
     "longevidade": 7,
     "projeção": 7,
     "priceMin": 1800,
-    "priceMax": 2500
+    "priceMax": 2500,
+    "imageUrl": "file:///android_asset/perfumes/creed_viking.webp"
   },
   {
     "nome": "Absolu Aventus",
@@ -3924,7 +3959,7 @@
     "projeção": 9,
     "priceMin": 500,
     "priceMax": 700,
-    "imageUrl": "file:///android_asset/perfumes/versace_eros.webp"
+    "imageUrl": "file:///android_asset/perfumes/versace_eros_flame.webp"
   },
   {
     "nome": "Eros Energy",
@@ -4102,7 +4137,7 @@
     "projeção": 8,
     "priceMin": 550,
     "priceMax": 750,
-    "imageUrl": "file:///android_asset/perfumes/ch_bad_boy.webp"
+    "imageUrl": "file:///android_asset/perfumes/ch_bad_boy_cobalt.webp"
   },
   {
     "nome": "Boss Bottled EDT",
@@ -4112,7 +4147,8 @@
     "longevidade": 7,
     "projeção": 7,
     "priceMin": 350,
-    "priceMax": 500
+    "priceMax": 500,
+    "imageUrl": "file:///android_asset/perfumes/boss_bottled_edt.webp"
   },
   {
     "nome": "Boss Bottled EDP",
@@ -4122,7 +4158,8 @@
     "longevidade": 8,
     "projeção": 8,
     "priceMin": 450,
-    "priceMax": 600
+    "priceMax": 600,
+    "imageUrl": "file:///android_asset/perfumes/boss_bottled_edp.webp"
   },
   {
     "nome": "Boss Bottled Infinite",
@@ -4132,7 +4169,8 @@
     "longevidade": 7,
     "projeção": 7,
     "priceMin": 450,
-    "priceMax": 600
+    "priceMax": 600,
+    "imageUrl": "file:///android_asset/perfumes/boss_bottled_edt.webp"
   },
   {
     "nome": "Boss Bottled Tonic",
@@ -4142,7 +4180,8 @@
     "longevidade": 6,
     "projeção": 6,
     "priceMin": 350,
-    "priceMax": 500
+    "priceMax": 500,
+    "imageUrl": "file:///android_asset/perfumes/boss_bottled_edt.webp"
   },
   {
     "nome": "Boss The Scent EDT",
@@ -4152,7 +4191,8 @@
     "longevidade": 7,
     "projeção": 7,
     "priceMin": 400,
-    "priceMax": 550
+    "priceMax": 550,
+    "imageUrl": "file:///android_asset/perfumes/boss_the_scent.webp"
   },
   {
     "nome": "Boss The Scent Intense EDP",
@@ -4162,7 +4202,8 @@
     "longevidade": 8,
     "projeção": 8,
     "priceMin": 500,
-    "priceMax": 650
+    "priceMax": 650,
+    "imageUrl": "file:///android_asset/perfumes/boss_the_scent.webp"
   },
   {
     "nome": "Hugo Man EDT",
@@ -4192,7 +4233,8 @@
     "longevidade": 7,
     "projeção": 7,
     "priceMin": 350,
-    "priceMax": 500
+    "priceMax": 500,
+    "imageUrl": "file:///android_asset/perfumes/boss_bottled_edt.webp"
   },
   {
     "nome": "Boss Bottled Oud",
@@ -4202,7 +4244,8 @@
     "longevidade": 8,
     "projeção": 8,
     "priceMin": 500,
-    "priceMax": 700
+    "priceMax": 700,
+    "imageUrl": "file:///android_asset/perfumes/boss_bottled_edt.webp"
   },
   {
     "nome": "Boss Bottled Elixir",
@@ -4212,7 +4255,8 @@
     "longevidade": 9,
     "projeção": 9,
     "priceMin": 600,
-    "priceMax": 800
+    "priceMax": 800,
+    "imageUrl": "file:///android_asset/perfumes/boss_bottled_elixir.webp"
   },
   {
     "nome": "Boss The Scent Le Parfum",
@@ -4222,7 +4266,8 @@
     "longevidade": 8,
     "projeção": 8,
     "priceMin": 550,
-    "priceMax": 750
+    "priceMax": 750,
+    "imageUrl": "file:///android_asset/perfumes/boss_the_scent.webp"
   },
   {
     "nome": "Boss The Scent Absolute",
@@ -4232,7 +4277,8 @@
     "longevidade": 8,
     "projeção": 8,
     "priceMin": 500,
-    "priceMax": 700
+    "priceMax": 700,
+    "imageUrl": "file:///android_asset/perfumes/boss_the_scent.webp"
   },
   {
     "nome": "Hugo Energise",
@@ -4272,7 +4318,8 @@
     "longevidade": 6,
     "projeção": 6,
     "priceMin": 350,
-    "priceMax": 500
+    "priceMax": 500,
+    "imageUrl": "file:///android_asset/perfumes/boss_bottled_edt.webp"
   },
   {
     "nome": "Boss Bottled Unlimited",
@@ -4282,7 +4329,8 @@
     "longevidade": 7,
     "projeção": 7,
     "priceMin": 350,
-    "priceMax": 500
+    "priceMax": 500,
+    "imageUrl": "file:///android_asset/perfumes/boss_bottled_edt.webp"
   },
   {
     "nome": "Hugo Reversed",
@@ -4302,7 +4350,8 @@
     "longevidade": 8,
     "projeção": 8,
     "priceMin": 700,
-    "priceMax": 900
+    "priceMax": 900,
+    "imageUrl": "file:///android_asset/perfumes/hermes_terre_dhermes_edt.webp"
   },
   {
     "nome": "Terre d'Hermès EDP",
@@ -4312,7 +4361,8 @@
     "longevidade": 9,
     "projeção": 9,
     "priceMin": 800,
-    "priceMax": 1100
+    "priceMax": 1100,
+    "imageUrl": "file:///android_asset/perfumes/hermes_terre_dhermes_edt.webp"
   },
   {
     "nome": "Terre d'Hermès Eau Très Fraîche",
@@ -4322,7 +4372,8 @@
     "longevidade": 7,
     "projeção": 7,
     "priceMin": 650,
-    "priceMax": 850
+    "priceMax": 850,
+    "imageUrl": "file:///android_asset/perfumes/hermes_terre_dhermes_edt.webp"
   },
   {
     "nome": "Terre d'Hermès Eau Givrée",
@@ -4332,7 +4383,8 @@
     "longevidade": 8,
     "projeção": 8,
     "priceMin": 750,
-    "priceMax": 950
+    "priceMax": 950,
+    "imageUrl": "file:///android_asset/perfumes/hermes_terre_eau_givree.webp"
   },
   {
     "nome": "H24 EDT",
@@ -4342,7 +4394,8 @@
     "longevidade": 8,
     "projeção": 8,
     "priceMin": 650,
-    "priceMax": 850
+    "priceMax": 850,
+    "imageUrl": "file:///android_asset/perfumes/hermes_h24.webp"
   },
   {
     "nome": "H24 Herbes Vives EDP",
@@ -4352,7 +4405,8 @@
     "longevidade": 8,
     "projeção": 8,
     "priceMin": 750,
-    "priceMax": 950
+    "priceMax": 950,
+    "imageUrl": "file:///android_asset/perfumes/hermes_h24.webp"
   },
   {
     "nome": "Un Jardin sur le Nil EDT",
@@ -4513,7 +4567,8 @@
     "longevidade": 8,
     "projeção": 8,
     "priceMin": 1800,
-    "priceMax": 2600
+    "priceMax": 2600,
+    "imageUrl": "file:///android_asset/perfumes/ysl_y_edp.webp"
   },
   {
     "nome": "Fucking Fabulous EDP",
@@ -4616,7 +4671,8 @@
     "longevidade": 8,
     "projeção": 8,
     "priceMin": 1800,
-    "priceMax": 2500
+    "priceMax": 2500,
+    "imageUrl": "file:///android_asset/perfumes/ysl_y_edp.webp"
   },
   {
     "nome": "Perseus EDP",
@@ -4646,7 +4702,8 @@
     "longevidade": 8,
     "projeção": 8,
     "priceMin": 1800,
-    "priceMax": 2500
+    "priceMax": 2500,
+    "imageUrl": "file:///android_asset/perfumes/ysl_y_edp.webp"
   },
   {
     "nome": "Habdan EDP",
@@ -4686,7 +4743,8 @@
     "longevidade": 10,
     "projeção": 10,
     "priceMin": 600,
-    "priceMax": 800
+    "priceMax": 800,
+    "imageUrl": "file:///android_asset/perfumes/ysl_y_edp.webp"
   },
   {
     "nome": "Stronger With You Absolutely EDP",
@@ -4696,7 +4754,8 @@
     "longevidade": 9,
     "projeção": 9,
     "priceMin": 650,
-    "priceMax": 850
+    "priceMax": 850,
+    "imageUrl": "file:///android_asset/perfumes/ysl_y_edp.webp"
   },
   {
     "nome": "Stronger With You Leather EDP",
@@ -4726,7 +4785,8 @@
     "longevidade": 8,
     "projeção": 8,
     "priceMin": 550,
-    "priceMax": 750
+    "priceMax": 750,
+    "imageUrl": "file:///android_asset/perfumes/ysl_y_edp.webp"
   },
   {
     "nome": "Stronger With You Freeze EDP",
@@ -4827,7 +4887,8 @@
     "longevidade": 8,
     "projeção": 8,
     "priceMin": 600,
-    "priceMax": 800
+    "priceMax": 800,
+    "imageUrl": "file:///android_asset/perfumes/armani_adg_profondo.webp"
   },
   {
     "nome": "Acqua di Giò Absolu EDP",
@@ -4897,7 +4958,8 @@
     "longevidade": 9,
     "projeção": 8,
     "priceMin": 2000,
-    "priceMax": 2800
+    "priceMax": 2800,
+    "imageUrl": "file:///android_asset/perfumes/lv_imagination.webp"
   },
   {
     "nome": "L'Immensité",
@@ -4907,7 +4969,8 @@
     "longevidade": 9,
     "projeção": 9,
     "priceMin": 2000,
-    "priceMax": 2800
+    "priceMax": 2800,
+    "imageUrl": "file:///android_asset/perfumes/lv_limmensite.webp"
   },
   {
     "nome": "Afternoon Swim",
@@ -4917,7 +4980,8 @@
     "longevidade": 7,
     "projeção": 7,
     "priceMin": 2000,
-    "priceMax": 2800
+    "priceMax": 2800,
+    "imageUrl": "file:///android_asset/perfumes/lv_afternoon_swim.webp"
   },
   {
     "nome": "Matière Noire",
@@ -4937,7 +5001,8 @@
     "longevidade": 8,
     "projeção": 7,
     "priceMin": 2000,
-    "priceMax": 2800
+    "priceMax": 2800,
+    "imageUrl": "file:///android_asset/perfumes/lv_pacific_chill.webp"
   },
   {
     "nome": "California Dream",
@@ -5007,7 +5072,8 @@
     "longevidade": 10,
     "projeção": 10,
     "priceMin": 2500,
-    "priceMax": 3500
+    "priceMax": 3500,
+    "imageUrl": "file:///android_asset/perfumes/lv_ombre_nomade.webp"
   },
   {
     "nome": "Symphony",
@@ -5067,7 +5133,8 @@
     "longevidade": 8,
     "projeção": 8,
     "priceMin": 600,
-    "priceMax": 800
+    "priceMax": 800,
+    "imageUrl": "file:///android_asset/perfumes/prada_luna_rossa_ocean.webp"
   },
   {
     "nome": "Luna Rossa Carbon Eau de Parfum",
@@ -5077,7 +5144,8 @@
     "longevidade": 8,
     "projeção": 8,
     "priceMin": 550,
-    "priceMax": 750
+    "priceMax": 750,
+    "imageUrl": "file:///android_asset/perfumes/prada_luna_rossa_carbon.webp"
   },
   {
     "nome": "Luna Rossa Extreme Eau de Parfum",
@@ -5107,7 +5175,8 @@
     "longevidade": 8,
     "projeção": 8,
     "priceMin": 600,
-    "priceMax": 800
+    "priceMax": 800,
+    "imageUrl": "file:///android_asset/perfumes/prada_luna_rossa_black.webp"
   },
   {
     "nome": "Luna Rossa Ocean Eau de Toilette",
@@ -5117,7 +5186,8 @@
     "longevidade": 7,
     "projeção": 7,
     "priceMin": 450,
-    "priceMax": 650
+    "priceMax": 650,
+    "imageUrl": "file:///android_asset/perfumes/prada_luna_rossa_ocean.webp"
   },
   {
     "nome": "Les Infusions de Mandarine Eau de Parfum",
@@ -6081,7 +6151,8 @@
     "projeção": 7,
     "priceMin": 180.0,
     "priceMax": 260.0,
-    "referencia": "Lattafa Yara Rosa"
+    "referencia": "Lattafa Yara Rosa",
+    "imageUrl": "file:///android_asset/perfumes/lattafa_yara.webp"
   },
   {
     "nome": "Yara Tous",
@@ -6092,7 +6163,8 @@
     "projeção": 7,
     "priceMin": 190.0,
     "priceMax": 270.0,
-    "referencia": "Lattafa Yara Amarelo Mango"
+    "referencia": "Lattafa Yara Amarelo Mango",
+    "imageUrl": "file:///android_asset/perfumes/lattafa_yara_tous.webp"
   },
   {
     "nome": "Yara Moi",
@@ -6103,7 +6175,8 @@
     "projeção": 7,
     "priceMin": 190.0,
     "priceMax": 270.0,
-    "referencia": "Lattafa Yara Branco Caramelo"
+    "referencia": "Lattafa Yara Branco Caramelo",
+    "imageUrl": "file:///android_asset/perfumes/lattafa_yara.webp"
   },
   {
     "nome": "Yara Candy",
@@ -6114,7 +6187,8 @@
     "projeção": 8,
     "priceMin": 230.0,
     "priceMax": 320.0,
-    "referencia": "Lattafa Yara Candy Doce"
+    "referencia": "Lattafa Yara Candy Doce",
+    "imageUrl": "file:///android_asset/perfumes/lattafa_yara.webp"
   },
   {
     "nome": "Bade e Al Oud (Oud for Glory)",
@@ -6149,7 +6223,8 @@
     "projeção": 9,
     "priceMin": 220.0,
     "priceMax": 320.0,
-    "referencia": "Initio Atomic Rose"
+    "referencia": "Initio Atomic Rose",
+    "imageUrl": "file:///android_asset/perfumes/lattafa_badee_amethyst.webp"
   },
   {
     "nome": "Bade e Al Oud Sublime",
@@ -6160,7 +6235,8 @@
     "projeção": 8,
     "priceMin": 220.0,
     "priceMax": 320.0,
-    "referencia": "Kayali Eden Juicy Apple"
+    "referencia": "Kayali Eden Juicy Apple",
+    "imageUrl": "file:///android_asset/perfumes/lattafa_badee_sublime.webp"
   },
   {
     "nome": "Fakhar Black",
@@ -6238,7 +6314,8 @@
     "projeção": 9,
     "priceMin": 180.0,
     "priceMax": 260.0,
-    "referencia": "Maison Martin Margiela By the Fireplace"
+    "referencia": "Maison Martin Margiela By the Fireplace",
+    "imageUrl": "file:///android_asset/perfumes/lattafa_ameer_al_oudh_intense.webp"
   },
   {
     "nome": "Nebras",
@@ -6249,7 +6326,8 @@
     "projeção": 8,
     "priceMin": 240.0,
     "priceMax": 350.0,
-    "referencia": "Billie Eilish Eilish No 1 Chocolate Baunilha"
+    "referencia": "Billie Eilish Eilish No 1 Chocolate Baunilha",
+    "imageUrl": "file:///android_asset/perfumes/lattafa_nebras.webp"
   },
   {
     "nome": "Affection",
@@ -6293,7 +6371,8 @@
     "projeção": 8,
     "priceMin": 160.0,
     "priceMax": 240.0,
-    "referencia": "Paco Rabanne Black XS / Abacaxi Intenso"
+    "referencia": "Paco Rabanne Black XS / Abacaxi Intenso",
+    "imageUrl": "file:///android_asset/perfumes/lattafa_qaed_al_fursan.webp"
   },
   {
     "nome": "Qaed Al Fursan Unlimited",
@@ -6304,7 +6383,8 @@
     "projeção": 7,
     "priceMin": 160.0,
     "priceMax": 240.0,
-    "referencia": "Lattafa Fursan Branco Coco Baunilha"
+    "referencia": "Lattafa Fursan Branco Coco Baunilha",
+    "imageUrl": "file:///android_asset/perfumes/lattafa_qaed_al_fursan.webp"
   },
   {
     "nome": "Rave Now",
@@ -6348,7 +6428,8 @@
     "projeção": 8,
     "priceMin": 160.0,
     "priceMax": 230.0,
-    "referencia": "Paco Rabanne Invictus / Rasasi Hawas"
+    "referencia": "Paco Rabanne Invictus / Rasasi Hawas",
+    "imageUrl": "file:///android_asset/perfumes/lattafa_hayaati.webp"
   },
   {
     "nome": "Suqraat",
@@ -6370,7 +6451,8 @@
     "projeção": 7,
     "priceMin": 190.0,
     "priceMax": 280.0,
-    "referencia": "Tom Ford Oud Wood"
+    "referencia": "Tom Ford Oud Wood",
+    "imageUrl": "file:///android_asset/perfumes/alhambra_woody_oud.webp"
   },
   {
     "nome": "Tobacco Touch",
@@ -6392,7 +6474,8 @@
     "projeção": 9,
     "priceMin": 190.0,
     "priceMax": 290.0,
-    "referencia": "Tom Ford Tuscan Leather"
+    "referencia": "Tom Ford Tuscan Leather",
+    "imageUrl": "file:///android_asset/perfumes/alhambra_toscano_leather.webp"
   },
   {
     "nome": "Bright Peach",
@@ -6447,7 +6530,8 @@
     "projeção": 8,
     "priceMin": 220.0,
     "priceMax": 320.0,
-    "referencia": "Louis Vuitton L Immensite"
+    "referencia": "Louis Vuitton L Immensite",
+    "imageUrl": "file:///android_asset/perfumes/alhambra_jean_lowe_immortal.webp"
   },
   {
     "nome": "Jean Lowe Nouveau",
@@ -6480,7 +6564,8 @@
     "projeção": 8,
     "priceMin": 220.0,
     "priceMax": 330.0,
-    "referencia": "YSL Tuxedo"
+    "referencia": "YSL Tuxedo",
+    "imageUrl": "file:///android_asset/perfumes/alhambra_the_tux.webp"
   },
   {
     "nome": "Kismet Magic",
@@ -6491,7 +6576,8 @@
     "projeção": 8,
     "priceMin": 200.0,
     "priceMax": 300.0,
-    "referencia": "Kilian Angels Share"
+    "referencia": "Kilian Angels Share",
+    "imageUrl": "file:///android_asset/perfumes/alhambra_kismet_angel.webp"
   },
   {
     "nome": "Malbec Bourbon",
@@ -6583,7 +6669,8 @@
     "projeção": 9,
     "priceMin": 500.0,
     "priceMax": 700.0,
-    "referencia": "Armani SWY Intensely Baunilha Bourbon"
+    "referencia": "Armani SWY Intensely Baunilha Bourbon",
+    "imageUrl": "file:///android_asset/perfumes/armani_swy_intensely.webp"
   },
   {
     "nome": "Stronger With You Absolutely",
@@ -7077,7 +7164,8 @@
     "longevidade": 8,
     "projeção": 8,
     "priceMin": 160.0,
-    "priceMax": 220.0
+    "priceMax": 220.0,
+    "imageUrl": "file:///android_asset/perfumes/lattafa_ejaazi.webp"
   },
   {
     "nome": "Qaa'ed",
@@ -7108,7 +7196,8 @@
     "projeção": 7,
     "priceMin": 220.0,
     "priceMax": 320.0,
-    "referencia": "Acqua Di Gio Profondo"
+    "referencia": "Acqua Di Gio Profondo",
+    "imageUrl": "file:///android_asset/perfumes/lattafa_liam_blue.webp"
   },
   {
     "nome": "Fakhar Extrait",
@@ -7298,7 +7387,8 @@
     "longevidade": 9,
     "projeção": 9,
     "priceMin": 160.0,
-    "priceMax": 240.0
+    "priceMax": 240.0,
+    "imageUrl": "file:///android_asset/perfumes/lattafa_ameer_al_oudh_intense.webp"
   },
   {
     "nome": "Mindset",
@@ -7319,7 +7409,8 @@
     "projeção": 9,
     "priceMin": 250.0,
     "priceMax": 350.0,
-    "referencia": "Angels' Share Kilian"
+    "referencia": "Angels' Share Kilian",
+    "imageUrl": "file:///android_asset/perfumes/alhambra_kismet_angel.webp"
   },
   {
     "nome": "Cassius",
@@ -7483,7 +7574,8 @@
     "projeção": 8,
     "priceMin": 220.0,
     "priceMax": 320.0,
-    "referencia": "Xerjoff Naxos 1861"
+    "referencia": "Xerjoff Naxos 1861",
+    "imageUrl": "file:///android_asset/perfumes/paris_corner_voux_elegante.webp"
   },
   {
     "nome": "Emir Voux Spices",
@@ -7515,7 +7607,8 @@
     "projeção": 8,
     "priceMin": 220.0,
     "priceMax": 350.0,
-    "referencia": "Jean Paul Gaultier Scandal Pour Homme"
+    "referencia": "Jean Paul Gaultier Scandal Pour Homme",
+    "imageUrl": "file:///android_asset/perfumes/armaf_odyssey_mandarin_sky.webp"
   },
   {
     "nome": "Odyssey Aqua",
@@ -7578,7 +7671,8 @@
     "projeção": 9,
     "priceMin": 300.0,
     "priceMax": 400.0,
-    "referencia": "Dior Sauvage + Aventus"
+    "referencia": "Dior Sauvage + Aventus",
+    "imageUrl": "file:///android_asset/perfumes/armaf_cdn_urban_elixir.webp"
   },
   {
     "nome": "Tres Nuit",
@@ -8048,5 +8142,236 @@
     "referencia": "Tatuado com Pimenta Branca, Caviar de Baunilha e Âmbar",
     "notas": "Pimenta Branca, Caviar de Baunilha | Ambargris | Almíscar, Cedro",
     "imageUrl": "file:///android_asset/perfumes/jpg_le_male_lover.webp"
+  },
+  {
+    "nome": "Azzaro Pour Homme",
+    "marca": "Azzaro",
+    "familia": "Fougère Aromático Amadeirado",
+    "notas": "Lavanda, Anis Estrelado, Limão | Vetiver, Cedro, Patchouli | Musgo de Carvalho, Couro, Âmbar",
+    "longevidade": 8,
+    "projeção": 8,
+    "priceMin": 220,
+    "priceMax": 350,
+    "imageUrl": "file:///android_asset/perfumes/azzaro_pour_homme.webp"
+  },
+  {
+    "nome": "Fahrenheit EDT",
+    "marca": "Dior",
+    "familia": "Aromático Fougère Couro",
+    "notas": "Flor de Noz-Moscada, Lavanda, Cedro, Mandarina | Folha de Violeta, Cravo | Couro, Vetiver, Âmbar",
+    "longevidade": 9,
+    "projeção": 9,
+    "priceMin": 650,
+    "priceMax": 900,
+    "imageUrl": "file:///android_asset/perfumes/dior_fahrenheit.webp"
+  },
+  {
+    "nome": "Dior Homme Intense",
+    "marca": "Dior",
+    "familia": "Amadeirado Floral Almiscarado",
+    "notas": "Lavanda | Íris da Toscana, Ambreta, Pêra | Cedro da Virgínia, Vetiver",
+    "longevidade": 10,
+    "projeção": 9,
+    "priceMin": 700,
+    "priceMax": 950,
+    "imageUrl": "file:///android_asset/perfumes/dior_homme_intense.webp"
+  },
+  {
+    "nome": "MYSLF Eau de Parfum",
+    "marca": "Yves Saint Laurent",
+    "familia": "Aromático Floral Amadeirado",
+    "notas": "Bergamota da Calábria | Flor de Laranjeira da Tunísia | Ambrofix, Patchouli da Indonésia",
+    "longevidade": 8,
+    "projeção": 8,
+    "priceMin": 600,
+    "priceMax": 850,
+    "imageUrl": "file:///android_asset/perfumes/ysl_myslf.webp"
+  },
+  {
+    "nome": "Versace Pour Homme",
+    "marca": "Versace",
+    "familia": "Aromático Fougère Cítrico",
+    "notas": "Limão, Bergamota, Néroli, Rosa de Maio | Jacinto, Cedro, Sálvia Esclaréia | Fava Tonka, Almíscar, Âmbar",
+    "longevidade": 7,
+    "projeção": 7,
+    "priceMin": 350,
+    "priceMax": 500,
+    "imageUrl": "file:///android_asset/perfumes/versace_pour_homme.webp"
+  },
+  {
+    "nome": "1 Million Elixir",
+    "marca": "Paco Rabanne",
+    "familia": "Âmbar Doce Amadeirado",
+    "notas": "Maçã, Davana | Rosa Damascena, Osmanthus, Cedro | Absoluto de Baunilha, Fava Tonka, Patchouli",
+    "longevidade": 9,
+    "projeção": 9,
+    "priceMin": 550,
+    "priceMax": 750,
+    "imageUrl": "file:///android_asset/perfumes/pr_one_million_elixir.webp"
+  },
+  {
+    "nome": "Invictus EDT",
+    "marca": "Paco Rabanne",
+    "familia": "Amadeirado Aquático",
+    "notas": "Notas Marinhas, Toranja, Mandarina | Folha de Louro, Jasmim | Âmbar Cinzento, Madeira Guaiac, Musgo de Carvalho",
+    "longevidade": 8,
+    "projeção": 8,
+    "priceMin": 450,
+    "priceMax": 650,
+    "imageUrl": "file:///android_asset/perfumes/pr_invictus_edt.webp"
+  },
+  {
+    "nome": "Salvo Elixir",
+    "marca": "Maison Alhambra",
+    "familia": "Especiado Quente Amadeirado",
+    "notas": "Canela, Noz-Moscada, Cardamomo, Toranja | Lavanda | Alcaçuz, Sândalo, Âmbar, Patchouli",
+    "longevidade": 9,
+    "projeção": 9,
+    "priceMin": 180,
+    "priceMax": 260,
+    "imageUrl": "file:///android_asset/perfumes/alhambra_salvo_elixir.webp"
+  },
+  {
+    "nome": "Bleu de Chanel EDT",
+    "marca": "Chanel",
+    "familia": "Amadeirado Aromático",
+    "notas": "Toranja, Limão, Hortelã, Pimenta Rosa | Gengibre, Noz-Moscada, Jasmim, Iso E Super | Incenso, Vetiver, Cedro, Sândalo",
+    "longevidade": 8,
+    "projeção": 8,
+    "priceMin": 850,
+    "priceMax": 1100,
+    "imageUrl": "file:///android_asset/perfumes/bleu_de_chanel.webp"
+  },
+  {
+    "nome": "Bleu de Chanel EDP",
+    "marca": "Chanel",
+    "familia": "Amadeirado Aromático Ambarado",
+    "notas": "Toranja, Limão, Hortelã, Bergamota | Gengibre, Noz-Moscada, Jasmim, Melão | Incenso, Âmbar, Cedro, Sândalo, Patchouli",
+    "longevidade": 9,
+    "projeção": 8,
+    "priceMin": 950,
+    "priceMax": 1250,
+    "imageUrl": "file:///android_asset/perfumes/bleu_de_chanel.webp"
+  },
+  {
+    "nome": "Bleu de Chanel Parfum",
+    "marca": "Chanel",
+    "familia": "Amadeirado Aromático Intenso",
+    "notas": "Casca de Limão, Bergamota, Hortelã, Artemísia | Lavanda, Gerânio, Notas Verdes, Abacaxi | Sândalo da Nova Caledônia, Cedro, Madeira de Âmbar, Iso E Super",
+    "longevidade": 10,
+    "projeção": 8,
+    "priceMin": 1100,
+    "priceMax": 1450,
+    "imageUrl": "file:///android_asset/perfumes/bleu_de_chanel.webp"
+  },
+  {
+    "nome": "Allure Homme Sport",
+    "marca": "Chanel",
+    "familia": "Amadeirado Especiado Cítrico",
+    "notas": "Laranja, Notas Marinhas, Aldeídos, Mandarina Sanguínea | Pimenta, Néroli, Cedro | Fava Tonka, Baunilha, Almíscar Branco, Âmbar",
+    "longevidade": 8,
+    "projeção": 8,
+    "priceMin": 850,
+    "priceMax": 1150,
+    "imageUrl": "file:///android_asset/perfumes/chanel_allure_homme_sport.webp"
+  },
+  {
+    "nome": "Allure Homme Sport Eau Extrême",
+    "marca": "Chanel",
+    "familia": "Amadeirado Aromático Fougère",
+    "notas": "Mandarina, Hortelã, Cipreste, Sálvia | Pimenta Preta | Fava Tonka, Almíscar, Sândalo, Cedro",
+    "longevidade": 9,
+    "projeção": 9,
+    "priceMin": 950,
+    "priceMax": 1250,
+    "imageUrl": "file:///android_asset/perfumes/chanel_allure_sport_extreme.webp"
+  },
+  {
+    "nome": "L’Immensité",
+    "marca": "Louis Vuitton",
+    "familia": "Âmbar Especiado Aromático",
+    "notas": "Toranja, Gengibre, Bergamota | Notas Aquáticas, Sálvia, Alecrim, Gerânio | Ambroxan, Âmbar, Ládano",
+    "longevidade": 9,
+    "projeção": 8,
+    "priceMin": 1900,
+    "priceMax": 2600,
+    "imageUrl": "file:///android_asset/perfumes/lv_limmensite.webp"
+  },
+  {
+    "nome": "Prada L'Homme",
+    "marca": "Prada",
+    "familia": "Amadeirado Chipre Floral Limpo",
+    "notas": "Néroli, Pimenta Preta, Cardamomo, Sementes de Cenoura | Íris, Violeta, Gerânio, Mate | Âmbar, Cedro, Patchouli, Sândalo",
+    "longevidade": 8,
+    "projeção": 7,
+    "priceMin": 550,
+    "priceMax": 750,
+    "imageUrl": "file:///android_asset/perfumes/prada_lhomme.webp"
+  },
+  {
+    "nome": "Prada Luna Rossa Carbon",
+    "marca": "Prada",
+    "familia": "Aromático Fougère Mineral",
+    "notas": "Bergamota, Pimenta | Lavanda, Notas de Solo, Carvão, Notas Aquáticas, Tintura de Solo | Ambroxan, Patchouli",
+    "longevidade": 8,
+    "projeção": 8,
+    "priceMin": 500,
+    "priceMax": 700,
+    "imageUrl": "file:///android_asset/perfumes/prada_luna_rossa_carbon.webp"
+  },
+  {
+    "nome": "Terre d’Hermès EDT",
+    "marca": "Hermès",
+    "familia": "Amadeirado Especiado Mineral",
+    "notas": "Laranja, Toranja | Pimenta, Pelargonium, Sílex (Pedra) | Vetiver, Cedro, Patchouli, Benjoim",
+    "longevidade": 8,
+    "projeção": 8,
+    "priceMin": 550,
+    "priceMax": 750,
+    "imageUrl": "file:///android_asset/perfumes/hermes_terre_dhermes_edt.webp"
+  },
+  {
+    "nome": "Creed Green Irish Tweed",
+    "marca": "Creed",
+    "familia": "Fougère Amadeirado Verde",
+    "notas": "Lúcia-Lima (Verbena), Íris | Folha de Violeta | Âmbar Cinzento, Sândalo de Mysore",
+    "longevidade": 8,
+    "projeção": 8,
+    "priceMin": 1800,
+    "priceMax": 2500,
+    "imageUrl": "file:///android_asset/perfumes/creed_green_irish_tweed.webp"
+  },
+  {
+    "nome": "Creed Silver Mountain Water",
+    "marca": "Creed",
+    "familia": "Aromático Fresco Montanhoso",
+    "notas": "Bergamota, Mandarina | Chá Verde, Groselha Preta | Almíscar, Petitgrain, Sândalo, Gálbano",
+    "longevidade": 8,
+    "projeção": 7,
+    "priceMin": 1800,
+    "priceMax": 2500,
+    "imageUrl": "file:///android_asset/perfumes/creed_silver_mountain_water.webp"
+  },
+  {
+    "nome": "Creed Millésime Impérial",
+    "marca": "Creed",
+    "familia": "Amadeirado Floral Aquático Real",
+    "notas": "Sal Marinho, Notas Frutadas | Limão Siciliano, Bergamota, Íris, Mandarina | Notas Marinhas, Almíscar, Notas Amadeiradas",
+    "longevidade": 7,
+    "projeção": 7,
+    "priceMin": 1800,
+    "priceMax": 2500,
+    "imageUrl": "file:///android_asset/perfumes/creed_millesime_imperial.webp"
+  },
+  {
+    "nome": "Rifaaqat",
+    "marca": "Paris Corner",
+    "familia": "Âmbar Especiado Quente Baunilha",
+    "notas": "Pimenta Preta, Pimenta Rosa, Elemi | Açafrão, Olíbano | Baunilha Bourbon, Camurça, Cedro",
+    "longevidade": 10,
+    "projeção": 9,
+    "priceMin": 220,
+    "priceMax": 320,
+    "imageUrl": "file:///android_asset/perfumes/paris_corner_rifaaqat.webp"
   }
 ]
