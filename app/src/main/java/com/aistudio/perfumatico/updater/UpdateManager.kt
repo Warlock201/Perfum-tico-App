@@ -34,11 +34,14 @@ class UpdateManager(private val context: Context) {
 
     suspend fun checkForUpdate(): UpdateInfo? = withContext(Dispatchers.IO) {
         try {
-            val url = URL(updateCheckUrl)
+            val bustUrl = if (updateCheckUrl.contains("?")) "$updateCheckUrl&_t=${System.currentTimeMillis()}" else "$updateCheckUrl?_t=${System.currentTimeMillis()}"
+            val url = URL(bustUrl)
             val connection = url.openConnection() as HttpURLConnection
             connection.requestMethod = "GET"
-            connection.connectTimeout = 5000
-            connection.readTimeout = 5000
+            connection.setRequestProperty("Cache-Control", "no-cache")
+            connection.setRequestProperty("Pragma", "no-cache")
+            connection.connectTimeout = 10000
+            connection.readTimeout = 10000
             
             if (connection.responseCode == HttpURLConnection.HTTP_OK) {
                 val response = connection.inputStream.bufferedReader().use { it.readText() }
