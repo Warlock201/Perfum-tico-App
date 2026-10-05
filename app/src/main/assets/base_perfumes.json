@@ -7,7 +7,8 @@
     "longevidade": 9,
     "projeção": 9,
     "priceMin": 250,
-    "priceMax": 350
+    "priceMax": 350,
+    "imageUrl": "file:///android_asset/perfumes/dumont_nitro_red.webp"
   },
   {
     "nome": "Nitro Pour Homme",
@@ -107,7 +108,8 @@
     "longevidade": 9,
     "projeção": 9,
     "priceMin": 300,
-    "priceMax": 350
+    "priceMax": 350,
+    "imageUrl": "file:///android_asset/perfumes/armaf_cdnim.webp"
   },
   {
     "nome": "CDNIM Pure Parfum",
@@ -157,7 +159,8 @@
     "longevidade": 9,
     "projeção": 9,
     "priceMin": 350,
-    "priceMax": 450
+    "priceMax": 450,
+    "imageUrl": "file:///android_asset/perfumes/armaf_sillage.webp"
   },
   {
     "nome": "Club de Nuit Imperial",
@@ -177,7 +180,8 @@
     "longevidade": 9,
     "projeção": 9,
     "priceMin": 350,
-    "priceMax": 450
+    "priceMax": 450,
+    "imageUrl": "file:///android_asset/perfumes/armaf_untold.webp"
   },
   {
     "nome": "Hunter",
@@ -547,7 +551,8 @@
     "longevidade": 9,
     "projeção": 9,
     "priceMin": 350,
-    "priceMax": 450
+    "priceMax": 450,
+    "imageUrl": "file:///android_asset/perfumes/armaf_sillage.webp"
   },
   {
     "nome": "Club de Nuit Imperiale",
@@ -577,7 +582,8 @@
     "longevidade": 9,
     "projeção": 9,
     "priceMin": 350,
-    "priceMax": 450
+    "priceMax": 450,
+    "imageUrl": "file:///android_asset/perfumes/armaf_untold.webp"
   },
   {
     "nome": "Club de Nuit Timeless",
@@ -597,7 +603,8 @@
     "longevidade": 9,
     "projeção": 8,
     "priceMin": 350,
-    "priceMax": 450
+    "priceMax": 450,
+    "imageUrl": "file:///android_asset/perfumes/armaf_iconic.webp"
   },
   {
     "nome": "Ventana Pour Homme",
@@ -2957,7 +2964,8 @@
     "longevidade": 8,
     "projeção": 8,
     "priceMin": 500,
-    "priceMax": 700
+    "priceMax": 700,
+    "imageUrl": "file:///android_asset/perfumes/dior_sauvage_edp.webp"
   },
   {
     "nome": "Sauvage EDP",
@@ -2967,7 +2975,8 @@
     "longevidade": 9,
     "projeção": 9,
     "priceMin": 600,
-    "priceMax": 800
+    "priceMax": 800,
+    "imageUrl": "file:///android_asset/perfumes/dior_sauvage_edp.webp"
   },
   {
     "nome": "Sauvage Parfum",
@@ -4767,7 +4776,8 @@
     "longevidade": 7,
     "projeção": 7,
     "priceMin": 450,
-    "priceMax": 650
+    "priceMax": 650,
+    "imageUrl": "file:///android_asset/perfumes/acqua_di_gio.webp"
   },
   {
     "nome": "Acqua di Giò Profondo EDP",
@@ -5267,7 +5277,8 @@
     "longevidade": 8,
     "projeção": 8,
     "priceMin": 190,
-    "priceMax": 220
+    "priceMax": 220,
+    "imageUrl": "file:///android_asset/perfumes/boticario_malbec.webp"
   },
   {
     "nome": "Malbec Club Intenso",
@@ -5297,7 +5308,8 @@
     "longevidade": 9,
     "projeção": 8,
     "priceMin": 210,
-    "priceMax": 240
+    "priceMax": 240,
+    "imageUrl": "file:///android_asset/perfumes/boticario_malbec_black.webp"
   },
   {
     "nome": "Malbec Gold",
@@ -5547,7 +5559,8 @@
     "longevidade": 9,
     "projeção": 9,
     "priceMin": 200,
-    "priceMax": 260
+    "priceMax": 260,
+    "imageUrl": "file:///android_asset/perfumes/natura_essencial_oud.webp"
   },
   {
     "nome": "Essencial Exclusivo",
@@ -5908,7 +5921,8 @@
     "projeção": 9,
     "priceMin": 220.0,
     "priceMax": 320.0,
-    "referencia": "Dior Sauvage Elixir (Clone / Inspiração)"
+    "referencia": "Dior Sauvage Elixir (Clone / Inspiração)",
+    "imageUrl": "file:///android_asset/perfumes/lattafa_asad.webp"
   },
   {
     "nome": "Asad Zanzibar",
@@ -5919,7 +5933,8 @@
     "projeção": 8,
     "priceMin": 240.0,
     "priceMax": 350.0,
-    "referencia": "Lattafa Asad Zanzibar"
+    "referencia": "Lattafa Asad Zanzibar",
+    "imageUrl": "file:///android_asset/perfumes/lattafa_asad_zanzibar.webp"
   },
   {
     "nome": "Asad Bourbon",
@@ -5930,6 +5945,7 @@
     "projeção": 8,
     "priceMin": 250.0,
     "priceMax": 360.0,
+    "imageUrl": "file:///android_asset/perfumes/asad_bourbon.webp",
     "referencia": "Lattafa Asad Bourbon (Notas Licorosas de Bourbon e Baunilha)"
   },
   {
@@ -5941,7 +5957,8 @@
     "projeção": 9,
     "priceMin": 260.0,
     "priceMax": 380.0,
-    "referencia": "Kilian Angels Share"
+    "referencia": "Kilian Angels Share",
+    "imageUrl": "file:///android_asset/perfumes/lattafa_khamrah.webp"
   },
   {
     "nome": "Khamrah Qahwa",
@@ -5952,7 +5969,8 @@
     "projeção": 9,
     "priceMin": 280.0,
     "priceMax": 400.0,
-    "referencia": "Kilian Angels Share com Café"
+    "referencia": "Kilian Angels Share com Café",
+    "imageUrl": "file:///android_asset/perfumes/lattafa_khamrah_qahwa.webp"
   },
   {
     "nome": "Yara",
@@ -7573,7 +7591,8 @@
     "longevidade": 8,
     "projeção": 8,
     "priceMin": 299.0,
-    "priceMax": 350.0
+    "priceMax": 350.0,
+    "imageUrl": "file:///android_asset/perfumes/the_blend_edp.webp"
   },
   {
     "nome": "The Blend Bourbon",
@@ -7584,6 +7603,7 @@
     "projeção": 8,
     "priceMin": 299.0,
     "priceMax": 350.0,
+    "imageUrl": "file:///android_asset/perfumes/the_blend_bourbon.webp",
     "referencia": "Baunilha de Bourbon e Especiarias"
   },
   {
@@ -7594,7 +7614,8 @@
     "longevidade": 8,
     "projeção": 8,
     "priceMin": 299.0,
-    "priceMax": 350.0
+    "priceMax": 350.0,
+    "imageUrl": "file:///android_asset/perfumes/the_blend_cardamom.webp"
   },
   {
     "nome": "Zaad Exclusive",

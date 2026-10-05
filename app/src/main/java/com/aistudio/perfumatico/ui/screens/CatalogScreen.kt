@@ -384,16 +384,29 @@ fun CatalogPerfumeCard(
         ) {
             Box(
                 modifier = Modifier
-                    .size(80.dp)
-                    .clip(RoundedCornerShape(12.dp))
-                    .background(Slate700)
+                    .size(76.dp)
+                    .clip(RoundedCornerShape(14.dp))
+                    .background(Slate800)
+                    .border(1.dp, Slate700, RoundedCornerShape(14.dp)),
+                contentAlignment = Alignment.Center
             ) {
-                coil.compose.AsyncImage(
-                    model = perfume.imageUrl,
-                    contentDescription = perfume.name,
-                    contentScale = ContentScale.Crop,
-                    modifier = Modifier.fillMaxSize()
-                )
+                if (perfume.imageUrl.isNotBlank()) {
+                    coil.compose.AsyncImage(
+                        model = perfume.imageUrl,
+                        contentDescription = perfume.name,
+                        contentScale = ContentScale.Fit,
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .padding(4.dp)
+                    )
+                } else {
+                    androidx.compose.material3.Text(
+                        text = perfume.name.take(3).uppercase(),
+                        color = Amber400,
+                        fontWeight = FontWeight.Black,
+                        fontSize = 18.sp
+                    )
+                }
             }
             Spacer(modifier = Modifier.width(16.dp))
             Column(modifier = Modifier.weight(1f)) {

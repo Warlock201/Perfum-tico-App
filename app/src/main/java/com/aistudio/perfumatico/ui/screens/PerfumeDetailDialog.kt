@@ -604,15 +604,32 @@ fun PerfumeDetailDialog(
                                     },
                                 horizontalAlignment = Alignment.CenterHorizontally
                             ) {
-                                AsyncImage(
-                                    model = simPerfume.imageUrl,
-                                    contentDescription = simPerfume.name,
+                                Box(
                                     modifier = Modifier
                                         .size(60.dp)
                                         .clip(RoundedCornerShape(12.dp))
-                                        .background(Slate800),
-                                    contentScale = ContentScale.Crop
-                                )
+                                        .background(Slate800)
+                                        .border(1.dp, Slate700, RoundedCornerShape(12.dp)),
+                                    contentAlignment = Alignment.Center
+                                ) {
+                                    if (simPerfume.imageUrl.isNotBlank()) {
+                                        AsyncImage(
+                                            model = simPerfume.imageUrl,
+                                            contentDescription = simPerfume.name,
+                                            modifier = Modifier
+                                                .fillMaxSize()
+                                                .padding(4.dp),
+                                            contentScale = ContentScale.Fit
+                                        )
+                                    } else {
+                                        Text(
+                                            text = simPerfume.name.take(2).uppercase(),
+                                            color = Amber400,
+                                            fontWeight = FontWeight.Bold,
+                                            fontSize = 12.sp
+                                        )
+                                    }
+                                }
                                 Spacer(modifier = Modifier.height(4.dp))
                                 Text(
                                     text = simPerfume.name,

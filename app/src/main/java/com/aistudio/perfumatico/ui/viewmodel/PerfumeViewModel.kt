@@ -52,8 +52,16 @@ data class RecommendationItem(
 class PerfumeViewModel(application: Application) : AndroidViewModel(application) {
     private val repository = PerfumeRepository(application)
 
-    val myPerfumes: StateFlow<List<PerfumeEntity>> = repository.myPerfumes
-        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), emptyList())
+    val myPerfumes: StateFlow<List<PerfumeEntity>> = combine(repository.myPerfumes, repository.globalPerfumes) { local, global ->
+        local.map { p ->
+            if (p.imageUrl.isBlank()) {
+                val match = global.firstOrNull { it.name.equals(p.name, ignoreCase = true) }
+                if (match != null && match.imageUrl.isNotBlank()) {
+                    p.copy(imageUrl = match.imageUrl)
+                } else p
+            } else p
+        }
+    }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), emptyList())
 
     val sotdHistory: StateFlow<List<SotdEntity>> = repository.sotdHistory
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), emptyList())
@@ -305,7 +313,13 @@ class PerfumeViewModel(application: Application) : AndroidViewModel(application)
     }
 
     fun openPerfumeDetails(perfume: PerfumeEntity) {
-        _selectedPerfume.value = perfume
+        val resolved = if (perfume.imageUrl.isBlank()) {
+            val match = globalPerfumes.value.firstOrNull { it.name.equals(perfume.name, ignoreCase = true) }
+            if (match != null && match.imageUrl.isNotBlank()) {
+                perfume.copy(imageUrl = match.imageUrl)
+            } else perfume
+        } else perfume
+        _selectedPerfume.value = resolved
     }
 
     fun closePerfumeDetails() {
