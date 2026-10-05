@@ -70,6 +70,48 @@ if (!envFile.exists() || envFile.readText().contains("AQ.")) {
     envFile.writeText("GEMINI_API_KEY=PROTECTED\nGEMINI_API_KEY_NEW=PROTECTED\n")
 }
 
+val gsFile = project.file("google-services.json")
+if (!gsFile.exists()) {
+    gsFile.writeText(
+        """
+        {
+          "project_info": {
+            "project_number": "784506326280",
+            "project_id": "gestor-de-perfumes",
+            "storage_bucket": "gestor-de-perfumes.firebasestorage.app"
+          },
+          "client": [
+            {
+              "client_info": {
+                "mobilesdk_app_id": "1:784506326280:android:3460bb073f15c2bc7e4c36",
+                "android_client_info": {
+                  "package_name": "com.aistudio.perfumatico.kqpv"
+                }
+              },
+              "oauth_client": [
+                {
+                  "client_id": "784506326280-i4dfu7es4v9575jdt13fa6upcubh5spe.apps.googleusercontent.com",
+                  "client_type": 3
+                }
+              ],
+              "api_key": [
+                {
+                  "current_key": "AIzaSyDummyKeyForGoogleServicesPluginBuild"
+                }
+              ],
+              "services": {
+                "appinvite_service": {
+                  "other_platform_oauth_client": []
+                }
+              }
+            }
+          ],
+          "configuration_version": "1"
+        }
+        """.trimIndent()
+    )
+}
+
 secrets {
     propertiesFileName = ".env"
     defaultPropertiesFileName = ".env.example"

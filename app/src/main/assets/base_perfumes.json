@@ -2364,7 +2364,8 @@
     "longevidade": 9,
     "projeção": 9,
     "priceMin": 250,
-    "priceMax": 350
+    "priceMax": 350,
+    "imageUrl": "file:///android_asset/perfumes/afnan_9pm.webp"
   },
   {
     "nome": "9 PM Rebel",
@@ -2374,7 +2375,8 @@
     "longevidade": 9,
     "projeção": 9,
     "priceMin": 250,
-    "priceMax": 350
+    "priceMax": 350,
+    "imageUrl": "file:///android_asset/perfumes/afnan_9pm.webp"
   },
   {
     "nome": "Abstract Portrait",
@@ -2504,7 +2506,8 @@
     "longevidade": 9,
     "projeção": 9,
     "priceMin": 350,
-    "priceMax": 450
+    "priceMax": 450,
+    "imageUrl": "file:///android_asset/perfumes/afnan_snoi.webp"
   },
   {
     "nome": "Theoreme",
@@ -2534,7 +2537,8 @@
     "longevidade": 9,
     "projeção": 9,
     "priceMin": 300,
-    "priceMax": 450
+    "priceMax": 450,
+    "imageUrl": "file:///android_asset/perfumes/afnan_turathi_blue.webp"
   },
   {
     "nome": "Turathi Brown",
@@ -2714,7 +2718,8 @@
     "longevidade": 10,
     "projeção": 9,
     "priceMin": 450,
-    "priceMax": 650
+    "priceMax": 650,
+    "imageUrl": "file:///android_asset/perfumes/pr_invictus_victory_elixir.webp"
   },
   {
     "nome": "Invictus Legend",
@@ -2744,7 +2749,8 @@
     "longevidade": 8,
     "projeção": 8,
     "priceMin": 350,
-    "priceMax": 550
+    "priceMax": 550,
+    "imageUrl": "file:///android_asset/perfumes/pr_one_million.webp"
   },
   {
     "nome": "1 Million Fabulous",
@@ -2754,7 +2760,8 @@
     "longevidade": 8,
     "projeção": 8,
     "priceMin": 400,
-    "priceMax": 600
+    "priceMax": 600,
+    "imageUrl": "file:///android_asset/perfumes/pr_one_million.webp"
   },
   {
     "nome": "1 Million Lucky",
@@ -2764,7 +2771,8 @@
     "longevidade": 9,
     "projeção": 9,
     "priceMin": 400,
-    "priceMax": 600
+    "priceMax": 600,
+    "imageUrl": "file:///android_asset/perfumes/pr_one_million.webp"
   },
   {
     "nome": "1 Million Prive",
@@ -2774,7 +2782,8 @@
     "longevidade": 9,
     "projeção": 9,
     "priceMin": 450,
-    "priceMax": 650
+    "priceMax": 650,
+    "imageUrl": "file:///android_asset/perfumes/pr_one_million.webp"
   },
   {
     "nome": "1 Million Royal",
@@ -2784,7 +2793,8 @@
     "longevidade": 8,
     "projeção": 8,
     "priceMin": 400,
-    "priceMax": 600
+    "priceMax": 600,
+    "imageUrl": "file:///android_asset/perfumes/pr_one_million.webp"
   },
   {
     "nome": "Phantom Legion",
@@ -2824,7 +2834,8 @@
     "longevidade": 8,
     "projeção": 8,
     "priceMin": 450,
-    "priceMax": 600
+    "priceMax": 600,
+    "imageUrl": "file:///android_asset/perfumes/jpg_le_male_edt.webp"
   },
   {
     "nome": "Ultra Male",
@@ -2834,7 +2845,8 @@
     "longevidade": 9,
     "projeção": 9,
     "priceMin": 500,
-    "priceMax": 700
+    "priceMax": 700,
+    "imageUrl": "file:///android_asset/perfumes/jpg_ultra_male.webp"
   },
   {
     "nome": "Le Male Le Parfum",
@@ -2844,7 +2856,8 @@
     "longevidade": 9,
     "projeção": 9,
     "priceMin": 600,
-    "priceMax": 800
+    "priceMax": 800,
+    "imageUrl": "file:///android_asset/perfumes/jpg_le_male_le_parfum.webp"
   },
   {
     "nome": "Le Beau EDT",
@@ -2854,7 +2867,8 @@
     "longevidade": 8,
     "projeção": 8,
     "priceMin": 500,
-    "priceMax": 650
+    "priceMax": 650,
+    "imageUrl": "file:///android_asset/perfumes/jpg_le_beau_edt.webp"
   },
   {
     "nome": "Le Beau Le Parfum",
@@ -2864,7 +2878,8 @@
     "longevidade": 9,
     "projeção": 9,
     "priceMin": 600,
-    "priceMax": 850
+    "priceMax": 850,
+    "imageUrl": "file:///android_asset/perfumes/jpg_le_beau_le_parfum.webp"
   },
   {
     "nome": "Le Beau Paradise Garden",
@@ -2874,7 +2889,8 @@
     "longevidade": 8,
     "projeção": 8,
     "priceMin": 600,
-    "priceMax": 800
+    "priceMax": 800,
+    "imageUrl": "file:///android_asset/perfumes/jpg_le_beau_paradise_garden.webp"
   },
   {
     "nome": "Le Male In The Navy",
@@ -2884,7 +2900,8 @@
     "longevidade": 8,
     "projeção": 8,
     "priceMin": 500,
-    "priceMax": 700
+    "priceMax": 700,
+    "imageUrl": "file:///android_asset/perfumes/jpg_le_male_in_the_navy.webp"
   },
   {
     "nome": "Le Male Le Parfum Pride Edition",
@@ -2894,7 +2911,8 @@
     "longevidade": 9,
     "projeção": 9,
     "priceMin": 600,
-    "priceMax": 800
+    "priceMax": 800,
+    "imageUrl": "file:///android_asset/perfumes/jpg_le_male_pride_edition.webp"
   },
   {
     "nome": "Le Male Elixir",
@@ -2904,7 +2922,8 @@
     "longevidade": 10,
     "projeção": 9,
     "priceMin": 700,
-    "priceMax": 950
+    "priceMax": 950,
+    "imageUrl": "file:///android_asset/perfumes/jpg_le_male_elixir.webp"
   },
   {
     "nome": "Le Male Aviator",
@@ -2914,7 +2933,8 @@
     "longevidade": 8,
     "projeção": 8,
     "priceMin": 450,
-    "priceMax": 600
+    "priceMax": 600,
+    "imageUrl": "file:///android_asset/perfumes/jpg_le_male_aviator.webp"
   },
   {
     "nome": "Le Male Capitaine Collector",
@@ -2924,7 +2944,8 @@
     "longevidade": 8,
     "projeção": 8,
     "priceMin": 450,
-    "priceMax": 600
+    "priceMax": 600,
+    "imageUrl": "file:///android_asset/perfumes/jpg_le_male_capitaine.webp"
   },
   {
     "nome": "Le Male On Board",
@@ -2934,7 +2955,8 @@
     "longevidade": 8,
     "projeção": 8,
     "priceMin": 450,
-    "priceMax": 600
+    "priceMax": 600,
+    "imageUrl": "file:///android_asset/perfumes/jpg_le_male_on_board.webp"
   },
   {
     "nome": "Le Male Pride 2023",
@@ -2944,7 +2966,8 @@
     "longevidade": 9,
     "projeção": 9,
     "priceMin": 550,
-    "priceMax": 750
+    "priceMax": 750,
+    "imageUrl": "file:///android_asset/perfumes/jpg_le_male_pride_2023.webp"
   },
   {
     "nome": "Le Male Pride 2024",
@@ -2954,7 +2977,8 @@
     "longevidade": 9,
     "projeção": 9,
     "priceMin": 550,
-    "priceMax": 750
+    "priceMax": 750,
+    "imageUrl": "file:///android_asset/perfumes/jpg_le_male_pride_2024.webp"
   },
   {
     "nome": "Sauvage EDT",
@@ -3716,7 +3740,8 @@
     "longevidade": 8,
     "projeção": 8,
     "priceMin": 2000,
-    "priceMax": 2800
+    "priceMax": 2800,
+    "imageUrl": "file:///android_asset/perfumes/creed_aventus.webp"
   },
   {
     "nome": "Silver Mountain Water",
@@ -3836,7 +3861,8 @@
     "longevidade": 8,
     "projeção": 8,
     "priceMin": 2500,
-    "priceMax": 3500
+    "priceMax": 3500,
+    "imageUrl": "file:///android_asset/perfumes/creed_aventus.webp"
   },
   {
     "nome": "Royal Mayfair",
@@ -3886,7 +3912,8 @@
     "longevidade": 9,
     "projeção": 9,
     "priceMin": 500,
-    "priceMax": 700
+    "priceMax": 700,
+    "imageUrl": "file:///android_asset/perfumes/versace_eros.webp"
   },
   {
     "nome": "Eros Flame",
@@ -3896,7 +3923,8 @@
     "longevidade": 9,
     "projeção": 9,
     "priceMin": 500,
-    "priceMax": 700
+    "priceMax": 700,
+    "imageUrl": "file:///android_asset/perfumes/versace_eros.webp"
   },
   {
     "nome": "Eros Energy",
@@ -3906,7 +3934,8 @@
     "longevidade": 8,
     "projeção": 8,
     "priceMin": 500,
-    "priceMax": 700
+    "priceMax": 700,
+    "imageUrl": "file:///android_asset/perfumes/versace_eros.webp"
   },
   {
     "nome": "Dylan Blue Pour Homme",
@@ -3916,7 +3945,8 @@
     "longevidade": 8,
     "projeção": 8,
     "priceMin": 400,
-    "priceMax": 600
+    "priceMax": 600,
+    "imageUrl": "file:///android_asset/perfumes/versace_dylan_blue.webp"
   },
   {
     "nome": "Man Eau Fraiche",
@@ -4006,7 +4036,8 @@
     "longevidade": 8,
     "projeção": 8,
     "priceMin": 400,
-    "priceMax": 550
+    "priceMax": 550,
+    "imageUrl": "file:///android_asset/perfumes/ch_212_men.webp"
   },
   {
     "nome": "212 Men NYC",
@@ -4016,7 +4047,8 @@
     "longevidade": 8,
     "projeção": 8,
     "priceMin": 400,
-    "priceMax": 550
+    "priceMax": 550,
+    "imageUrl": "file:///android_asset/perfumes/ch_212_men.webp"
   },
   {
     "nome": "212 VIP Men",
@@ -4036,7 +4068,8 @@
     "longevidade": 9,
     "projeção": 8,
     "priceMin": 500,
-    "priceMax": 700
+    "priceMax": 700,
+    "imageUrl": "file:///android_asset/perfumes/ch_212_vip_black.webp"
   },
   {
     "nome": "Bad Boy",
@@ -4046,7 +4079,8 @@
     "longevidade": 8,
     "projeção": 8,
     "priceMin": 500,
-    "priceMax": 650
+    "priceMax": 650,
+    "imageUrl": "file:///android_asset/perfumes/ch_bad_boy.webp"
   },
   {
     "nome": "Bad Boy Le Parfum",
@@ -4056,7 +4090,8 @@
     "longevidade": 9,
     "projeção": 9,
     "priceMin": 600,
-    "priceMax": 800
+    "priceMax": 800,
+    "imageUrl": "file:///android_asset/perfumes/ch_bad_boy.webp"
   },
   {
     "nome": "Bad Boy Cobalt",
@@ -4066,7 +4101,8 @@
     "longevidade": 8,
     "projeção": 8,
     "priceMin": 550,
-    "priceMax": 750
+    "priceMax": 750,
+    "imageUrl": "file:///android_asset/perfumes/ch_bad_boy.webp"
   },
   {
     "nome": "Boss Bottled EDT",
@@ -4466,7 +4502,8 @@
     "longevidade": 10,
     "projeção": 10,
     "priceMin": 1800,
-    "priceMax": 2600
+    "priceMax": 2600,
+    "imageUrl": "file:///android_asset/perfumes/tf_tobacco_vanille.webp"
   },
   {
     "nome": "Lost Cherry EDP",
@@ -4496,7 +4533,8 @@
     "longevidade": 8,
     "projeção": 8,
     "priceMin": 1800,
-    "priceMax": 2600
+    "priceMax": 2600,
+    "imageUrl": "file:///android_asset/perfumes/tf_oud_wood.webp"
   },
   {
     "nome": "Noir de Noir EDP",
@@ -4556,7 +4594,8 @@
     "longevidade": 10,
     "projeção": 9,
     "priceMin": 1800,
-    "priceMax": 2500
+    "priceMax": 2500,
+    "imageUrl": "file:///android_asset/perfumes/pdm_layton.webp"
   },
   {
     "nome": "Layton Exclusif EDP",
@@ -4566,7 +4605,8 @@
     "longevidade": 10,
     "projeção": 10,
     "priceMin": 2000,
-    "priceMax": 2800
+    "priceMax": 2800,
+    "imageUrl": "file:///android_asset/perfumes/pdm_layton.webp"
   },
   {
     "nome": "Greenley EDP",
@@ -5288,7 +5328,8 @@
     "longevidade": 8,
     "projeção": 8,
     "priceMin": 200,
-    "priceMax": 230
+    "priceMax": 230,
+    "imageUrl": "file:///android_asset/perfumes/boticario_malbec_club_intenso.webp"
   },
   {
     "nome": "Malbec Noir",
@@ -5298,7 +5339,8 @@
     "longevidade": 7,
     "projeção": 7,
     "priceMin": 190,
-    "priceMax": 220
+    "priceMax": 220,
+    "imageUrl": "file:///android_asset/perfumes/boticario_malbec_noir.webp"
   },
   {
     "nome": "Malbec Black",
@@ -5319,7 +5361,8 @@
     "longevidade": 8,
     "projeção": 9,
     "priceMin": 200,
-    "priceMax": 230
+    "priceMax": 230,
+    "imageUrl": "file:///android_asset/perfumes/boticario_malbec_gold.webp"
   },
   {
     "nome": "Malbec Signature",
@@ -5329,7 +5372,8 @@
     "longevidade": 9,
     "projeção": 9,
     "priceMin": 300,
-    "priceMax": 350
+    "priceMax": 350,
+    "imageUrl": "file:///android_asset/perfumes/boticario_malbec_signature.webp"
   },
   {
     "nome": "Malbec X",
@@ -5339,7 +5383,8 @@
     "longevidade": 9,
     "projeção": 9,
     "priceMin": 210,
-    "priceMax": 240
+    "priceMax": 240,
+    "imageUrl": "file:///android_asset/perfumes/boticario_malbec_x.webp"
   },
   {
     "nome": "Zaad Tradicional",
@@ -5349,7 +5394,8 @@
     "longevidade": 7,
     "projeção": 6,
     "priceMin": 280,
-    "priceMax": 320
+    "priceMax": 320,
+    "imageUrl": "file:///android_asset/perfumes/boticario_zaad.webp"
   },
   {
     "nome": "Zaad Mondo",
@@ -5359,7 +5405,8 @@
     "longevidade": 7,
     "projeção": 7,
     "priceMin": 280,
-    "priceMax": 320
+    "priceMax": 320,
+    "imageUrl": "file:///android_asset/perfumes/boticario_zaad_mondo.webp"
   },
   {
     "nome": "Zaad Expedition",
@@ -5369,7 +5416,8 @@
     "longevidade": 7,
     "projeção": 7,
     "priceMin": 280,
-    "priceMax": 320
+    "priceMax": 320,
+    "imageUrl": "file:///android_asset/perfumes/boticario_zaad_expedition.webp"
   },
   {
     "nome": "Zaad Santal",
@@ -5379,7 +5427,8 @@
     "longevidade": 8,
     "projeção": 8,
     "priceMin": 280,
-    "priceMax": 320
+    "priceMax": 320,
+    "imageUrl": "file:///android_asset/perfumes/boticario_zaad_santal.webp"
   },
   {
     "nome": "Egeo Blue",
@@ -5389,7 +5438,8 @@
     "longevidade": 7,
     "projeção": 8,
     "priceMin": 130,
-    "priceMax": 150
+    "priceMax": 150,
+    "imageUrl": "file:///android_asset/perfumes/boticario_egeo_blue.webp"
   },
   {
     "nome": "Egeo Bomb Black",
@@ -5399,7 +5449,8 @@
     "longevidade": 8,
     "projeção": 9,
     "priceMin": 130,
-    "priceMax": 150
+    "priceMax": 150,
+    "imageUrl": "file:///android_asset/perfumes/boticario_egeo_bomb_black.webp"
   },
   {
     "nome": "Egeo Original",
@@ -5409,7 +5460,8 @@
     "longevidade": 7,
     "projeção": 7,
     "priceMin": 130,
-    "priceMax": 150
+    "priceMax": 150,
+    "imageUrl": "file:///android_asset/perfumes/boticario_egeo_original.webp"
   },
   {
     "nome": "Egeo Spicy Vibe",
@@ -5419,7 +5471,8 @@
     "longevidade": 7,
     "projeção": 8,
     "priceMin": 130,
-    "priceMax": 150
+    "priceMax": 150,
+    "imageUrl": "file:///android_asset/perfumes/boticario_egeo_spicy_vibe.webp"
   },
   {
     "nome": "Quasar Tradicional",
@@ -5429,7 +5482,8 @@
     "longevidade": 6,
     "projeção": 6,
     "priceMin": 140,
-    "priceMax": 160
+    "priceMax": 160,
+    "imageUrl": "file:///android_asset/perfumes/boticario_quasar.webp"
   },
   {
     "nome": "Quasar Surf",
@@ -5439,7 +5493,8 @@
     "longevidade": 6,
     "projeção": 7,
     "priceMin": 140,
-    "priceMax": 160
+    "priceMax": 160,
+    "imageUrl": "file:///android_asset/perfumes/boticario_quasar_surf.webp"
   },
   {
     "nome": "Quasar Brave",
@@ -5449,7 +5504,8 @@
     "longevidade": 7,
     "projeção": 7,
     "priceMin": 140,
-    "priceMax": 160
+    "priceMax": 160,
+    "imageUrl": "file:///android_asset/perfumes/boticario_quasar_brave.webp"
   },
   {
     "nome": "Arbo Tradicional",
@@ -5459,7 +5515,8 @@
     "longevidade": 6,
     "projeção": 7,
     "priceMin": 140,
-    "priceMax": 170
+    "priceMax": 170,
+    "imageUrl": "file:///android_asset/perfumes/boticario_arbo_tradicional.webp"
   },
   {
     "nome": "Arbo Botanic",
@@ -5469,7 +5526,8 @@
     "longevidade": 6,
     "projeção": 6,
     "priceMin": 140,
-    "priceMax": 170
+    "priceMax": 170,
+    "imageUrl": "file:///android_asset/perfumes/boticario_arbo_botanic.webp"
   },
   {
     "nome": "Arbo Liberté",
@@ -5479,7 +5537,8 @@
     "longevidade": 6,
     "projeção": 6,
     "priceMin": 140,
-    "priceMax": 170
+    "priceMax": 170,
+    "imageUrl": "file:///android_asset/perfumes/boticario_arbo_liberte.webp"
   },
   {
     "nome": "Uomini Tradicional",
@@ -5489,7 +5548,8 @@
     "longevidade": 6,
     "projeção": 6,
     "priceMin": 150,
-    "priceMax": 180
+    "priceMax": 180,
+    "imageUrl": "file:///android_asset/perfumes/boticario_uomini_tradicional.webp"
   },
   {
     "nome": "Uomini Black",
@@ -5499,7 +5559,8 @@
     "longevidade": 7,
     "projeção": 8,
     "priceMin": 150,
-    "priceMax": 180
+    "priceMax": 180,
+    "imageUrl": "file:///android_asset/perfumes/boticario_uomini_black.webp"
   },
   {
     "nome": "Portinari",
@@ -5509,7 +5570,8 @@
     "longevidade": 6,
     "projeção": 6,
     "priceMin": 150,
-    "priceMax": 180
+    "priceMax": 180,
+    "imageUrl": "file:///android_asset/perfumes/boticario_portinari.webp"
   },
   {
     "nome": "Styletto",
@@ -5519,7 +5581,8 @@
     "longevidade": 5,
     "projeção": 5,
     "priceMin": 120,
-    "priceMax": 140
+    "priceMax": 140,
+    "imageUrl": "file:///android_asset/perfumes/boticario_styletto.webp"
   },
   {
     "nome": "Connexion",
@@ -5529,7 +5592,8 @@
     "longevidade": 6,
     "projeção": 6,
     "priceMin": 120,
-    "priceMax": 140
+    "priceMax": 140,
+    "imageUrl": "file:///android_asset/perfumes/boticario_connexion.webp"
   },
   {
     "nome": "Insensatez",
@@ -5539,7 +5603,8 @@
     "longevidade": 6,
     "projeção": 6,
     "priceMin": 120,
-    "priceMax": 140
+    "priceMax": 140,
+    "imageUrl": "file:///android_asset/perfumes/boticario_insensatez.webp"
   },
   {
     "nome": "Essencial Tradicional",
@@ -5549,7 +5614,8 @@
     "longevidade": 7,
     "projeção": 7,
     "priceMin": 190,
-    "priceMax": 230
+    "priceMax": 230,
+    "imageUrl": "file:///android_asset/perfumes/natura_essencial_tradicional.webp"
   },
   {
     "nome": "Essencial Oud",
@@ -5570,7 +5636,8 @@
     "longevidade": 8,
     "projeção": 8,
     "priceMin": 190,
-    "priceMax": 240
+    "priceMax": 240,
+    "imageUrl": "file:///android_asset/perfumes/natura_essencial_exclusivo.webp"
   },
   {
     "nome": "Essencial Elixir",
@@ -5580,7 +5647,8 @@
     "longevidade": 9,
     "projeção": 8,
     "priceMin": 200,
-    "priceMax": 260
+    "priceMax": 260,
+    "imageUrl": "file:///android_asset/perfumes/natura_essencial_elixir.webp"
   },
   {
     "nome": "Essencial Mirra",
@@ -5590,7 +5658,8 @@
     "longevidade": 9,
     "projeção": 9,
     "priceMin": 200,
-    "priceMax": 260
+    "priceMax": 260,
+    "imageUrl": "file:///android_asset/perfumes/natura_essencial_mirra.webp"
   },
   {
     "nome": "Essencial Supreme",
@@ -5600,7 +5669,8 @@
     "longevidade": 9,
     "projeção": 9,
     "priceMin": 200,
-    "priceMax": 260
+    "priceMax": 260,
+    "imageUrl": "file:///android_asset/perfumes/natura_essencial_supreme.webp"
   },
   {
     "nome": "Natura Homem Tradicional",
@@ -5610,7 +5680,8 @@
     "longevidade": 6,
     "projeção": 6,
     "priceMin": 160,
-    "priceMax": 190
+    "priceMax": 190,
+    "imageUrl": "file:///android_asset/perfumes/natura_homem_tradicional.webp"
   },
   {
     "nome": "Natura Homem Essence",
@@ -5620,7 +5691,8 @@
     "longevidade": 8,
     "projeção": 8,
     "priceMin": 180,
-    "priceMax": 210
+    "priceMax": 210,
+    "imageUrl": "file:///android_asset/perfumes/natura_homem_essence.webp"
   },
   {
     "nome": "Natura Homem Sagaz",
@@ -5630,7 +5702,8 @@
     "longevidade": 8,
     "projeção": 9,
     "priceMin": 180,
-    "priceMax": 210
+    "priceMax": 210,
+    "imageUrl": "file:///android_asset/perfumes/natura_homem_sagaz.webp"
   },
   {
     "nome": "Natura Homem Tato",
@@ -5640,7 +5713,8 @@
     "longevidade": 8,
     "projeção": 8,
     "priceMin": 180,
-    "priceMax": 210
+    "priceMax": 210,
+    "imageUrl": "file:///android_asset/perfumes/natura_homem_tato.webp"
   },
   {
     "nome": "Natura Homem Cor.agio",
@@ -5650,7 +5724,8 @@
     "longevidade": 8,
     "projeção": 8,
     "priceMin": 220,
-    "priceMax": 250
+    "priceMax": 250,
+    "imageUrl": "file:///android_asset/perfumes/natura_homem_cor_agio.webp"
   },
   {
     "nome": "Natura Homem Dom",
@@ -5660,7 +5735,8 @@
     "longevidade": 9,
     "projeção": 9,
     "priceMin": 180,
-    "priceMax": 210
+    "priceMax": 210,
+    "imageUrl": "file:///android_asset/perfumes/natura_homem_dom.webp"
   },
   {
     "nome": "Kaiak Tradicional",
@@ -5670,7 +5746,8 @@
     "longevidade": 6,
     "projeção": 6,
     "priceMin": 140,
-    "priceMax": 160
+    "priceMax": 160,
+    "imageUrl": "file:///android_asset/perfumes/natura_kaiak.webp"
   },
   {
     "nome": "Kaiak Urbe",
@@ -5680,7 +5757,8 @@
     "longevidade": 6,
     "projeção": 7,
     "priceMin": 140,
-    "priceMax": 160
+    "priceMax": 160,
+    "imageUrl": "file:///android_asset/perfumes/natura_kaiak_urbe.webp"
   },
   {
     "nome": "Kaiak Oceano",
@@ -5690,7 +5768,8 @@
     "longevidade": 6,
     "projeção": 6,
     "priceMin": 140,
-    "priceMax": 160
+    "priceMax": 160,
+    "imageUrl": "file:///android_asset/perfumes/natura_kaiak_oceano.webp"
   },
   {
     "nome": "Kaiak Aero",
@@ -5700,7 +5779,8 @@
     "longevidade": 7,
     "projeção": 8,
     "priceMin": 140,
-    "priceMax": 160
+    "priceMax": 160,
+    "imageUrl": "file:///android_asset/perfumes/natura_kaiak_aero.webp"
   },
   {
     "nome": "Kaiak Aventura",
@@ -5710,7 +5790,8 @@
     "longevidade": 6,
     "projeção": 6,
     "priceMin": 140,
-    "priceMax": 160
+    "priceMax": 160,
+    "imageUrl": "file:///android_asset/perfumes/natura_kaiak_aventura.webp"
   },
   {
     "nome": "Kaiak Pulso",
@@ -5720,7 +5801,8 @@
     "longevidade": 6,
     "projeção": 6,
     "priceMin": 140,
-    "priceMax": 160
+    "priceMax": 160,
+    "imageUrl": "file:///android_asset/perfumes/natura_kaiak_pulso.webp"
   },
   {
     "nome": "Biografia Masculino",
@@ -5730,7 +5812,8 @@
     "longevidade": 6,
     "projeção": 6,
     "priceMin": 150,
-    "priceMax": 170
+    "priceMax": 170,
+    "imageUrl": "file:///android_asset/perfumes/natura_biografia_masculino.webp"
   },
   {
     "nome": "Biografia Assinatura Masculino",
@@ -5740,7 +5823,8 @@
     "longevidade": 7,
     "projeção": 7,
     "priceMin": 150,
-    "priceMax": 170
+    "priceMax": 170,
+    "imageUrl": "file:///android_asset/perfumes/natura_biografia_assinatura.webp"
   },
   {
     "nome": "Paz e Humor",
@@ -5750,7 +5834,8 @@
     "longevidade": 6,
     "projeção": 6,
     "priceMin": 120,
-    "priceMax": 140
+    "priceMax": 140,
+    "imageUrl": "file:///android_asset/perfumes/natura_paz_e_humor.webp"
   },
   {
     "nome": "Humor a Dois",
@@ -5760,7 +5845,8 @@
     "longevidade": 6,
     "projeção": 6,
     "priceMin": 120,
-    "priceMax": 140
+    "priceMax": 140,
+    "imageUrl": "file:///android_asset/perfumes/natura_humor_a_dois.webp"
   },
   {
     "nome": "Ekos Maracujá",
@@ -5770,7 +5856,8 @@
     "longevidade": 5,
     "projeção": 5,
     "priceMin": 100,
-    "priceMax": 120
+    "priceMax": 120,
+    "imageUrl": "file:///android_asset/perfumes/natura_ekos_maracuja.webp"
   },
   {
     "nome": "Ekos Castanha",
@@ -5780,7 +5867,8 @@
     "longevidade": 6,
     "projeção": 5,
     "priceMin": 100,
-    "priceMax": 120
+    "priceMax": 120,
+    "imageUrl": "file:///android_asset/perfumes/natura_ekos_castanha.webp"
   },
   {
     "nome": "Club 6 Tradicional",
@@ -5949,6 +6037,18 @@
     "referencia": "Lattafa Asad Bourbon (Notas Licorosas de Bourbon e Baunilha)"
   },
   {
+    "nome": "Asad Elixir",
+    "marca": "Lattafa",
+    "familia": "Âmbar Amadeirado",
+    "priceMin": 250.0,
+    "priceMax": 380.0,
+    "longevidade": 9,
+    "projeção": 9,
+    "referencia": "Sauvage Elixir / Boss Bottled Absolu",
+    "notas": "Pimenta Rosa, Açafrão, Toranja | Flor de Tabaco, Fava de Baunilha, Cedro | Âmbar, Olíbano, Patchouli, Cashmeran",
+    "imageUrl": "file:///android_asset/perfumes/asad_elixir.webp"
+  },
+  {
     "nome": "Khamrah",
     "marca": "Lattafa",
     "familia": "Gourmand Sobremesa",
@@ -6025,7 +6125,8 @@
     "projeção": 9,
     "priceMin": 220.0,
     "priceMax": 320.0,
-    "referencia": "Initio Oud for Greatness"
+    "referencia": "Initio Oud for Greatness",
+    "imageUrl": "file:///android_asset/perfumes/lattafa_oud_for_glory.webp"
   },
   {
     "nome": "Bade e Al Oud Honor & Glory",
@@ -6036,7 +6137,8 @@
     "projeção": 8,
     "priceMin": 230.0,
     "priceMax": 330.0,
-    "referencia": "Lattafa Honor & Glory Branco Abacaxi"
+    "referencia": "Lattafa Honor & Glory Branco Abacaxi",
+    "imageUrl": "file:///android_asset/perfumes/lattafa_honor_glory.webp"
   },
   {
     "nome": "Bade e Al Oud Amethyst",
@@ -6069,7 +6171,8 @@
     "projeção": 8,
     "priceMin": 190.0,
     "priceMax": 280.0,
-    "referencia": "YSL Y Eau de Parfum"
+    "referencia": "YSL Y Eau de Parfum",
+    "imageUrl": "file:///android_asset/perfumes/lattafa_fakhar_black.webp"
   },
   {
     "nome": "Fakhar Rose",
@@ -6399,7 +6502,8 @@
     "projeção": 8,
     "priceMin": 190.0,
     "priceMax": 250.0,
-    "referencia": "O Boticário Malbec Bourbon"
+    "referencia": "O Boticário Malbec Bourbon",
+    "imageUrl": "file:///android_asset/perfumes/the_blend_bourbon.webp"
   },
   {
     "nome": "Coffee Man Lucky",
@@ -6410,7 +6514,8 @@
     "projeção": 7,
     "priceMin": 170.0,
     "priceMax": 220.0,
-    "referencia": "O Boticário Coffee Man Lucky"
+    "referencia": "O Boticário Coffee Man Lucky",
+    "imageUrl": "file:///android_asset/perfumes/boticario_coffee_man_lucky.webp"
   },
   {
     "nome": "Essencial Único Masculino",
@@ -6421,7 +6526,8 @@
     "projeção": 9,
     "priceMin": 260.0,
     "priceMax": 340.0,
-    "referencia": "Natura Essencial Unico"
+    "referencia": "Natura Essencial Unico",
+    "imageUrl": "file:///android_asset/perfumes/natura_essencial_unico.webp"
   },
   {
     "nome": "Gentleman Eau de Parfum Reserve Privée",
@@ -6443,7 +6549,8 @@
     "projeção": 9,
     "priceMin": 1800.0,
     "priceMax": 2800.0,
-    "referencia": "Tom Ford Tobacco Vanille Bourbon"
+    "referencia": "Tom Ford Tobacco Vanille Bourbon",
+    "imageUrl": "file:///android_asset/perfumes/tf_tobacco_vanille.webp"
   },
   {
     "nome": "Spicebomb Extreme",
@@ -6863,7 +6970,8 @@
     "longevidade": 9,
     "projeção": 9,
     "priceMin": 300.0,
-    "priceMax": 420.0
+    "priceMax": 420.0,
+    "imageUrl": "file:///android_asset/perfumes/afnan_9pm.webp"
   },
   {
     "nome": "9pm Night Out",
@@ -6873,7 +6981,8 @@
     "longevidade": 10,
     "projeção": 10,
     "priceMin": 350.0,
-    "priceMax": 480.0
+    "priceMax": 480.0,
+    "imageUrl": "file:///android_asset/perfumes/afnan_9pm.webp"
   },
   {
     "nome": "9pm Pour Femme",
@@ -6883,7 +6992,8 @@
     "longevidade": 8,
     "projeção": 8,
     "priceMin": 250.0,
-    "priceMax": 350.0
+    "priceMax": 350.0,
+    "imageUrl": "file:///android_asset/perfumes/afnan_9pm.webp"
   },
   {
     "nome": "9am",
@@ -7625,7 +7735,8 @@
     "longevidade": 8,
     "projeção": 8,
     "priceMin": 290.0,
-    "priceMax": 350.0
+    "priceMax": 350.0,
+    "imageUrl": "file:///android_asset/perfumes/boticario_zaad_exclusive.webp"
   },
   {
     "nome": "Zaad Arctic",
@@ -7635,7 +7746,8 @@
     "longevidade": 7,
     "projeção": 7,
     "priceMin": 290.0,
-    "priceMax": 350.0
+    "priceMax": 350.0,
+    "imageUrl": "file:///android_asset/perfumes/boticario_zaad_arctic.webp"
   },
   {
     "nome": "Botica 214 Dark Mint",
@@ -7645,7 +7757,8 @@
     "longevidade": 7,
     "projeção": 7,
     "priceMin": 200.0,
-    "priceMax": 250.0
+    "priceMax": 250.0,
+    "imageUrl": "file:///android_asset/perfumes/boticario_botica_214_dark_mint.webp"
   },
   {
     "nome": "Botica 214 Verano en Firenze",
@@ -7655,7 +7768,8 @@
     "longevidade": 7,
     "projeção": 7,
     "priceMin": 200.0,
-    "priceMax": 250.0
+    "priceMax": 250.0,
+    "imageUrl": "file:///android_asset/perfumes/boticario_botica_214_verano.webp"
   },
   {
     "nome": "Botica 214 Fiji Paradise",
@@ -7665,7 +7779,8 @@
     "longevidade": 7,
     "projeção": 7,
     "priceMin": 200.0,
-    "priceMax": 250.0
+    "priceMax": 250.0,
+    "imageUrl": "file:///android_asset/perfumes/boticario_botica_214_fiji.webp"
   },
   {
     "nome": "Botica 214 African Sunrise",
@@ -7675,7 +7790,8 @@
     "longevidade": 7,
     "projeção": 7,
     "priceMin": 200.0,
-    "priceMax": 250.0
+    "priceMax": 250.0,
+    "imageUrl": "file:///android_asset/perfumes/boticario_botica_214_african_sunrise.webp"
   },
   {
     "nome": "Botica 214 Sevilla Dorada",
@@ -7685,7 +7801,8 @@
     "longevidade": 8,
     "projeção": 8,
     "priceMin": 230.0,
-    "priceMax": 280.0
+    "priceMax": 280.0,
+    "imageUrl": "file:///android_asset/perfumes/boticario_botica_214_sevilla.webp"
   },
   {
     "nome": "Botica 214 Arabian Oasis",
@@ -7695,7 +7812,8 @@
     "longevidade": 9,
     "projeção": 8,
     "priceMin": 230.0,
-    "priceMax": 280.0
+    "priceMax": 280.0,
+    "imageUrl": "file:///android_asset/perfumes/boticario_botica_214_arabian_oasis.webp"
   },
   {
     "nome": "Natura Homem Aurum",
@@ -7705,7 +7823,8 @@
     "longevidade": 7,
     "projeção": 7,
     "priceMin": 170.0,
-    "priceMax": 200.0
+    "priceMax": 200.0,
+    "imageUrl": "file:///android_asset/perfumes/natura_homem_aurum.webp"
   },
   {
     "nome": "Natura Homem Madeiras",
@@ -7715,7 +7834,8 @@
     "longevidade": 7,
     "projeção": 7,
     "priceMin": 170.0,
-    "priceMax": 200.0
+    "priceMax": 200.0,
+    "imageUrl": "file:///android_asset/perfumes/natura_homem_madeiras.webp"
   },
   {
     "nome": "Natura Homem Especiarias",
@@ -7725,7 +7845,8 @@
     "longevidade": 7,
     "projeção": 7,
     "priceMin": 170.0,
-    "priceMax": 200.0
+    "priceMax": 200.0,
+    "imageUrl": "file:///android_asset/perfumes/natura_homem_especiarias.webp"
   },
   {
     "nome": "Natura Homem Emocion.e",
@@ -7735,7 +7856,8 @@
     "longevidade": 8,
     "projeção": 7,
     "priceMin": 220.0,
-    "priceMax": 260.0
+    "priceMax": 260.0,
+    "imageUrl": "file:///android_asset/perfumes/natura_homem_emocione.webp"
   },
   {
     "nome": "Natura Homem Neo",
@@ -7745,7 +7867,8 @@
     "longevidade": 8,
     "projeção": 7,
     "priceMin": 220.0,
-    "priceMax": 260.0
+    "priceMax": 260.0,
+    "imageUrl": "file:///android_asset/perfumes/natura_homem_neo.webp"
   },
   {
     "nome": "Natura Homem Elo",
@@ -7755,7 +7878,8 @@
     "longevidade": 7,
     "projeção": 7,
     "priceMin": 180.0,
-    "priceMax": 220.0
+    "priceMax": 220.0,
+    "imageUrl": "file:///android_asset/perfumes/natura_homem_elo.webp"
   },
   {
     "nome": "Natura Homem Verum",
@@ -7765,7 +7889,8 @@
     "longevidade": 8,
     "projeção": 7,
     "priceMin": 190.0,
-    "priceMax": 230.0
+    "priceMax": 230.0,
+    "imageUrl": "file:///android_asset/perfumes/natura_homem_verum.webp"
   },
   {
     "nome": "Natura Homem Reconnect",
@@ -7775,7 +7900,8 @@
     "longevidade": 8,
     "projeção": 8,
     "priceMin": 190.0,
-    "priceMax": 230.0
+    "priceMax": 230.0,
+    "imageUrl": "file:///android_asset/perfumes/natura_homem_reconnect.webp"
   },
   {
     "nome": "Natura Homem Identidad",
@@ -7785,7 +7911,8 @@
     "longevidade": 8,
     "projeção": 8,
     "priceMin": 220.0,
-    "priceMax": 260.0
+    "priceMax": 260.0,
+    "imageUrl": "file:///android_asset/perfumes/natura_homem_identidad.webp"
   },
   {
     "nome": "Paz e Humor Rock in Rio",
@@ -7795,7 +7922,8 @@
     "longevidade": 7,
     "projeção": 7,
     "priceMin": 130.0,
-    "priceMax": 160.0
+    "priceMax": 160.0,
+    "imageUrl": "file:///android_asset/perfumes/natura_paz_e_humor.webp"
   },
   {
     "nome": "Humor a Rigor",
@@ -7805,7 +7933,8 @@
     "longevidade": 7,
     "projeção": 7,
     "priceMin": 130.0,
-    "priceMax": 160.0
+    "priceMax": 160.0,
+    "imageUrl": "file:///android_asset/perfumes/natura_humor_a_rigor.webp"
   },
   {
     "nome": "Química de Humor Masculino",
@@ -7815,7 +7944,8 @@
     "longevidade": 8,
     "projeção": 8,
     "priceMin": 130.0,
-    "priceMax": 160.0
+    "priceMax": 160.0,
+    "imageUrl": "file:///android_asset/perfumes/natura_quimica_de_humor.webp"
   },
   {
     "nome": "Beijo de Humor Masculino",
@@ -7825,7 +7955,8 @@
     "longevidade": 8,
     "projeção": 7,
     "priceMin": 130.0,
-    "priceMax": 160.0
+    "priceMax": 160.0,
+    "imageUrl": "file:///android_asset/perfumes/natura_beijo_de_humor.webp"
   },
   {
     "nome": "Humor On-line Masculino",
@@ -7835,7 +7966,8 @@
     "longevidade": 7,
     "projeção": 7,
     "priceMin": 130.0,
-    "priceMax": 160.0
+    "priceMax": 160.0,
+    "imageUrl": "file:///android_asset/perfumes/natura_humor_online.webp"
   },
   {
     "nome": "Humor Transforma",
@@ -7845,7 +7977,8 @@
     "longevidade": 7,
     "projeção": 6,
     "priceMin": 130.0,
-    "priceMax": 160.0
+    "priceMax": 160.0,
+    "imageUrl": "file:///android_asset/perfumes/natura_humor_online.webp"
   },
   {
     "nome": "Humor Estelar",
@@ -7855,7 +7988,8 @@
     "longevidade": 8,
     "projeção": 8,
     "priceMin": 130.0,
-    "priceMax": 160.0
+    "priceMax": 160.0,
+    "imageUrl": "file:///android_asset/perfumes/natura_humor_online.webp"
   },
   {
     "nome": "Humor Liberta",
@@ -7865,7 +7999,8 @@
     "longevidade": 7,
     "projeção": 7,
     "priceMin": 130.0,
-    "priceMax": 160.0
+    "priceMax": 160.0,
+    "imageUrl": "file:///android_asset/perfumes/natura_humor_online.webp"
   },
   {
     "nome": "Conexão de Humor Masculino",
@@ -7875,6 +8010,43 @@
     "longevidade": 7,
     "projeção": 7,
     "priceMin": 130.0,
-    "priceMax": 160.0
+    "priceMax": 160.0,
+    "imageUrl": "file:///android_asset/perfumes/natura_quimica_de_humor.webp"
+  },
+  {
+    "nome": "Scandal Pour Homme",
+    "marca": "Jean Paul Gaultier",
+    "familia": "Âmbar Amadeirado",
+    "priceMin": 450.0,
+    "priceMax": 680.0,
+    "longevidade": 8,
+    "projeção": 8,
+    "referencia": "Original Scandal com Caramelo e Fava Tonka",
+    "notas": "Sálvia Esclaréia, Mandarina | Caramelo, Fava Tonka | Vetiver",
+    "imageUrl": "file:///android_asset/perfumes/jpg_scandal_pour_homme.webp"
+  },
+  {
+    "nome": "Scandal Pour Homme Le Parfum",
+    "marca": "Jean Paul Gaultier",
+    "familia": "Âmbar Amadeirado",
+    "priceMin": 490.0,
+    "priceMax": 720.0,
+    "longevidade": 9,
+    "projeção": 9,
+    "referencia": "Caramelo Salgado e Fava Tonka Intensa",
+    "notas": "Gerânio | Caramelo, Fava Tonka | Sândalo",
+    "imageUrl": "file:///android_asset/perfumes/jpg_scandal_le_parfum.webp"
+  },
+  {
+    "nome": "Le Male Lover",
+    "marca": "Jean Paul Gaultier",
+    "familia": "Âmbar Especiado",
+    "priceMin": 520.0,
+    "priceMax": 750.0,
+    "longevidade": 8,
+    "projeção": 8,
+    "referencia": "Tatuado com Pimenta Branca, Caviar de Baunilha e Âmbar",
+    "notas": "Pimenta Branca, Caviar de Baunilha | Ambargris | Almíscar, Cedro",
+    "imageUrl": "file:///android_asset/perfumes/jpg_le_male_lover.webp"
   }
 ]
