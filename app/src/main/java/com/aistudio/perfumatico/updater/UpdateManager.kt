@@ -70,35 +70,69 @@ class UpdateManager(private val context: Context) {
         return@withContext null
     }
 
-    fun downloadAndInstallUpdate(apkUrl: String, fileName: String = "perfumatico-update.apk") {
+    fun downloadAndInstallUpdate(apkUrl: String, fileName: String = "perfumatico-v4.6.1.apk") {
+        val publicDownloadDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
+        val targetFile = File(publicDownloadDir, fileName)
+
         try {
-            // Remove qualquer versão baixada anteriormente para evitar instalar arquivos corrompidos ou antigos
-            val oldFile = File(context.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS), fileName)
-            if (oldFile.exists()) {
-                oldFile.delete()
+            // Remove qualquer versão antiga para evitar conflitos de cache ou arquivo incompleto
+            if (targetFile.exists()) {
+                targetFile.delete()
             }
         } catch (e: Exception) {
             Log.w("UpdateManager", "Não foi possível remover arquivo anterior: ${e.message}")
         }
 
         val request = DownloadManager.Request(Uri.parse(apkUrl))
-            .setTitle("Atualizando Perfumático")
-            .setDescription("Baixando a nova versão...")
+            .setTitle("Perfumático - Atualização")
+            .setDescription("Baixando atualização para a pasta Downloads...")
+            .setMimeType("application/vnd.android.package-archive")
             .setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
-            .setDestinationInExternalFilesDir(context, Environment.DIRECTORY_DOWNLOADS, fileName)
+            .setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, fileName)
             .setAllowedOverMetered(true)
             .setAllowedOverRoaming(true)
+
+        android.os.Handler(android.os.Looper.getMainLooper()).post {
+            android.widget.Toast.makeText(
+                context,
+                "Baixando atualização para a sua pasta Downloads...",
+                android.widget.Toast.LENGTH_LONG
+            ).show()
+        }
 
         val downloadManager = context.getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
         val downloadId = downloadManager.enqueue(request)
 
         val receiver = object : BroadcastReceiver() {
-            override fun onReceive(context: Context, intent: Intent) {
+            override fun onReceive(c: Context, intent: Intent) {
                 val id = intent.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1)
                 if (id == downloadId) {
-                    installApk(context, fileName)
+                    val query = DownloadManager.Query().setFilterById(downloadId)
+                    val cursor = downloadManager.query(query)
+                    if (cursor != null && cursor.moveToFirst()) {
+                        val status = cursor.getInt(cursor.getColumnIndexOrThrow(DownloadManager.COLUMN_STATUS))
+                        if (status == DownloadManager.STATUS_SUCCESSFUL) {
+                            val localUriStr = cursor.getString(cursor.getColumnIndexOrThrow(DownloadManager.COLUMN_LOCAL_URI))
+                            cursor.close()
+                            installApkFromUri(c, localUriStr, targetFile)
+                        } else {
+                            val reason = cursor.getInt(cursor.getColumnIndexOrThrow(DownloadManager.COLUMN_REASON))
+                            cursor.close()
+                            Log.e("UpdateManager", "Download falhou com código: $reason")
+                            android.os.Handler(android.os.Looper.getMainLooper()).post {
+                                android.widget.Toast.makeText(
+                                    c,
+                                    "Falha no download da atualização. Verifique a internet e tente novamente.",
+                                    android.widget.Toast.LENGTH_LONG
+                                ).show()
+                            }
+                        }
+                    } else {
+                        cursor?.close()
+                    }
+
                     try {
-                        context.unregisterReceiver(this)
+                        c.unregisterReceiver(this)
                     } catch (e: Exception) {
                         // Receiver já desregistrado
                     }
@@ -113,16 +147,48 @@ class UpdateManager(private val context: Context) {
         }
     }
 
-    private fun installApk(context: Context, fileName: String) {
-        val file = File(context.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS), fileName)
-        if (!file.exists()) {
-            Log.e("UpdateManager", "Arquivo APK não encontrado em: ${file.absolutePath}")
+    private fun installApkFromUri(context: Context, localUriStr: String?, fallbackFile: File) {
+        val fileToInstall: File = if (!localUriStr.isNullOrEmpty()) {
+            val parsedUri = Uri.parse(localUriStr)
+            if (parsedUri.scheme == "file") {
+                File(parsedUri.path ?: "")
+            } else {
+                fallbackFile
+            }
+        } else {
+            fallbackFile
+        }
+
+        if (!fileToInstall.exists() || fileToInstall.length() < 500_000) {
+            Log.e("UpdateManager", "Arquivo APK inválido ou incompleto: ${fileToInstall.absolutePath}, bytes: ${fileToInstall.length()}")
+            android.os.Handler(android.os.Looper.getMainLooper()).post {
+                android.widget.Toast.makeText(
+                    context,
+                    "O download ficou incompleto. Tente novamente.",
+                    android.widget.Toast.LENGTH_LONG
+                ).show()
+            }
             return
+        }
+
+        android.os.Handler(android.os.Looper.getMainLooper()).post {
+            android.widget.Toast.makeText(
+                context,
+                "Download concluído! Arquivo salvo na pasta Downloads.",
+                android.widget.Toast.LENGTH_SHORT
+            ).show()
         }
 
         // No Android 8.0+ (Oreo), verifica permissão para instalar fontes desconhecidas
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             if (!context.packageManager.canRequestPackageInstalls()) {
+                android.os.Handler(android.os.Looper.getMainLooper()).post {
+                    android.widget.Toast.makeText(
+                        context,
+                        "Por favor, autorize o Perfumático a instalar atualizações.",
+                        android.widget.Toast.LENGTH_LONG
+                    ).show()
+                }
                 val permissionIntent = Intent(android.provider.Settings.ACTION_MANAGE_UNKNOWN_APP_SOURCES).apply {
                     data = Uri.parse("package:${context.packageName}")
                     flags = Intent.FLAG_ACTIVITY_NEW_TASK
@@ -132,19 +198,43 @@ class UpdateManager(private val context: Context) {
             }
         }
 
-        val uri = FileProvider.getUriForFile(
-            context,
-            "${BuildConfig.APPLICATION_ID}.fileprovider",
-            file
-        )
+        try {
+            val uri = FileProvider.getUriForFile(
+                context,
+                "${BuildConfig.APPLICATION_ID}.fileprovider",
+                fileToInstall
+            )
 
-        val installIntent = Intent(Intent.ACTION_VIEW).apply {
-            setDataAndType(uri, "application/vnd.android.package-archive")
-            flags = Intent.FLAG_ACTIVITY_NEW_TASK or 
-                    Intent.FLAG_GRANT_READ_URI_PERMISSION or
-                    Intent.FLAG_ACTIVITY_CLEAR_TOP
+            val installIntent = Intent(Intent.ACTION_VIEW).apply {
+                setDataAndType(uri, "application/vnd.android.package-archive")
+                addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+                addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                putExtra(Intent.EXTRA_NOT_UNKNOWN_SOURCE, true)
+            }
+
+            val resolveInfoList = context.packageManager.queryIntentActivities(
+                installIntent,
+                android.content.pm.PackageManager.MATCH_DEFAULT_ONLY
+            )
+            for (resolveInfo in resolveInfoList) {
+                context.grantUriPermission(
+                    resolveInfo.activityInfo.packageName,
+                    uri,
+                    Intent.FLAG_GRANT_READ_URI_PERMISSION
+                )
+            }
+
+            context.startActivity(installIntent)
+        } catch (e: Exception) {
+            Log.e("UpdateManager", "Erro ao abrir instalador: ${e.message}")
+            android.os.Handler(android.os.Looper.getMainLooper()).post {
+                android.widget.Toast.makeText(
+                    context,
+                    "Atualização salva em Downloads! Abra o arquivo manualmente para instalar.",
+                    android.widget.Toast.LENGTH_LONG
+                ).show()
+            }
         }
-
-        context.startActivity(installIntent)
     }
 }

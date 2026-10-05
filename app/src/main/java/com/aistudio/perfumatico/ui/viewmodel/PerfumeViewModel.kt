@@ -193,7 +193,9 @@ class PerfumeViewModel(application: Application) : AndroidViewModel(application)
     }
 
     fun downloadUpdate(apkUrl: String) {
-        updateManager.downloadAndInstallUpdate(apkUrl)
+        val version = _updateInfo.value?.latestVersionName?.ifEmpty { "4.6.1" } ?: "4.6.1"
+        val fileName = "perfumatico-v$version.apk"
+        updateManager.downloadAndInstallUpdate(apkUrl, fileName)
         _updateInfo.value = null // hide dialog after start
     }
     
