@@ -184,7 +184,7 @@ fun PerfumeDetailDialog(
                             modifier = Modifier
                                 .size(72.dp)
                                 .clip(RoundedCornerShape(16.dp))
-                                .background(Slate800)
+                                .background(Color.Black)
                                 .border(1.dp, Slate700, RoundedCornerShape(16.dp)),
                             contentAlignment = Alignment.Center
                         ) {
@@ -608,7 +608,7 @@ fun PerfumeDetailDialog(
                                     modifier = Modifier
                                         .size(60.dp)
                                         .clip(RoundedCornerShape(12.dp))
-                                        .background(Slate800)
+                                        .background(Color.Black)
                                         .border(1.dp, Slate700, RoundedCornerShape(12.dp)),
                                     contentAlignment = Alignment.Center
                                 ) {
