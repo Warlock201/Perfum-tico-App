@@ -19,7 +19,7 @@
     "projeção": 8,
     "priceMin": 250,
     "priceMax": 350,
-    "imageUrl": "file:///android_asset/perfumes/dior_homme_intense.webp"
+    "imageUrl": "file:///android_asset/perfumes/dumont_nitro_pour_homme.webp"
   },
   {
     "nome": "Nitro White",
@@ -30,7 +30,7 @@
     "projeção": 7,
     "priceMin": 250,
     "priceMax": 350,
-    "imageUrl": "file:///android_asset/perfumes/dumont_nitro_red.webp"
+    "imageUrl": "file:///android_asset/perfumes/dumont_nitro_white.webp"
   },
   {
     "nome": "Nitro Blue",
@@ -41,7 +41,7 @@
     "projeção": 8,
     "priceMin": 250,
     "priceMax": 350,
-    "imageUrl": "file:///android_asset/perfumes/boticario_egeo_blue.webp"
+    "imageUrl": "file:///android_asset/perfumes/dumont_nitro_blue.webp"
   },
   {
     "nome": "Nitro Green",
@@ -52,7 +52,7 @@
     "projeção": 8,
     "priceMin": 250,
     "priceMax": 350,
-    "imageUrl": "file:///android_asset/perfumes/dumont_nitro_red.webp"
+    "imageUrl": "file:///android_asset/perfumes/dumont_nitro_green.webp"
   },
   {
     "nome": "Nitro Platinum",
@@ -63,7 +63,7 @@
     "projeção": 8,
     "priceMin": 250,
     "priceMax": 350,
-    "imageUrl": "file:///android_asset/perfumes/dumont_nitro_red.webp"
+    "imageUrl": "file:///android_asset/perfumes/dumont_nitro_platinum.webp"
   },
   {
     "nome": "Nitro Intense",
@@ -74,7 +74,7 @@
     "projeção": 9,
     "priceMin": 250,
     "priceMax": 350,
-    "imageUrl": "file:///android_asset/perfumes/dior_homme_intense.webp"
+    "imageUrl": "file:///android_asset/perfumes/dumont_nitro_intense.webp"
   },
   {
     "nome": "Nitro Black",
@@ -85,7 +85,7 @@
     "projeção": 9,
     "priceMin": 250,
     "priceMax": 350,
-    "imageUrl": "file:///android_asset/perfumes/lattafa_maahir_black.webp"
+    "imageUrl": "file:///android_asset/perfumes/dumont_nitro_black.webp"
   },
   {
     "nome": "Celerio Oros",
@@ -96,7 +96,7 @@
     "projeção": 7,
     "priceMin": 300,
     "priceMax": 400,
-    "imageUrl": "file:///android_asset/perfumes/dumont_nitro_red.webp"
+    "imageUrl": ""
   },
   {
     "nome": "Celerio Epic",
@@ -107,7 +107,7 @@
     "projeção": 7,
     "priceMin": 300,
     "priceMax": 400,
-    "imageUrl": "file:///android_asset/perfumes/dumont_nitro_red.webp"
+    "imageUrl": "file:///android_asset/perfumes/dumont_celerio_epic.webp"
   },
   {
     "nome": "Club de Nuit Intense Man EDT",
@@ -151,7 +151,7 @@
     "projeção": 9,
     "priceMin": 450,
     "priceMax": 600,
-    "imageUrl": "file:///android_asset/perfumes/armaf_cdnim.webp"
+    "imageUrl": "file:///android_asset/perfumes/armaf_cdnim_parfum.webp"
   },
   {
     "nome": "Lionheart Man",
@@ -162,7 +162,7 @@
     "projeção": 7,
     "priceMin": 250,
     "priceMax": 350,
-    "imageUrl": "file:///android_asset/perfumes/armaf_cdnim.webp"
+    "imageUrl": "file:///android_asset/perfumes/armaf_lionheart.webp"
   },
   {
     "nome": "Club de Nuit Sillage",
@@ -184,7 +184,7 @@
     "projeção": 8,
     "priceMin": 300,
     "priceMax": 400,
-    "imageUrl": "file:///android_asset/perfumes/armaf_cdnim.webp"
+    "imageUrl": ""
   },
   {
     "nome": "Club de Nuit Untold",
@@ -206,7 +206,7 @@
     "projeção": 8,
     "priceMin": 200,
     "priceMax": 300,
-    "imageUrl": "file:///android_asset/perfumes/armaf_cdnim.webp"
+    "imageUrl": ""
   },
   {
     "nome": "Hunter Intense",
@@ -217,7 +217,7 @@
     "projeção": 9,
     "priceMin": 250,
     "priceMax": 350,
-    "imageUrl": "file:///android_asset/perfumes/armaf_cdnim.webp"
+    "imageUrl": "file:///android_asset/perfumes/armaf_hunter_intense.webp"
   },
   {
     "nome": "Ventana Marine",
@@ -228,7 +228,7 @@
     "projeção": 7,
     "priceMin": 250,
     "priceMax": 350,
-    "imageUrl": "file:///android_asset/perfumes/armaf_cdnim.webp"
+    "imageUrl": ""
   },
   {
     "nome": "Ventana",
@@ -239,7 +239,7 @@
     "projeção": 8,
     "priceMin": 200,
     "priceMax": 300,
-    "imageUrl": "file:///android_asset/perfumes/armaf_cdnim.webp"
+    "imageUrl": "file:///android_asset/perfumes/armaf_ventana.webp"
   },
   {
     "nome": "Urban Man Elixir",
@@ -250,7 +250,7 @@
     "projeção": 9,
     "priceMin": 250,
     "priceMax": 350,
-    "imageUrl": "file:///android_asset/perfumes/armaf_cdnim.webp"
+    "imageUrl": "file:///android_asset/perfumes/armaf_cdn_urban_elixir.webp"
   },
   {
     "nome": "Milestone",
@@ -261,7 +261,7 @@
     "projeção": 8,
     "priceMin": 300,
     "priceMax": 400,
-    "imageUrl": "file:///android_asset/perfumes/armaf_cdnim.webp"
+    "imageUrl": "file:///android_asset/perfumes/armaf_cdn_milestone.webp"
   },
   {
     "nome": "Aura Fresh",
@@ -272,7 +272,7 @@
     "projeção": 7,
     "priceMin": 200,
     "priceMax": 300,
-    "imageUrl": "file:///android_asset/perfumes/armaf_cdnim.webp"
+    "imageUrl": "file:///android_asset/perfumes/armaf_aura_fresh.webp"
   },
   {
     "nome": "Precioux 1",
@@ -283,7 +283,7 @@
     "projeção": 9,
     "priceMin": 400,
     "priceMax": 550,
-    "imageUrl": "file:///android_asset/perfumes/armaf_cdnim.webp"
+    "imageUrl": ""
   },
   {
     "nome": "Legesi",
@@ -294,7 +294,7 @@
     "projeção": 8,
     "priceMin": 200,
     "priceMax": 300,
-    "imageUrl": "file:///android_asset/perfumes/armaf_cdnim.webp"
+    "imageUrl": ""
   },
   {
     "nome": "Blue Homme",
@@ -305,7 +305,7 @@
     "projeção": 7,
     "priceMin": 150,
     "priceMax": 250,
-    "imageUrl": "file:///android_asset/perfumes/armaf_cdnim.webp"
+    "imageUrl": ""
   },
   {
     "nome": "Odyssey Homme",
@@ -316,7 +316,7 @@
     "projeção": 8,
     "priceMin": 200,
     "priceMax": 300,
-    "imageUrl": "file:///android_asset/perfumes/armaf_cdnim.webp"
+    "imageUrl": "file:///android_asset/perfumes/armaf_odyssey_homme.webp"
   },
   {
     "nome": "Odyssey Homme White Edition",
@@ -327,7 +327,7 @@
     "projeção": 8,
     "priceMin": 200,
     "priceMax": 300,
-    "imageUrl": "file:///android_asset/perfumes/armaf_cdnim.webp"
+    "imageUrl": ""
   },
   {
     "nome": "Odyssey Homme Gold Edition",
@@ -338,7 +338,7 @@
     "projeção": 8,
     "priceMin": 200,
     "priceMax": 300,
-    "imageUrl": "file:///android_asset/perfumes/boticario_malbec_gold.webp"
+    "imageUrl": ""
   },
   {
     "nome": "Odyssey Homme Red",
@@ -349,7 +349,7 @@
     "projeção": 8,
     "priceMin": 200,
     "priceMax": 300,
-    "imageUrl": "file:///android_asset/perfumes/armaf_cdnim.webp"
+    "imageUrl": ""
   },
   {
     "nome": "Odyssey Homme Blue",
@@ -360,7 +360,7 @@
     "projeção": 8,
     "priceMin": 200,
     "priceMax": 300,
-    "imageUrl": "file:///android_asset/perfumes/armaf_cdnim.webp"
+    "imageUrl": ""
   },
   {
     "nome": "Odyssey Homme Black",
@@ -371,7 +371,7 @@
     "projeção": 8,
     "priceMin": 200,
     "priceMax": 300,
-    "imageUrl": "file:///android_asset/perfumes/lattafa_maahir_black.webp"
+    "imageUrl": ""
   },
   {
     "nome": "Tag Him",
@@ -382,7 +382,7 @@
     "projeção": 7,
     "priceMin": 150,
     "priceMax": 250,
-    "imageUrl": "file:///android_asset/perfumes/armaf_cdnim.webp"
+    "imageUrl": "file:///android_asset/perfumes/armaf_tag_him.webp"
   },
   {
     "nome": "Tag Him Prestige Edition",
@@ -393,7 +393,7 @@
     "projeção": 8,
     "priceMin": 180,
     "priceMax": 280,
-    "imageUrl": "file:///android_asset/perfumes/armaf_cdnim.webp"
+    "imageUrl": "file:///android_asset/perfumes/armaf_tag_him_prestige.webp"
   },
   {
     "nome": "Tag Him Pour Homme",
@@ -404,7 +404,7 @@
     "projeção": 7,
     "priceMin": 150,
     "priceMax": 250,
-    "imageUrl": "file:///android_asset/perfumes/armaf_cdnim.webp"
+    "imageUrl": "file:///android_asset/perfumes/armaf_tag_him.webp"
   },
   {
     "nome": "Derby Club House Blanche",
@@ -415,7 +415,7 @@
     "projeção": 7,
     "priceMin": 180,
     "priceMax": 280,
-    "imageUrl": "file:///android_asset/perfumes/armaf_cdnim.webp"
+    "imageUrl": ""
   },
   {
     "nome": "Derby Club House Gold",
@@ -426,7 +426,7 @@
     "projeção": 7,
     "priceMin": 180,
     "priceMax": 280,
-    "imageUrl": "file:///android_asset/perfumes/boticario_malbec_gold.webp"
+    "imageUrl": ""
   },
   {
     "nome": "Derby Club House Ascot",
@@ -437,7 +437,7 @@
     "projeção": 8,
     "priceMin": 180,
     "priceMax": 280,
-    "imageUrl": "file:///android_asset/perfumes/armaf_cdnim.webp"
+    "imageUrl": ""
   },
   {
     "nome": "Derby Club House Adventure",
@@ -448,7 +448,7 @@
     "projeção": 7,
     "priceMin": 180,
     "priceMax": 280,
-    "imageUrl": "file:///android_asset/perfumes/armaf_cdnim.webp"
+    "imageUrl": ""
   },
   {
     "nome": "Derby Club House Victory",
@@ -459,7 +459,7 @@
     "projeção": 7,
     "priceMin": 180,
     "priceMax": 280,
-    "imageUrl": "file:///android_asset/perfumes/armaf_cdnim.webp"
+    "imageUrl": ""
   },
   {
     "nome": "Derby Club House Blue",
@@ -470,7 +470,7 @@
     "projeção": 7,
     "priceMin": 180,
     "priceMax": 280,
-    "imageUrl": "file:///android_asset/perfumes/armaf_cdnim.webp"
+    "imageUrl": ""
   },
   {
     "nome": "All You Need Is Passion",
@@ -481,7 +481,7 @@
     "projeção": 7,
     "priceMin": 150,
     "priceMax": 250,
-    "imageUrl": "file:///android_asset/perfumes/armaf_cdnim.webp"
+    "imageUrl": ""
   },
   {
     "nome": "The Pride of Armaf For Men",
@@ -492,7 +492,7 @@
     "projeção": 8,
     "priceMin": 250,
     "priceMax": 350,
-    "imageUrl": "file:///android_asset/perfumes/jpg_le_male_pride_2023.webp"
+    "imageUrl": ""
   },
   {
     "nome": "The Warrior",
@@ -503,7 +503,7 @@
     "projeção": 7,
     "priceMin": 200,
     "priceMax": 300,
-    "imageUrl": "file:///android_asset/perfumes/armaf_cdnim.webp"
+    "imageUrl": ""
   },
   {
     "nome": "The Hunter",
@@ -514,7 +514,7 @@
     "projeção": 8,
     "priceMin": 200,
     "priceMax": 300,
-    "imageUrl": "file:///android_asset/perfumes/armaf_cdnim.webp"
+    "imageUrl": ""
   },
   {
     "nome": "The Hunter Intense",
@@ -525,7 +525,7 @@
     "projeção": 9,
     "priceMin": 250,
     "priceMax": 350,
-    "imageUrl": "file:///android_asset/perfumes/armaf_cdnim.webp"
+    "imageUrl": "file:///android_asset/perfumes/armaf_hunter_intense.webp"
   },
   {
     "nome": "The Hunter Black",
@@ -536,7 +536,7 @@
     "projeção": 8,
     "priceMin": 250,
     "priceMax": 350,
-    "imageUrl": "file:///android_asset/perfumes/lattafa_maahir_black.webp"
+    "imageUrl": ""
   },
   {
     "nome": "The Hunter Jungle",
@@ -547,7 +547,7 @@
     "projeção": 8,
     "priceMin": 250,
     "priceMax": 350,
-    "imageUrl": "file:///android_asset/perfumes/armaf_cdnim.webp"
+    "imageUrl": ""
   },
   {
     "nome": "The Legacy",
@@ -558,7 +558,7 @@
     "projeção": 8,
     "priceMin": 200,
     "priceMax": 300,
-    "imageUrl": "file:///android_asset/perfumes/armaf_cdnim.webp"
+    "imageUrl": ""
   },
   {
     "nome": "The Signature For Men",
@@ -569,7 +569,7 @@
     "projeção": 8,
     "priceMin": 200,
     "priceMax": 300,
-    "imageUrl": "file:///android_asset/perfumes/armaf_cdnim.webp"
+    "imageUrl": ""
   },
   {
     "nome": "Club de Nuit Intense Man Limited Edition Parfum",
@@ -613,7 +613,7 @@
     "projeção": 8,
     "priceMin": 300,
     "priceMax": 400,
-    "imageUrl": "file:///android_asset/perfumes/armaf_cdnim.webp"
+    "imageUrl": ""
   },
   {
     "nome": "Club de Nuit Urban Man",
@@ -624,7 +624,7 @@
     "projeção": 8,
     "priceMin": 250,
     "priceMax": 350,
-    "imageUrl": "file:///android_asset/perfumes/armaf_cdnim.webp"
+    "imageUrl": ""
   },
   {
     "nome": "Club de Nuit Untold",
@@ -646,7 +646,7 @@
     "projeção": 8,
     "priceMin": 300,
     "priceMax": 450,
-    "imageUrl": "file:///android_asset/perfumes/armaf_cdnim.webp"
+    "imageUrl": ""
   },
   {
     "nome": "Club de Nuit Iconic",
@@ -668,7 +668,7 @@
     "projeção": 8,
     "priceMin": 200,
     "priceMax": 300,
-    "imageUrl": "file:///android_asset/perfumes/armaf_cdnim.webp"
+    "imageUrl": "file:///android_asset/perfumes/armaf_ventana.webp"
   },
   {
     "nome": "Ventana Noir",
@@ -679,7 +679,7 @@
     "projeção": 8,
     "priceMin": 200,
     "priceMax": 300,
-    "imageUrl": "file:///android_asset/perfumes/armaf_cdnim.webp"
+    "imageUrl": ""
   },
   {
     "nome": "Ventana Azure",
@@ -690,7 +690,7 @@
     "projeção": 7,
     "priceMin": 200,
     "priceMax": 300,
-    "imageUrl": "file:///android_asset/perfumes/armaf_cdnim.webp"
+    "imageUrl": ""
   },
   {
     "nome": "Opus Homme",
@@ -701,7 +701,7 @@
     "projeção": 8,
     "priceMin": 200,
     "priceMax": 300,
-    "imageUrl": "file:///android_asset/perfumes/armaf_cdnim.webp"
+    "imageUrl": ""
   },
   {
     "nome": "Opus Noir",
@@ -712,7 +712,7 @@
     "projeção": 8,
     "priceMin": 200,
     "priceMax": 300,
-    "imageUrl": "file:///android_asset/perfumes/armaf_cdnim.webp"
+    "imageUrl": ""
   },
   {
     "nome": "Opus Blue",
@@ -723,7 +723,7 @@
     "projeção": 7,
     "priceMin": 200,
     "priceMax": 300,
-    "imageUrl": "file:///android_asset/perfumes/armaf_cdnim.webp"
+    "imageUrl": ""
   },
   {
     "nome": "Opus Rouge",
@@ -734,7 +734,7 @@
     "projeção": 8,
     "priceMin": 200,
     "priceMax": 300,
-    "imageUrl": "file:///android_asset/perfumes/armaf_cdnim.webp"
+    "imageUrl": ""
   },
   {
     "nome": "Opus Gold",
@@ -745,7 +745,7 @@
     "projeção": 8,
     "priceMin": 200,
     "priceMax": 300,
-    "imageUrl": "file:///android_asset/perfumes/boticario_malbec_gold.webp"
+    "imageUrl": ""
   },
   {
     "nome": "Magnificent Pour Homme",
@@ -756,7 +756,7 @@
     "projeção": 8,
     "priceMin": 150,
     "priceMax": 250,
-    "imageUrl": "file:///android_asset/perfumes/armaf_cdnim.webp"
+    "imageUrl": ""
   },
   {
     "nome": "Spectre Ghost",
@@ -5782,7 +5782,7 @@
     "projeção": 8,
     "priceMin": 210,
     "priceMax": 240,
-    "imageUrl": "file:///android_asset/perfumes/boticario_malbec.webp"
+    "imageUrl": "file:///android_asset/perfumes/boticario_malbec_black.webp"
   },
   {
     "nome": "Malbec Gold",
@@ -5837,7 +5837,7 @@
     "projeção": 7,
     "priceMin": 280,
     "priceMax": 320,
-    "imageUrl": "file:///android_asset/perfumes/boticario_zaad.webp"
+    "imageUrl": "file:///android_asset/perfumes/boticario_zaad_mondo.webp"
   },
   {
     "nome": "Zaad Expedition",
@@ -5870,7 +5870,7 @@
     "projeção": 8,
     "priceMin": 130,
     "priceMax": 150,
-    "imageUrl": "file:///android_asset/perfumes/boticario_egeo_dolce.webp"
+    "imageUrl": "file:///android_asset/perfumes/boticario_egeo_blue.webp"
   },
   {
     "nome": "Egeo Bomb Black",
@@ -5892,7 +5892,7 @@
     "projeção": 7,
     "priceMin": 130,
     "priceMax": 150,
-    "imageUrl": "file:///android_asset/perfumes/boticario_egeo_dolce.webp"
+    "imageUrl": ""
   },
   {
     "nome": "Egeo Spicy Vibe",
@@ -5903,7 +5903,7 @@
     "projeção": 8,
     "priceMin": 130,
     "priceMax": 150,
-    "imageUrl": "file:///android_asset/perfumes/boticario_egeo_dolce.webp"
+    "imageUrl": "file:///android_asset/perfumes/boticario_egeo_spicy_vibe.webp"
   },
   {
     "nome": "Quasar Tradicional",
@@ -5914,7 +5914,7 @@
     "projeção": 6,
     "priceMin": 140,
     "priceMax": 160,
-    "imageUrl": "file:///android_asset/perfumes/natura_essencial_tradicional.webp"
+    "imageUrl": "file:///android_asset/perfumes/boticario_quasar_tradicional.webp"
   },
   {
     "nome": "Quasar Surf",
@@ -5936,7 +5936,7 @@
     "projeção": 7,
     "priceMin": 140,
     "priceMax": 160,
-    "imageUrl": "file:///android_asset/perfumes/boticario_quasar.webp"
+    "imageUrl": "file:///android_asset/perfumes/boticario_quasar_brave.webp"
   },
   {
     "nome": "Arbo Tradicional",
@@ -5947,7 +5947,7 @@
     "projeção": 7,
     "priceMin": 140,
     "priceMax": 170,
-    "imageUrl": "file:///android_asset/perfumes/boticario_arbo_botanic.webp"
+    "imageUrl": "file:///android_asset/perfumes/boticario_arbo.webp"
   },
   {
     "nome": "Arbo Botanic",
@@ -5969,7 +5969,7 @@
     "projeção": 6,
     "priceMin": 140,
     "priceMax": 170,
-    "imageUrl": "file:///android_asset/perfumes/boticario_arbo_botanic.webp"
+    "imageUrl": "file:///android_asset/perfumes/boticario_arbo_liberte.webp"
   },
   {
     "nome": "Uomini Tradicional",
@@ -5980,7 +5980,7 @@
     "projeção": 6,
     "priceMin": 150,
     "priceMax": 180,
-    "imageUrl": "file:///android_asset/perfumes/natura_essencial_tradicional.webp"
+    "imageUrl": "file:///android_asset/perfumes/boticario_uomini.webp"
   },
   {
     "nome": "Uomini Black",
@@ -5991,7 +5991,7 @@
     "projeção": 8,
     "priceMin": 150,
     "priceMax": 180,
-    "imageUrl": "file:///android_asset/perfumes/lattafa_maahir_black.webp"
+    "imageUrl": "file:///android_asset/perfumes/boticario_uomini_black.webp"
   },
   {
     "nome": "Portinari",
@@ -6536,7 +6536,7 @@
     "priceMin": 190.0,
     "priceMax": 270.0,
     "referencia": "Lattafa Yara Amarelo Mango",
-    "imageUrl": "file:///android_asset/perfumes/lattafa_yara.webp"
+    "imageUrl": "file:///android_asset/perfumes/lattafa_yara_tous.webp"
   },
   {
     "nome": "Yara Moi",
@@ -6548,7 +6548,7 @@
     "priceMin": 190.0,
     "priceMax": 270.0,
     "referencia": "Lattafa Yara Branco Caramelo",
-    "imageUrl": "file:///android_asset/perfumes/lattafa_yara.webp"
+    "imageUrl": "file:///android_asset/perfumes/lattafa_yara_moi.webp"
   },
   {
     "nome": "Yara Candy",
@@ -6560,7 +6560,7 @@
     "priceMin": 230.0,
     "priceMax": 320.0,
     "referencia": "Lattafa Yara Candy Doce",
-    "imageUrl": "file:///android_asset/perfumes/lattafa_yara.webp"
+    "imageUrl": "file:///android_asset/perfumes/lattafa_yara_candy.webp"
   },
   {
     "nome": "Bade e Al Oud (Oud for Glory)",
@@ -8050,7 +8050,7 @@
     "priceMin": 200.0,
     "priceMax": 350.0,
     "referencia": "YSL Y EDP",
-    "imageUrl": "file:///android_asset/perfumes/armaf_cdnim.webp"
+    "imageUrl": "file:///android_asset/perfumes/armaf_odyssey_mega.webp"
   },
   {
     "nome": "Odyssey Mandarin Sky",
@@ -8062,7 +8062,7 @@
     "priceMin": 220.0,
     "priceMax": 350.0,
     "referencia": "Jean Paul Gaultier Scandal Pour Homme",
-    "imageUrl": "file:///android_asset/perfumes/armaf_cdnim.webp"
+    "imageUrl": "file:///android_asset/perfumes/armaf_odyssey_mandarin_sky.webp"
   },
   {
     "nome": "Odyssey Aqua",
@@ -8074,7 +8074,7 @@
     "priceMin": 200.0,
     "priceMax": 300.0,
     "referencia": "Paco Rabanne Invictus Platinum",
-    "imageUrl": "file:///android_asset/perfumes/armaf_cdnim.webp"
+    "imageUrl": "file:///android_asset/perfumes/armaf_odyssey_aqua.webp"
   },
   {
     "nome": "Odyssey Aoud",
@@ -8085,7 +8085,7 @@
     "projeção": 9,
     "priceMin": 250.0,
     "priceMax": 350.0,
-    "imageUrl": "file:///android_asset/perfumes/armaf_cdnim.webp"
+    "imageUrl": ""
   },
   {
     "nome": "Odyssey Wild One",
@@ -8096,7 +8096,7 @@
     "projeção": 8,
     "priceMin": 220.0,
     "priceMax": 320.0,
-    "imageUrl": "file:///android_asset/perfumes/armaf_cdnim.webp"
+    "imageUrl": ""
   },
   {
     "nome": "Odyssey Tyrant",
@@ -8107,7 +8107,7 @@
     "projeção": 8,
     "priceMin": 220.0,
     "priceMax": 320.0,
-    "imageUrl": "file:///android_asset/perfumes/armaf_cdnim.webp"
+    "imageUrl": ""
   },
   {
     "nome": "Craze",
@@ -8119,7 +8119,7 @@
     "priceMin": 220.0,
     "priceMax": 320.0,
     "referencia": "Parfums de Marly Pegasus",
-    "imageUrl": "file:///android_asset/perfumes/armaf_cdnim.webp"
+    "imageUrl": "file:///android_asset/perfumes/armaf_craze.webp"
   },
   {
     "nome": "Club de Nuit Urban Elixir",
@@ -8131,7 +8131,7 @@
     "priceMin": 300.0,
     "priceMax": 400.0,
     "referencia": "Dior Sauvage + Aventus",
-    "imageUrl": "file:///android_asset/perfumes/armaf_cdnim.webp"
+    "imageUrl": "file:///android_asset/perfumes/armaf_cdn_urban_elixir.webp"
   },
   {
     "nome": "Tres Nuit",
@@ -8143,7 +8143,7 @@
     "priceMin": 200.0,
     "priceMax": 300.0,
     "referencia": "Creed Green Irish Tweed",
-    "imageUrl": "file:///android_asset/perfumes/armaf_cdnim.webp"
+    "imageUrl": "file:///android_asset/perfumes/armaf_tres_nuit.webp"
   },
   {
     "nome": "Shiyaaka",
@@ -8265,7 +8265,7 @@
     "projeção": 8,
     "priceMin": 299.0,
     "priceMax": 350.0,
-    "imageUrl": "file:///android_asset/perfumes/the_blend_bourbon.webp"
+    "imageUrl": "file:///android_asset/perfumes/the_blend_edp.webp"
   },
   {
     "nome": "The Blend Bourbon",
@@ -8288,7 +8288,7 @@
     "projeção": 8,
     "priceMin": 299.0,
     "priceMax": 350.0,
-    "imageUrl": "file:///android_asset/perfumes/the_blend_bourbon.webp"
+    "imageUrl": "file:///android_asset/perfumes/the_blend_cardamom.webp"
   },
   {
     "nome": "Zaad Exclusive",
@@ -8299,7 +8299,7 @@
     "projeção": 8,
     "priceMin": 290.0,
     "priceMax": 350.0,
-    "imageUrl": "file:///android_asset/perfumes/boticario_zaad.webp"
+    "imageUrl": ""
   },
   {
     "nome": "Zaad Arctic",
@@ -8310,7 +8310,7 @@
     "projeção": 7,
     "priceMin": 290.0,
     "priceMax": 350.0,
-    "imageUrl": "file:///android_asset/perfumes/boticario_zaad.webp"
+    "imageUrl": "file:///android_asset/perfumes/boticario_zaad_arctic.webp"
   },
   {
     "nome": "Botica 214 Dark Mint",
@@ -8321,7 +8321,7 @@
     "projeção": 7,
     "priceMin": 200.0,
     "priceMax": 250.0,
-    "imageUrl": "file:///android_asset/perfumes/boticario_botica_214_verano.webp"
+    "imageUrl": "file:///android_asset/perfumes/boticario_botica_dark_mint.webp"
   },
   {
     "nome": "Botica 214 Verano en Firenze",
@@ -8343,7 +8343,7 @@
     "projeção": 7,
     "priceMin": 200.0,
     "priceMax": 250.0,
-    "imageUrl": "file:///android_asset/perfumes/boticario_botica_214_verano.webp"
+    "imageUrl": "file:///android_asset/perfumes/boticario_botica_fiji.webp"
   },
   {
     "nome": "Botica 214 African Sunrise",
@@ -8354,7 +8354,7 @@
     "projeção": 7,
     "priceMin": 200.0,
     "priceMax": 250.0,
-    "imageUrl": "file:///android_asset/perfumes/boticario_botica_214_verano.webp"
+    "imageUrl": "file:///android_asset/perfumes/boticario_botica_african.webp"
   },
   {
     "nome": "Botica 214 Sevilla Dorada",
@@ -8365,7 +8365,7 @@
     "projeção": 8,
     "priceMin": 230.0,
     "priceMax": 280.0,
-    "imageUrl": "file:///android_asset/perfumes/boticario_botica_214_verano.webp"
+    "imageUrl": ""
   },
   {
     "nome": "Botica 214 Arabian Oasis",
@@ -8376,7 +8376,7 @@
     "projeção": 8,
     "priceMin": 230.0,
     "priceMax": 280.0,
-    "imageUrl": "file:///android_asset/perfumes/granado_oasis.webp"
+    "imageUrl": ""
   },
   {
     "nome": "Natura Homem Aurum",
@@ -8541,7 +8541,7 @@
     "projeção": 6,
     "priceMin": 130.0,
     "priceMax": 160.0,
-    "imageUrl": "file:///android_asset/perfumes/natura_humor_online.webp"
+    "imageUrl": "file:///android_asset/perfumes/natura_humor_transforma.webp"
   },
   {
     "nome": "Humor Estelar",
@@ -8552,7 +8552,7 @@
     "projeção": 8,
     "priceMin": 130.0,
     "priceMax": 160.0,
-    "imageUrl": "file:///android_asset/perfumes/natura_humor_online.webp"
+    "imageUrl": "file:///android_asset/perfumes/natura_humor_estelar.webp"
   },
   {
     "nome": "Humor Liberta",
@@ -8563,7 +8563,7 @@
     "projeção": 7,
     "priceMin": 130.0,
     "priceMax": 160.0,
-    "imageUrl": "file:///android_asset/perfumes/natura_humor_online.webp"
+    "imageUrl": "file:///android_asset/perfumes/natura_humor_liberta.webp"
   },
   {
     "nome": "Conexão de Humor Masculino",
