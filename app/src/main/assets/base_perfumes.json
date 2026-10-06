@@ -241,7 +241,8 @@
     "longevidade": 8,
     "projeção": 8,
     "priceMin": 300,
-    "priceMax": 400
+    "priceMax": 400,
+    "imageUrl": "file:///android_asset/perfumes/armaf_cdn_milestone.webp"
   },
   {
     "nome": "Aura Fresh",
@@ -541,7 +542,8 @@
     "longevidade": 8,
     "projeção": 8,
     "priceMin": 300,
-    "priceMax": 400
+    "priceMax": 400,
+    "imageUrl": "file:///android_asset/perfumes/armaf_cdn_milestone.webp"
   },
   {
     "nome": "Club de Nuit Sillage",
@@ -925,7 +927,8 @@
     "longevidade": 8,
     "projeção": 8,
     "priceMin": 180,
-    "priceMax": 280
+    "priceMax": 280,
+    "imageUrl": "file:///android_asset/perfumes/fragrance_world_imperium.webp"
   },
   {
     "nome": "Bavaria Pour Homme",
@@ -1105,7 +1108,8 @@
     "longevidade": 9,
     "projeção": 9,
     "priceMin": 350,
-    "priceMax": 450
+    "priceMax": 450,
+    "imageUrl": "file:///android_asset/perfumes/rasasi_hawas.webp"
   },
   {
     "nome": "Deoro Patchouli",
@@ -1275,7 +1279,8 @@
     "longevidade": 9,
     "projeção": 9,
     "priceMin": 250,
-    "priceMax": 350
+    "priceMax": 350,
+    "imageUrl": "file:///android_asset/perfumes/al_haramain_detour_noir.webp"
   },
   {
     "nome": "Detour Noir Intense",
@@ -1285,7 +1290,8 @@
     "longevidade": 9,
     "projeção": 9,
     "priceMin": 280,
-    "priceMax": 380
+    "priceMax": 380,
+    "imageUrl": "file:///android_asset/perfumes/al_haramain_detour_noir.webp"
   },
   {
     "nome": "Detour Eco",
@@ -2599,7 +2605,8 @@
     "longevidade": 10,
     "projeção": 10,
     "priceMin": 1500,
-    "priceMax": 2200
+    "priceMax": 2200,
+    "imageUrl": "file:///android_asset/perfumes/xerjoff_erba_pura.webp"
   },
   {
     "nome": "Naxos (1861)",
@@ -2609,7 +2616,8 @@
     "longevidade": 10,
     "projeção": 10,
     "priceMin": 1800,
-    "priceMax": 2500
+    "priceMax": 2500,
+    "imageUrl": "file:///android_asset/perfumes/xerjoff_naxos.webp"
   },
   {
     "nome": "Starlight",
@@ -2669,7 +2677,8 @@
     "longevidade": 10,
     "projeção": 10,
     "priceMin": 2500,
-    "priceMax": 3500
+    "priceMax": 3500,
+    "imageUrl": "file:///android_asset/perfumes/xerjoff_alexandria_ii.webp"
   },
   {
     "nome": "Join the Club",
@@ -3615,7 +3624,8 @@
     "longevidade": 9,
     "projeção": 9,
     "priceMin": 250,
-    "priceMax": 350
+    "priceMax": 350,
+    "imageUrl": "file:///android_asset/perfumes/al_haramain_detour_noir.webp"
   },
   {
     "nome": "Detour Eco",
@@ -3729,7 +3739,8 @@
     "longevidade": 10,
     "projeção": 9,
     "priceMin": 450,
-    "priceMax": 600
+    "priceMax": 600,
+    "imageUrl": "file:///android_asset/perfumes/al_haramain_tobacco_edition.webp"
   },
   {
     "nome": "Amber Oud Ruby Edition",
@@ -4526,7 +4537,8 @@
     "longevidade": 10,
     "projeção": 10,
     "priceMin": 1200,
-    "priceMax": 1800
+    "priceMax": 1800,
+    "imageUrl": "file:///android_asset/perfumes/tf_black_orchid.webp"
   },
   {
     "nome": "Black Orchid EDT",
@@ -4536,7 +4548,8 @@
     "longevidade": 8,
     "projeção": 8,
     "priceMin": 900,
-    "priceMax": 1300
+    "priceMax": 1300,
+    "imageUrl": "file:///android_asset/perfumes/tf_black_orchid.webp"
   },
   {
     "nome": "Black Orchid Parfum",
@@ -4546,7 +4559,8 @@
     "longevidade": 10,
     "projeção": 10,
     "priceMin": 1500,
-    "priceMax": 2000
+    "priceMax": 2000,
+    "imageUrl": "file:///android_asset/perfumes/tf_black_orchid.webp"
   },
   {
     "nome": "Tobacco Vanille EDP",
@@ -4599,7 +4613,8 @@
     "longevidade": 9,
     "projeção": 9,
     "priceMin": 1800,
-    "priceMax": 2600
+    "priceMax": 2600,
+    "imageUrl": "file:///android_asset/perfumes/tf_noir_de_noir.webp"
   },
   {
     "nome": "Neroli Portofino EDT",
@@ -4609,7 +4624,8 @@
     "longevidade": 7,
     "projeção": 7,
     "priceMin": 1500,
-    "priceMax": 2200
+    "priceMax": 2200,
+    "imageUrl": "file:///android_asset/perfumes/tf_neroli_portofino.webp"
   },
   {
     "nome": "Private Blend Oud Fleur EDP",
@@ -4639,7 +4655,8 @@
     "longevidade": 10,
     "projeção": 9,
     "priceMin": 1800,
-    "priceMax": 2500
+    "priceMax": 2500,
+    "imageUrl": "file:///android_asset/perfumes/pdm_haltane.webp"
   },
   {
     "nome": "Layton EDP",
@@ -4723,7 +4740,8 @@
     "longevidade": 10,
     "projeção": 9,
     "priceMin": 1800,
-    "priceMax": 2500
+    "priceMax": 2500,
+    "imageUrl": "file:///android_asset/perfumes/pdm_oajan.webp"
   },
   {
     "nome": "Stronger With You EDT",
@@ -6406,7 +6424,8 @@
     "projeção": 9,
     "priceMin": 220.0,
     "priceMax": 320.0,
-    "referencia": "Orto Parisi Terroni / Amouage Interlude"
+    "referencia": "Orto Parisi Terroni / Amouage Interlude",
+    "imageUrl": "file:///android_asset/perfumes/lattafa_maahir_black.webp"
   },
   {
     "nome": "Maahir Legacy",
@@ -6417,7 +6436,8 @@
     "projeção": 8,
     "priceMin": 220.0,
     "priceMax": 320.0,
-    "referencia": "Parfums de Marly Sedley"
+    "referencia": "Parfums de Marly Sedley",
+    "imageUrl": "file:///android_asset/perfumes/lattafa_maahir_legacy.webp"
   },
   {
     "nome": "Hayaati",
@@ -7704,7 +7724,8 @@
     "longevidade": 9,
     "projeção": 8,
     "priceMin": 150.0,
-    "priceMax": 250.0
+    "priceMax": 250.0,
+    "imageUrl": "file:///android_asset/perfumes/khadlaj_hareem_sultan.webp"
   },
   {
     "nome": "Hareem Al Sultan Silver",
@@ -7714,7 +7735,8 @@
     "longevidade": 8,
     "projeção": 7,
     "priceMin": 150.0,
-    "priceMax": 250.0
+    "priceMax": 250.0,
+    "imageUrl": "file:///android_asset/perfumes/khadlaj_hareem_sultan.webp"
   },
   {
     "nome": "La Fede Code Turquoise",
@@ -8373,5 +8395,192 @@
     "priceMin": 220,
     "priceMax": 320,
     "imageUrl": "file:///android_asset/perfumes/paris_corner_rifaaqat.webp"
+  },
+  {
+    "nome": "Grand Soir",
+    "marca": "Maison Francis Kurkdjian",
+    "familia": "Âmbar Oriental Resinoso",
+    "notas": "Ládano Espanhol | Benjoim do Sião, Tonka | Baunilha, Âmbar",
+    "longevidade": 10,
+    "projeção": 9,
+    "priceMin": 1400,
+    "priceMax": 1900,
+    "imageUrl": "file:///android_asset/perfumes/mfk_grand_soir.webp"
+  },
+  {
+    "nome": "Bal d'Afrique",
+    "marca": "Byredo",
+    "familia": "Amadeirado Cítrico Aromático",
+    "notas": "Cravo-de-defunto, Bergamota, Limão, Flor de Laranjeira | Violeta, Cyclamen, Jasmim | Vetiver, Almíscar, Cedro da Virgínia, Âmbar",
+    "longevidade": 8,
+    "projeção": 7,
+    "priceMin": 1500,
+    "priceMax": 2100,
+    "imageUrl": "file:///android_asset/perfumes/byredo_bal_dafrique.webp"
+  },
+  {
+    "nome": "Gypsy Water",
+    "marca": "Byredo",
+    "familia": "Amadeirado Aromático Fresco",
+    "notas": "Pinheiro Silvestre, Zimbro, Limão, Bergamota | Agulhas de Pinheiro, Incenso, Raiz de Orris | Baunilha, Sândalo, Âmbar",
+    "longevidade": 7,
+    "projeção": 7,
+    "priceMin": 1500,
+    "priceMax": 2100,
+    "imageUrl": "file:///android_asset/perfumes/byredo_gypsy_water.webp"
+  },
+  {
+    "nome": "Mojave Ghost",
+    "marca": "Byredo",
+    "familia": "Floral Amadeirado Almiscarado",
+    "notas": "Sapodilla (Sapoti), Ambreta | Magnólia, Violeta, Sândalo | Almíscar Chantilly, Cedro da Virgínia, Âmbar",
+    "longevidade": 8,
+    "projeção": 7,
+    "priceMin": 1500,
+    "priceMax": 2100,
+    "imageUrl": "file:///android_asset/perfumes/byredo_mojave_ghost.webp"
+  },
+  {
+    "nome": "Angels' Share",
+    "marca": "By Kilian",
+    "familia": "Âmbar Baunilha Gourmand",
+    "notas": "Conhaque | Canela, Carvalho, Fava Tonka | Pralinê, Baunilha, Sândalo",
+    "longevidade": 10,
+    "projeção": 9,
+    "priceMin": 1800,
+    "priceMax": 2500,
+    "imageUrl": "file:///android_asset/perfumes/kilian_angels_share.webp"
+  },
+  {
+    "nome": "Black Phantom",
+    "marca": "By Kilian",
+    "familia": "Âmbar Baunilha Escuro",
+    "notas": "Café, Rum, Açúcar de Cana, Caramelo | Chocolate Amargo, Amêndoa, Heliotrópio | Sândalo, Vetiver",
+    "longevidade": 10,
+    "projeção": 9,
+    "priceMin": 1800,
+    "priceMax": 2500,
+    "imageUrl": "file:///android_asset/perfumes/kilian_black_phantom.webp"
+  },
+  {
+    "nome": "Love, Don't Be Shy",
+    "marca": "By Kilian",
+    "familia": "Floral Frutado Gourmand",
+    "notas": "Flor de Laranjeira, Néroli, Bergamota, Pimenta Rosa | Madressilva, Jasmim, Íris, Rosa | Caramelo, Baunilha, Açúcar, Almíscar",
+    "longevidade": 9,
+    "projeção": 8,
+    "priceMin": 1800,
+    "priceMax": 2500,
+    "imageUrl": "file:///android_asset/perfumes/kilian_love_dont_be_shy.webp"
+  },
+  {
+    "nome": "Santal 33",
+    "marca": "Le Labo",
+    "familia": "Amadeirado Aromático Exclusivo",
+    "notas": "Sândalo Australiano, Cedro, Cardamomo | Violeta, Papiro, Couro | Íris, Ambrosia",
+    "longevidade": 10,
+    "projeção": 9,
+    "priceMin": 1600,
+    "priceMax": 2200,
+    "imageUrl": "file:///android_asset/perfumes/lelabo_santal_33.webp"
+  },
+  {
+    "nome": "Another 13",
+    "marca": "Le Labo",
+    "familia": "Almiscarado Amadeirado Único",
+    "notas": "Ambroxan, Iso E Super, Jasmim, Musgo | Almíscar Vegetal, Pêra, Maçã Verde",
+    "longevidade": 9,
+    "projeção": 8,
+    "priceMin": 1600,
+    "priceMax": 2200,
+    "imageUrl": "file:///android_asset/perfumes/lelabo_another_13.webp"
+  },
+  {
+    "nome": "Rose 31",
+    "marca": "Le Labo",
+    "familia": "Amadeirado Especiado Floral",
+    "notas": "Rosa de Centifolia, Cominho | Rosa, Vetiver, Cedro | Almíscar, Agarwood (Oud), Ládano, Guaac",
+    "longevidade": 9,
+    "projeção": 8,
+    "priceMin": 1600,
+    "priceMax": 2200,
+    "imageUrl": "file:///android_asset/perfumes/lelabo_rose_31.webp"
+  },
+  {
+    "nome": "Oud for Greatness",
+    "marca": "Initio Parfums Prives",
+    "familia": "Amadeirado Especiado Místico",
+    "notas": "Açafrão, Noz-Moscada, Lavanda | Agarwood Natural (Oud), Patchouli | Almíscar",
+    "longevidade": 11,
+    "projeção": 10,
+    "priceMin": 1900,
+    "priceMax": 2600,
+    "imageUrl": "file:///android_asset/perfumes/initio_oud_for_greatness.webp"
+  },
+  {
+    "nome": "Side Effect",
+    "marca": "Initio Parfums Prives",
+    "familia": "Âmbar Especiado Narcótico",
+    "notas": "Tabaco, Rum, Baunilha, Canela | Hedione, Sândalo | Couro",
+    "longevidade": 10,
+    "projeção": 10,
+    "priceMin": 1900,
+    "priceMax": 2600,
+    "imageUrl": "file:///android_asset/perfumes/initio_side_effect.webp"
+  },
+  {
+    "nome": "Interlude Man",
+    "marca": "Amouage",
+    "familia": "Âmbar Amadeirado Especiado Intenso",
+    "notas": "Orégano, Pimenta, Bergamota | Incenso, Opoponax, Âmbar, Cistus | Couro, Oud, Patchouli, Sândalo",
+    "longevidade": 12,
+    "projeção": 11,
+    "priceMin": 1800,
+    "priceMax": 2500,
+    "imageUrl": "file:///android_asset/perfumes/amouage_interlude_man.webp"
+  },
+  {
+    "nome": "Reflection Man",
+    "marca": "Amouage",
+    "familia": "Amadeirado Floral Almíscarado",
+    "notas": "Alecrim, Pimenta Rosa, Petitgrain | Jasmim, Neroli, Raiz de Orris, Ylang-Ylang | Sândalo, Vetiver, Cedro, Patchouli",
+    "longevidade": 9,
+    "projeção": 8,
+    "priceMin": 1800,
+    "priceMax": 2500,
+    "imageUrl": "file:///android_asset/perfumes/amouage_reflection_man.webp"
+  },
+  {
+    "nome": "Jubilation XXV Man",
+    "marca": "Amouage",
+    "familia": "Ámbar Fougère Real",
+    "notas": "Moreia, Laranja, Coentro, Labdanum, Artemísia | Mel, Canela, Rosa, Orquídea, Cravo | Opoponax, Incenso, Oud, Mirra, Cedro",
+    "longevidade": 11,
+    "projeção": 10,
+    "priceMin": 1800,
+    "priceMax": 2500,
+    "imageUrl": "file:///android_asset/perfumes/amouage_jubilation_xxv.webp"
+  },
+  {
+    "nome": "Elysium Pour Homme Cologne",
+    "marca": "Roja Dove",
+    "familia": "Cítrico Aromático Fougère Luxuoso",
+    "notas": "Toranja, Limão, Bergamota, Limas, Tomilho, Gálbano | Vetiver, Bagas de Zimbro, Groselha Preta, Maçã, Cedro | Âmbar Cinzento, Couro, Baunilha, Ládano",
+    "longevidade": 8,
+    "projeção": 8,
+    "priceMin": 2200,
+    "priceMax": 3100,
+    "imageUrl": "file:///android_asset/perfumes/roja_elysium_cologne.webp"
+  },
+  {
+    "nome": "Elixir Pour Femme Parfum",
+    "marca": "Roja Dove",
+    "familia": "Floral Frutado Oriental",
+    "notas": "Bergamota, Framboesa, Pêssego | Rosa de Maio, Gerânio, Jasmim, Violeta, Ylang-Ylang | Baunilha, Caramelo, Almíscar, Caxemira, Cedro",
+    "longevidade": 10,
+    "projeção": 9,
+    "priceMin": 2200,
+    "priceMax": 3100,
+    "imageUrl": "file:///android_asset/perfumes/roja_elixir.webp"
   }
 ]
