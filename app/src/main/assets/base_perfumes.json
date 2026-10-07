@@ -6368,28 +6368,6 @@
     "imageUrl": "file:///android_asset/perfumes/eudora_impression.webp"
   },
   {
-    "nome": "Bossa",
-    "marca": "Granado",
-    "familia": "Cítrico",
-    "notas": "Limão, Mandarina | Leite de Coco, Tiaré | Musk, Cashmeran",
-    "longevidade": 6,
-    "projeção": 5,
-    "priceMin": 150,
-    "priceMax": 250,
-    "imageUrl": "file:///android_asset/perfumes/granado_bossa.webp"
-  },
-  {
-    "nome": "Imperial",
-    "marca": "Granado",
-    "familia": "Cítrico Fresco",
-    "notas": "Bergamota, Mandarina | Chá Branco, Rosa | Musk, Notas Amadeiradas",
-    "longevidade": 6,
-    "projeção": 5,
-    "priceMin": 150,
-    "priceMax": 250,
-    "imageUrl": "file:///android_asset/perfumes/granado_imperial.webp"
-  },
-  {
     "nome": "Limão Siciliano",
     "marca": "Phebo",
     "familia": "Cítrico",
@@ -6409,17 +6387,6 @@
     "projeção": 6,
     "priceMin": 100,
     "priceMax": 180
-  },
-  {
-    "nome": "Boemia",
-    "marca": "Granado",
-    "familia": "Especiado Oriental",
-    "notas": "Pimenta Preta, Noz-moscada | Couro, Tabaco | Olíbano, Sândalo",
-    "longevidade": 7,
-    "projeção": 7,
-    "priceMin": 150,
-    "priceMax": 250,
-    "imageUrl": "file:///android_asset/perfumes/granado_boemia.webp"
   },
   {
     "nome": "Club 6 Exclusive",
@@ -7426,7 +7393,7 @@
     "projeção": 8,
     "priceMin": 200.0,
     "priceMax": 350.0,
-    "imageUrl": "file:///android_asset/perfumes/granado_imperial.webp"
+    "imageUrl": ""
   },
   {
     "nome": "Pura Vida",
@@ -9261,5 +9228,214 @@
     "priceMin": 170,
     "priceMax": 220,
     "imageUrl": "file:///android_asset/perfumes/natura_k_max.webp"
+  },
+  {
+    "nome": "Bossa",
+    "marca": "Granado",
+    "familia": "Floral Cítrico Solar",
+    "notas": "SAÍDA: Limão Siciliano, Mandarina, Petitgrain | CORAÇÃO: Leite de Coco, Flor de Tiaré, Frangipani | FUNDO: Musk, Cashmeran, Âmbar",
+    "longevidade": 7,
+    "projeção": 6,
+    "priceMin": 160.0,
+    "priceMax": 260.0,
+    "imageUrl": "file:///android_asset/perfumes/granado_bossa.webp"
+  },
+  {
+    "nome": "Imperial",
+    "marca": "Granado",
+    "familia": "Cítrico Amadeirado Fresco",
+    "notas": "SAÍDA: Bergamota, Mandarina, Chá Branco | CORAÇÃO: Rosa, Lírio-do-vale, Pimenta Rosa | FUNDO: Musk, Cedro, Sândalo",
+    "longevidade": 7,
+    "projeção": 6,
+    "priceMin": 160.0,
+    "priceMax": 260.0,
+    "imageUrl": "file:///android_asset/perfumes/granado_imperial.webp"
+  },
+  {
+    "nome": "Boemia",
+    "marca": "Granado",
+    "familia": "Amadeirado Especiado Quente",
+    "notas": "SAÍDA: Noz-moscada, Pimenta Preta, Limão | CORAÇÃO: Couro, Tabaco, Cedro | FUNDO: Sândalo, Olíbano, Mirra",
+    "longevidade": 8,
+    "projeção": 7,
+    "priceMin": 160.0,
+    "priceMax": 260.0,
+    "imageUrl": "file:///android_asset/perfumes/granado_boemia.webp"
+  },
+  {
+    "nome": "Carioca",
+    "marca": "Granado",
+    "familia": "Floral Frutado Almiscarado",
+    "notas": "SAÍDA: Bergamota, Melão, Notas Aquáticas | CORAÇÃO: Muguet, Frésia, Violeta | FUNDO: Sândalo, Musk, Fava Tonka",
+    "longevidade": 7,
+    "projeção": 6,
+    "priceMin": 160.0,
+    "priceMax": 260.0,
+    "imageUrl": "file:///android_asset/perfumes/granado_carioca.webp"
+  },
+  {
+    "nome": "Époque Tropical",
+    "marca": "Granado",
+    "familia": "Amadeirado Floral Tropical",
+    "notas": "SAÍDA: Mandarina, Caju, Cardamomo | CORAÇÃO: Magnólia, Rosa, Rosa Damascena | FUNDO: Sândalo, Guaiaco, Fava Tonka",
+    "longevidade": 8,
+    "projeção": 7,
+    "priceMin": 160.0,
+    "priceMax": 260.0,
+    "imageUrl": "file:///android_asset/perfumes/granado_epoque_tropical.webp"
+  },
+  {
+    "nome": "Tonka",
+    "marca": "Granado",
+    "familia": "Âmbar Gourmand Fava Tonka",
+    "notas": "SAÍDA: Coco, Noz-moscada, Laranja Doce | CORAÇÃO: Fava Tonka, Cedro, Patchouli | FUNDO: Âmbar, Baunilha, Almíscar",
+    "longevidade": 8,
+    "projeção": 7,
+    "priceMin": 160.0,
+    "priceMax": 260.0,
+    "imageUrl": "file:///android_asset/perfumes/granado_tonka.webp"
+  },
+  {
+    "nome": "Fervo Intenso",
+    "marca": "Granado",
+    "familia": "Âmbar Amadeirado Licoroso",
+    "notas": "SAÍDA: Bergamota, Laranja, Pimenta Preta | CORAÇÃO: Cacau, Rum, Cedro | FUNDO: Sândalo, Fava Tonka, Resina de Benjoim",
+    "longevidade": 8,
+    "projeção": 8,
+    "priceMin": 170.0,
+    "priceMax": 270.0,
+    "imageUrl": "file:///android_asset/perfumes/granado_fervo_intenso.webp"
+  },
+  {
+    "nome": "Esplendor",
+    "marca": "Granado",
+    "familia": "Floral Oriental Baunilha",
+    "notas": "SAÍDA: Mandarina, Ameixa, Pêssego | CORAÇÃO: Ylang Ylang, Lírio, Rosa | FUNDO: Baunilha, Sândalo, Almíscar Macio",
+    "longevidade": 8,
+    "projeção": 7,
+    "priceMin": 170.0,
+    "priceMax": 270.0,
+    "imageUrl": "file:///android_asset/perfumes/granado_esplendor.webp"
+  },
+  {
+    "nome": "Citrus Brasilis",
+    "marca": "Granado",
+    "familia": "Cítrico Aromático Vibrante",
+    "notas": "SAÍDA: Limão Siciliano, Bergamota, Capim-Limão | CORAÇÃO: Neroli, Flor de Laranjeira, Gengibre | FUNDO: Cedro, Musk, Vetiver",
+    "longevidade": 6,
+    "projeção": 6,
+    "priceMin": 160.0,
+    "priceMax": 260.0,
+    "imageUrl": "file:///android_asset/perfumes/granado_citrus_brasilis.webp"
+  },
+  {
+    "nome": "Jardim Real",
+    "marca": "Granado",
+    "familia": "Floral Verde Nobre",
+    "notas": "SAÍDA: Mandarina, Bergamota, Pimenta Rosa | CORAÇÃO: Flor de Laranjeira, Rosa, Magnólia | FUNDO: Patchouli, Âmbar, Cedro",
+    "longevidade": 7,
+    "projeção": 6,
+    "priceMin": 160.0,
+    "priceMax": 260.0,
+    "imageUrl": "file:///android_asset/perfumes/granado_jardim_real.webp"
+  },
+  {
+    "nome": "Nostalgia",
+    "marca": "Granado",
+    "familia": "Floral Amadeirado Nostálgico",
+    "notas": "SAÍDA: Pimenta Rosa, Bergamota, Mandarina | CORAÇÃO: Rosa, Íris, Flor de Laranjeira | FUNDO: Cedro, Musk, Cashmeran",
+    "longevidade": 8,
+    "projeção": 7,
+    "priceMin": 160.0,
+    "priceMax": 260.0,
+    "imageUrl": "file:///android_asset/perfumes/granado_nostalgia.webp"
+  },
+  {
+    "nome": "Infusão Botânica",
+    "marca": "Granado",
+    "familia": "Cítrico Aromático Herbal",
+    "notas": "SAÍDA: Coentro, Pimenta Preta, Limão | CORAÇÃO: Manjericão, Cardamomo, Peônia | FUNDO: Vetiver, Cedro, Almíscar",
+    "longevidade": 7,
+    "projeção": 6,
+    "priceMin": 160.0,
+    "priceMax": 260.0,
+    "imageUrl": "file:///android_asset/perfumes/granado_infusao_botanica.webp"
+  },
+  {
+    "nome": "Tropicália",
+    "marca": "Granado",
+    "familia": "Floral Amadeirado Tropical",
+    "notas": "SAÍDA: Limão, Bergamota, Figo Fresco | CORAÇÃO: Frésia, Rosa, Jasmim | FUNDO: Cedro, Âmbar, Sândalo",
+    "longevidade": 7,
+    "projeção": 6,
+    "priceMin": 160.0,
+    "priceMax": 260.0,
+    "imageUrl": "file:///android_asset/perfumes/granado_tropicalia.webp"
+  },
+  {
+    "nome": "Rosa Sublime",
+    "marca": "Granado",
+    "familia": "Floral Rosado Amadeirado",
+    "notas": "SAÍDA: Lichia, Framboesa, Bergamota | CORAÇÃO: Rosa Centifolia, Magnólia, Violeta | FUNDO: Cedro, Patchouli, Almíscar",
+    "longevidade": 8,
+    "projeção": 7,
+    "priceMin": 170.0,
+    "priceMax": 270.0,
+    "imageUrl": "file:///android_asset/perfumes/granado_rosa_sublime.webp"
+  },
+  {
+    "nome": "Expedição",
+    "marca": "Granado",
+    "familia": "Amadeirado Aromático Terroso",
+    "notas": "SAÍDA: Bergamota, Limão, Pimenta Preta | CORAÇÃO: Íris, Cedro, Flor de Laranjeira | FUNDO: Âmbar, Patchouli, Sândalo",
+    "longevidade": 7,
+    "projeção": 6,
+    "priceMin": 160.0,
+    "priceMax": 260.0,
+    "imageUrl": "file:///android_asset/perfumes/granado_expedicao.webp"
+  },
+  {
+    "nome": "Oásis",
+    "marca": "Granado",
+    "familia": "Cítrico Floral Aquático",
+    "notas": "SAÍDA: Bergamota, Limão, Notas Verdes | CORAÇÃO: Flor de Laranjeira, Alecrim, Lavanda | FUNDO: Cedro, Musk, Âmbar",
+    "longevidade": 7,
+    "projeção": 6,
+    "priceMin": 160.0,
+    "priceMax": 260.0,
+    "imageUrl": "file:///android_asset/perfumes/granado_oasis.webp"
+  },
+  {
+    "nome": "Aurora",
+    "marca": "Granado",
+    "familia": "Floral Amadeirado Almiscarado",
+    "notas": "SAÍDA: Pimenta Rosa, Bergamota, Mandarina | CORAÇÃO: Rosa, Violeta, Magnólia | FUNDO: Âmbar, Cedro, Almíscar",
+    "longevidade": 7,
+    "projeção": 6,
+    "priceMin": 160.0,
+    "priceMax": 260.0,
+    "imageUrl": "file:///android_asset/perfumes/granado_aurora.webp"
+  },
+  {
+    "nome": "Folia",
+    "marca": "Granado",
+    "familia": "Floral Oriental Frutado",
+    "notas": "SAÍDA: Mandarina, Pêssego, Pimenta Rosa | CORAÇÃO: Flor de Laranjeira, Rosa, Íris | FUNDO: Patchouli, Fava Tonka, Baunilha",
+    "longevidade": 8,
+    "projeção": 7,
+    "priceMin": 160.0,
+    "priceMax": 260.0,
+    "imageUrl": "file:///android_asset/perfumes/granado_folia.webp"
+  },
+  {
+    "nome": "Sarau",
+    "marca": "Granado",
+    "familia": "Âmbar Floral Amadeirado",
+    "notas": "SAÍDA: Bergamota, Cardamomo, Frutas Vermelhas | CORAÇÃO: Jasmim Sambac, Rosa, Íris | FUNDO: Fava Tonka, Sândalo, Benjoim",
+    "longevidade": 8,
+    "projeção": 7,
+    "priceMin": 180.0,
+    "priceMax": 280.0,
+    "imageUrl": "file:///android_asset/perfumes/granado_sarau.webp"
   }
 ]

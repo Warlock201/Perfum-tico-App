@@ -10,6 +10,8 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
@@ -57,7 +59,7 @@ fun ProfileSotdDialog(
     var bio by remember(profile) { mutableStateOf(profile?.bio ?: "Apaixonado por alta perfumaria") }
     var signature by remember(profile) { mutableStateOf(profile?.signaturePerfumeName ?: "") }
 
-    var activeTab by remember { mutableStateOf(0) } // 0: Perfil, 1: SOTD, 2: Nuvem
+    var activeTab by remember { mutableStateOf(0) } // 0: Perfil, 1: SOTD, 2: Nuvem, 3: Atualizações
     
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
@@ -167,7 +169,7 @@ fun ProfileSotdDialog(
 
                 Spacer(modifier = Modifier.height(14.dp))
 
-                // Tabs: Perfil / SOTD Histórico / Conta
+                // Tabs: Perfil / SOTD Histórico / Conta / Atualizações
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -187,7 +189,7 @@ fun ProfileSotdDialog(
                         modifier = Modifier.weight(1f),
                         contentPadding = PaddingValues(vertical = 8.dp)
                     ) {
-                        Text("PERFIL", fontSize = 11.sp, fontWeight = FontWeight.Black)
+                        Text("PERFIL", fontSize = 10.sp, fontWeight = FontWeight.Black)
                     }
 
                     Button(
@@ -201,7 +203,7 @@ fun ProfileSotdDialog(
                         modifier = Modifier.weight(1f),
                         contentPadding = PaddingValues(vertical = 8.dp)
                     ) {
-                        Text("SOTD", fontSize = 11.sp, fontWeight = FontWeight.Black)
+                        Text("SOTD", fontSize = 10.sp, fontWeight = FontWeight.Black)
                     }
                     
                     Button(
@@ -215,7 +217,21 @@ fun ProfileSotdDialog(
                         modifier = Modifier.weight(1f),
                         contentPadding = PaddingValues(vertical = 8.dp)
                     ) {
-                        Text("CONTA", fontSize = 11.sp, fontWeight = FontWeight.Black)
+                        Text("CONTA", fontSize = 10.sp, fontWeight = FontWeight.Black)
+                    }
+
+                    Button(
+                        onClick = { activeTab = 3 },
+                        colors = ButtonDefaults.buttonColors(
+                            containerColor = if (activeTab == 3) Amber400 else androidx.compose.ui.graphics.Color.Transparent,
+                            contentColor = if (activeTab == 3) Slate950 else Slate400
+                        ),
+                        shape = RoundedCornerShape(8.dp),
+                        elevation = null,
+                        modifier = Modifier.weight(1.1f),
+                        contentPadding = PaddingValues(vertical = 8.dp)
+                    ) {
+                        Text("DOWNLOAD", fontSize = 9.sp, fontWeight = FontWeight.Black)
                     }
                 }
 
@@ -342,7 +358,7 @@ fun ProfileSotdDialog(
                             }
                         }
                     }
-                } else {
+                } else if (activeTab == 2) {
                     // Cloud Account & Sync
                     Column(
                         modifier = Modifier.weight(1f),
@@ -698,6 +714,225 @@ fun ProfileSotdDialog(
                                     Text("ENTRAR / CADASTRAR", fontWeight = FontWeight.Black, fontSize = 12.sp)
                                 }
                             }
+                        }
+                    }
+                } else {
+                    // Download & Updates Tab in Settings (activeTab == 3)
+                    val updateInfoState by viewModel.updateInfo.collectAsState()
+                    val downloadState by viewModel.downloadState.collectAsState()
+                    val noUpdateAvailable by viewModel.noUpdateAvailable.collectAsState()
+
+                    Column(
+                        modifier = Modifier
+                            .weight(1f)
+                            .verticalScroll(androidx.compose.foundation.rememberScrollState()),
+                        verticalArrangement = Arrangement.spacedBy(14.dp)
+                    ) {
+                        Card(
+                            modifier = Modifier.fillMaxWidth(),
+                            colors = CardDefaults.cardColors(containerColor = Slate950),
+                            shape = RoundedCornerShape(16.dp),
+                            border = androidx.compose.foundation.BorderStroke(1.dp, Slate800)
+                        ) {
+                            Column(
+                                modifier = Modifier.padding(16.dp),
+                                verticalArrangement = Arrangement.spacedBy(8.dp)
+                            ) {
+                                Row(
+                                    modifier = Modifier.fillMaxWidth(),
+                                    horizontalArrangement = Arrangement.SpaceBetween,
+                                    verticalAlignment = Alignment.CenterVertically
+                                ) {
+                                    Text(
+                                        text = "VERSÃO INSTALADA",
+                                        color = Amber400,
+                                        fontSize = 11.sp,
+                                        fontWeight = FontWeight.Bold,
+                                        letterSpacing = 1.sp
+                                    )
+                                    Surface(
+                                        color = Emerald400.copy(alpha = 0.15f),
+                                        shape = RoundedCornerShape(6.dp)
+                                    ) {
+                                        Text(
+                                            text = "ATIVO",
+                                            color = Emerald400,
+                                            fontSize = 10.sp,
+                                            fontWeight = FontWeight.Black,
+                                            modifier = Modifier.padding(horizontal = 6.dp, vertical = 2.dp)
+                                        )
+                                    }
+                                }
+                                Text(
+                                    text = "v${com.aistudio.perfumatico.BuildConfig.VERSION_NAME} (Build ${com.aistudio.perfumatico.BuildConfig.VERSION_CODE})",
+                                    color = Slate100,
+                                    fontSize = 18.sp,
+                                    fontWeight = FontWeight.Black
+                                )
+                                Text(
+                                    text = "Verifique novas versões e instale o pacote APK diretamente por aqui.",
+                                    color = Slate400,
+                                    fontSize = 12.sp
+                                )
+                            }
+                        }
+
+                        Button(
+                            onClick = { viewModel.checkUpdatesManually() },
+                            enabled = !isCheckingUpdate && downloadState !is com.aistudio.perfumatico.updater.DownloadState.Downloading,
+                            modifier = Modifier.fillMaxWidth().height(46.dp),
+                            colors = ButtonDefaults.buttonColors(containerColor = Amber400, contentColor = Slate950),
+                            shape = RoundedCornerShape(12.dp)
+                        ) {
+                            if (isCheckingUpdate) {
+                                CircularProgressIndicator(color = Slate950, modifier = Modifier.size(18.dp), strokeWidth = 2.dp)
+                                Spacer(modifier = Modifier.width(8.dp))
+                                Text("VERIFICANDO...", fontSize = 12.sp, fontWeight = FontWeight.Bold)
+                            } else {
+                                Icon(Icons.Default.Refresh, contentDescription = null, modifier = Modifier.size(18.dp))
+                                Spacer(modifier = Modifier.width(8.dp))
+                                Text("BUSCAR ATUALIZAÇÕES AGORA", fontSize = 12.sp, fontWeight = FontWeight.Bold)
+                            }
+                        }
+
+                        if (downloadState is com.aistudio.perfumatico.updater.DownloadState.Downloading) {
+                            val state = downloadState as com.aistudio.perfumatico.updater.DownloadState.Downloading
+                            Card(
+                                modifier = Modifier.fillMaxWidth(),
+                                colors = CardDefaults.cardColors(containerColor = Slate950),
+                                shape = RoundedCornerShape(16.dp),
+                                border = androidx.compose.foundation.BorderStroke(1.dp, Amber400)
+                            ) {
+                                Column(
+                                    modifier = Modifier.padding(16.dp),
+                                    verticalArrangement = Arrangement.spacedBy(10.dp)
+                                ) {
+                                    Row(
+                                        modifier = Modifier.fillMaxWidth(),
+                                        horizontalArrangement = Arrangement.SpaceBetween,
+                                        verticalAlignment = Alignment.CenterVertically
+                                    ) {
+                                        Text("BAIXANDO NOVO APK...", color = Amber400, fontSize = 11.sp, fontWeight = FontWeight.Bold)
+                                        Text(if (state.percent >= 0) "${state.percent}%" else "...", color = Amber400, fontSize = 14.sp, fontWeight = FontWeight.Black)
+                                    }
+                                    if (state.percent >= 0) {
+                                        LinearProgressIndicator(
+                                            progress = { state.percent / 100f },
+                                            modifier = Modifier.fillMaxWidth().height(6.dp).clip(RoundedCornerShape(3.dp)),
+                                            color = Amber400,
+                                            trackColor = Slate800
+                                        )
+                                    } else {
+                                        LinearProgressIndicator(
+                                            modifier = Modifier.fillMaxWidth().height(6.dp).clip(RoundedCornerShape(3.dp)),
+                                            color = Amber400,
+                                            trackColor = Slate800
+                                        )
+                                    }
+                                    if (state.totalBytes > 0) {
+                                        val mbDone = String.format(java.util.Locale.US, "%.1f", state.bytesDownloaded / (1024f * 1024f))
+                                        val mbTotal = String.format(java.util.Locale.US, "%.1f", state.totalBytes / (1024f * 1024f))
+                                        Text("$mbDone MB de $mbTotal MB", color = Slate400, fontSize = 11.sp)
+                                    }
+                                }
+                            }
+                        }
+
+                        if (downloadState is com.aistudio.perfumatico.updater.DownloadState.Completed) {
+                            Card(
+                                modifier = Modifier.fillMaxWidth(),
+                                colors = CardDefaults.cardColors(containerColor = Slate950),
+                                shape = RoundedCornerShape(16.dp),
+                                border = androidx.compose.foundation.BorderStroke(1.dp, Emerald400)
+                            ) {
+                                Column(
+                                    modifier = Modifier.padding(16.dp),
+                                    horizontalAlignment = Alignment.CenterHorizontally,
+                                    verticalArrangement = Arrangement.spacedBy(10.dp)
+                                ) {
+                                    Icon(Icons.Default.CheckCircle, contentDescription = null, tint = Emerald400, modifier = Modifier.size(32.dp))
+                                    Text("DOWNLOAD PRONTO!", color = Emerald400, fontSize = 14.sp, fontWeight = FontWeight.Black)
+                                    Button(
+                                        onClick = { viewModel.installDownloadedApk() },
+                                        modifier = Modifier.fillMaxWidth().height(44.dp),
+                                        colors = ButtonDefaults.buttonColors(containerColor = Emerald400, contentColor = Slate950),
+                                        shape = RoundedCornerShape(10.dp)
+                                    ) {
+                                        Icon(Icons.Default.InstallMobile, contentDescription = null, modifier = Modifier.size(18.dp))
+                                        Spacer(modifier = Modifier.width(6.dp))
+                                        Text("INSTALAR AGORA", fontWeight = FontWeight.Bold, fontSize = 12.sp)
+                                    }
+                                }
+                            }
+                        }
+
+                        if (downloadState is com.aistudio.perfumatico.updater.DownloadState.Error) {
+                            val err = downloadState as com.aistudio.perfumatico.updater.DownloadState.Error
+                            Card(
+                                modifier = Modifier.fillMaxWidth(),
+                                colors = CardDefaults.cardColors(containerColor = Slate950),
+                                shape = RoundedCornerShape(16.dp),
+                                border = androidx.compose.foundation.BorderStroke(1.dp, Rose500)
+                            ) {
+                                Column(
+                                    modifier = Modifier.padding(16.dp),
+                                    horizontalAlignment = Alignment.CenterHorizontally,
+                                    verticalArrangement = Arrangement.spacedBy(8.dp)
+                                ) {
+                                    Icon(Icons.Default.ErrorOutline, contentDescription = null, tint = Rose500, modifier = Modifier.size(28.dp))
+                                    Text("FALHA NO DOWNLOAD", color = Rose500, fontSize = 12.sp, fontWeight = FontWeight.Black)
+                                    Text(err.message, color = Slate400, fontSize = 11.sp, textAlign = androidx.compose.ui.text.style.TextAlign.Center)
+                                    Button(
+                                        onClick = {
+                                            viewModel.resetDownloadState()
+                                            updateInfoState?.let { viewModel.downloadUpdate(it.apkUrl) }
+                                        },
+                                        modifier = Modifier.fillMaxWidth().height(40.dp),
+                                        colors = ButtonDefaults.buttonColors(containerColor = Amber400, contentColor = Slate950),
+                                        shape = RoundedCornerShape(10.dp)
+                                    ) {
+                                        Text("TENTAR NOVAMENTE", fontWeight = FontWeight.Bold, fontSize = 11.sp)
+                                    }
+                                }
+                            }
+                        }
+
+                        if (updateInfoState != null && updateInfoState!!.hasUpdate && downloadState !is com.aistudio.perfumatico.updater.DownloadState.Downloading && downloadState !is com.aistudio.perfumatico.updater.DownloadState.Completed) {
+                            Card(
+                                modifier = Modifier.fillMaxWidth(),
+                                colors = CardDefaults.cardColors(containerColor = Slate950),
+                                shape = RoundedCornerShape(16.dp),
+                                border = androidx.compose.foundation.BorderStroke(1.dp, Amber400)
+                            ) {
+                                Column(
+                                    modifier = Modifier.padding(16.dp),
+                                    verticalArrangement = Arrangement.spacedBy(10.dp)
+                                ) {
+                                    Text("NOVA VERSÃO DETECTADA", color = Amber400, fontSize = 10.sp, fontWeight = FontWeight.Black)
+                                    Text("v${updateInfoState!!.latestVersionName} (Build ${updateInfoState!!.latestVersionCode})", color = Slate100, fontSize = 18.sp, fontWeight = FontWeight.Black)
+                                    Surface(
+                                        color = Slate900,
+                                        shape = RoundedCornerShape(8.dp),
+                                        modifier = Modifier.fillMaxWidth()
+                                    ) {
+                                        Text(updateInfoState!!.releaseNotes, color = Slate300, fontSize = 11.sp, modifier = Modifier.padding(10.dp))
+                                    }
+                                    Button(
+                                        onClick = { viewModel.downloadUpdate(updateInfoState!!.apkUrl) },
+                                        modifier = Modifier.fillMaxWidth().height(44.dp),
+                                        colors = ButtonDefaults.buttonColors(containerColor = Amber400, contentColor = Slate950),
+                                        shape = RoundedCornerShape(10.dp)
+                                    ) {
+                                        Icon(Icons.Default.Download, contentDescription = null, modifier = Modifier.size(18.dp))
+                                        Spacer(modifier = Modifier.width(6.dp))
+                                        Text("BAIXAR E INSTALAR", fontWeight = FontWeight.Bold, fontSize = 12.sp)
+                                    }
+                                }
+                            }
+                        }
+
+                        if ((noUpdateAvailable || (updateInfoState != null && !updateInfoState!!.hasUpdate)) && downloadState is com.aistudio.perfumatico.updater.DownloadState.Idle) {
+                            Text("O aplicativo já está na versão mais recente disponível.", color = Emerald400, fontSize = 12.sp, textAlign = androidx.compose.ui.text.style.TextAlign.Center, modifier = Modifier.fillMaxWidth().padding(8.dp))
                         }
                     }
                 }

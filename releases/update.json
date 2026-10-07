@@ -1,6 +1,6 @@
 {
-  "versionCode": 66,
-  "versionName": "7.3",
-  "apkUrl": "https://raw.githubusercontent.com/Warlock201/Perfum-tico-App/main/releases/perfumatico-v7.3.apk",
-  "releaseNotes": "Versão 7.3 (Aba Direta de Atualizações & Instalação Integrada): 🚀 Agora você tem uma aba dedicada exclusiva no rodapé ('Atualizar') para verificar, acompanhar a barra de progresso do download com porcentagem e megabytes em tempo real e instalar a nova versão diretamente pelo app, com tratamento de erros e sem depender de notificações externas!"
+  "versionCode": 68,
+  "versionName": "7.5",
+  "apkUrl": "https://raw.githubusercontent.com/Warlock201/Perfum-tico-App/main/releases/perfumatico-v7.5.apk",
+  "releaseNotes": "Versão 7.5 (Aba Download em Configurações & Instruções de Instalação): 🚀 Adicionada a aba 'DOWNLOAD' diretamente no menu de Perfil & Configurações do app! Permite verificar a versão, acompanhar o download e instalar direto pelo app. Nota: Lembre-se de enviar o arquivo perfumatico-v7.5.apk da pasta releases para o seu GitHub para que o link direto fique disponível sem erro 404!"
 }
