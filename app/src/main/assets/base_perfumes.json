@@ -184,7 +184,7 @@
     "projeção": 8,
     "priceMin": 300,
     "priceMax": 400,
-    "imageUrl": ""
+    "imageUrl": "file:///android_asset/perfumes/armaf_cdn_imperiale.webp"
   },
   {
     "nome": "Club de Nuit Untold",
@@ -206,7 +206,7 @@
     "projeção": 8,
     "priceMin": 200,
     "priceMax": 300,
-    "imageUrl": ""
+    "imageUrl": "file:///android_asset/perfumes/armaf_hunter.webp"
   },
   {
     "nome": "Hunter Intense",
@@ -492,7 +492,7 @@
     "projeção": 8,
     "priceMin": 250,
     "priceMax": 350,
-    "imageUrl": ""
+    "imageUrl": "file:///android_asset/perfumes/armaf_pride_of_armaf.webp"
   },
   {
     "nome": "The Warrior",
@@ -514,7 +514,7 @@
     "projeção": 8,
     "priceMin": 200,
     "priceMax": 300,
-    "imageUrl": ""
+    "imageUrl": "file:///android_asset/perfumes/armaf_hunter.webp"
   },
   {
     "nome": "The Hunter Intense",
@@ -547,7 +547,7 @@
     "projeção": 8,
     "priceMin": 250,
     "priceMax": 350,
-    "imageUrl": ""
+    "imageUrl": "file:///android_asset/perfumes/armaf_hunter_jungle.webp"
   },
   {
     "nome": "The Legacy",
@@ -613,7 +613,7 @@
     "projeção": 8,
     "priceMin": 300,
     "priceMax": 400,
-    "imageUrl": ""
+    "imageUrl": "file:///android_asset/perfumes/armaf_cdn_imperiale.webp"
   },
   {
     "nome": "Club de Nuit Urban Man",
@@ -624,7 +624,7 @@
     "projeção": 8,
     "priceMin": 250,
     "priceMax": 350,
-    "imageUrl": ""
+    "imageUrl": "file:///android_asset/perfumes/armaf_cdn_urban_man.webp"
   },
   {
     "nome": "Club de Nuit Untold",
@@ -1334,7 +1334,7 @@
     "projeção": 9,
     "priceMin": 200,
     "priceMax": 300,
-    "imageUrl": "file:///android_asset/perfumes/the_blend_bourbon.webp"
+    "imageUrl": "file:///android_asset/perfumes/zimaya_sharaf_blend.webp"
   },
   {
     "nome": "Sharaf Club Black",
@@ -1345,7 +1345,7 @@
     "projeção": 8,
     "priceMin": 200,
     "priceMax": 300,
-    "imageUrl": "file:///android_asset/perfumes/lattafa_maahir_black.webp"
+    "imageUrl": ""
   },
   {
     "nome": "Al Dirgham Gold Limited Edition",
@@ -1356,7 +1356,7 @@
     "projeção": 8,
     "priceMin": 180,
     "priceMax": 280,
-    "imageUrl": "file:///android_asset/perfumes/boticario_malbec_gold.webp"
+    "imageUrl": "file:///android_asset/perfumes/ard_al_zaafaran_al_dirgham.webp"
   },
   {
     "nome": "Al Dirgham Silver Special Edition",
@@ -1367,7 +1367,7 @@
     "projeção": 7,
     "priceMin": 180,
     "priceMax": 280,
-    "imageUrl": "file:///android_asset/perfumes/jpg_le_male_pride_edition.webp"
+    "imageUrl": "file:///android_asset/perfumes/ard_al_zaafaran_al_dirgham_silver.webp"
   },
   {
     "nome": "Amber Oud Aqua Dubai",
@@ -8086,7 +8086,7 @@
     "projeção": 9,
     "priceMin": 250.0,
     "priceMax": 350.0,
-    "imageUrl": ""
+    "imageUrl": "file:///android_asset/perfumes/armaf_odyssey_aoud.webp"
   },
   {
     "nome": "Odyssey Wild One",
@@ -8097,7 +8097,7 @@
     "projeção": 8,
     "priceMin": 220.0,
     "priceMax": 320.0,
-    "imageUrl": ""
+    "imageUrl": "file:///android_asset/perfumes/armaf_odyssey_wild_one.webp"
   },
   {
     "nome": "Odyssey Tyrant",
@@ -8108,7 +8108,7 @@
     "projeção": 8,
     "priceMin": 220.0,
     "priceMax": 320.0,
-    "imageUrl": ""
+    "imageUrl": "file:///android_asset/perfumes/armaf_odyssey_tyrant.webp"
   },
   {
     "nome": "Craze",

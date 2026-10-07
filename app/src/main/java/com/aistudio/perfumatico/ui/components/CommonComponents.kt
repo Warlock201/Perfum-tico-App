@@ -188,7 +188,8 @@ fun PerfumaticoBottomNav(
             Triple(MainTab.COLLECTION, "Meus", Icons.Default.Diamond),
             Triple(MainTab.DISCOVER, "Explorar", Icons.Default.Explore),
             Triple(MainTab.ORACLE, "Oráculo IA", Icons.Default.AutoAwesome),
-            Triple(MainTab.DASHBOARD, "Painel", Icons.Default.Analytics)
+            Triple(MainTab.DASHBOARD, "Painel", Icons.Default.Analytics),
+            Triple(MainTab.UPDATES, "Atualizar", Icons.Default.SystemUpdate)
         )
 
         items.forEach { (tab, label, icon) ->

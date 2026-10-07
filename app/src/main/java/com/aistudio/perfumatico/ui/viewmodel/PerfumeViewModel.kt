@@ -22,7 +22,8 @@ enum class MainTab {
     DISCOVER,
     ORACLE,
     CATALOG,
-    CHATBOT
+    CHATBOT,
+    UPDATES
 }
 
 enum class CollectionSubTab(val dbStatus: String) {
@@ -192,11 +193,20 @@ class PerfumeViewModel(application: Application) : AndroidViewModel(application)
         _noUpdateAvailable.value = false
     }
 
+    val downloadState = updateManager.downloadState
+
     fun downloadUpdate(apkUrl: String) {
-        val version = _updateInfo.value?.latestVersionName?.ifEmpty { "4.6.1" } ?: "4.6.1"
+        val version = _updateInfo.value?.latestVersionName?.ifEmpty { "7.2" } ?: "7.2"
         val fileName = "perfumatico-v$version.apk"
         updateManager.downloadAndInstallUpdate(apkUrl, fileName)
-        _updateInfo.value = null // hide dialog after start
+    }
+
+    fun installDownloadedApk() {
+        updateManager.installCurrentApk()
+    }
+
+    fun resetDownloadState() {
+        updateManager.resetDownloadState()
     }
     
     fun dismissUpdate() {

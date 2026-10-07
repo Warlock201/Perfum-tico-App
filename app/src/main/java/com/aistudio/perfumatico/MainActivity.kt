@@ -193,6 +193,7 @@ fun PerfumaticoApp(viewModel: PerfumeViewModel, chatViewModel: ChatViewModel) {
                 MainTab.DASHBOARD -> DashboardScreen(viewModel = viewModel)
                 MainTab.DISCOVER, MainTab.CATALOG -> CatalogScreen(viewModel = viewModel)
                 MainTab.ORACLE, MainTab.CHATBOT -> com.aistudio.perfumatico.ui.screens.OracleScreen(viewModel = viewModel, chatViewModel = chatViewModel)
+                MainTab.UPDATES -> com.aistudio.perfumatico.ui.screens.UpdateScreen(viewModel = viewModel)
             }
         }
 
@@ -257,10 +258,14 @@ fun PerfumaticoApp(viewModel: PerfumeViewModel, chatViewModel: ChatViewModel) {
                 },
                 confirmButton = {
                     Button(
-                        onClick = { viewModel.downloadUpdate(info.apkUrl) },
+                        onClick = {
+                            viewModel.dismissUpdate()
+                            viewModel.setTab(MainTab.UPDATES)
+                            viewModel.downloadUpdate(info.apkUrl)
+                        },
                         colors = ButtonDefaults.buttonColors(containerColor = Amber400, contentColor = Slate950)
                     ) {
-                        Text("Baixar e Instalar", fontWeight = FontWeight.Bold)
+                        Text("Ver e Atualizar", fontWeight = FontWeight.Bold)
                     }
                 },
                 dismissButton = {

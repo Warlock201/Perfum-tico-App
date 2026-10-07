@@ -1,22 +1,31 @@
 package com.aistudio.perfumatico.updater
 
-import android.app.DownloadManager
-import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
-import android.content.IntentFilter
 import android.net.Uri
 import android.os.Build
-import android.os.Environment
 import android.util.Log
+import android.widget.Toast
 import androidx.core.content.FileProvider
 import com.aistudio.perfumatico.BuildConfig
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.json.JSONObject
 import java.io.File
 import java.net.HttpURLConnection
 import java.net.URL
+
+sealed class DownloadState {
+    object Idle : DownloadState()
+    data class Downloading(val percent: Int, val bytesDownloaded: Long, val totalBytes: Long) : DownloadState()
+    data class Completed(val file: File) : DownloadState()
+    data class Error(val message: String) : DownloadState()
+}
 
 data class UpdateInfo(
     val hasUpdate: Boolean,
@@ -28,9 +37,10 @@ data class UpdateInfo(
 
 class UpdateManager(private val context: Context) {
 
-    // IMPORTANTE: Aqui vai a URL do seu JSON na nuvem!
-    // Você pode usar o GitHub (raw user content), Firebase Storage, Google Drive, ou seu próprio site.
     private val updateCheckUrl = "https://raw.githubusercontent.com/Warlock201/Perfum-tico-App/main/releases/update.json"
+
+    private val _downloadState = MutableStateFlow<DownloadState>(DownloadState.Idle)
+    val downloadState: StateFlow<DownloadState> = _downloadState.asStateFlow()
 
     suspend fun checkForUpdate(): UpdateInfo? = withContext(Dispatchers.IO) {
         try {
@@ -53,7 +63,6 @@ class UpdateManager(private val context: Context) {
                 val releaseNotes = json.optString("releaseNotes", "Nova versão disponível!")
 
                 val currentVersionCode = BuildConfig.VERSION_CODE
-                
                 val hasUpdate = serverVersionCode > currentVersionCode
                 
                 return@withContext UpdateInfo(
@@ -70,125 +79,117 @@ class UpdateManager(private val context: Context) {
         return@withContext null
     }
 
-    fun downloadAndInstallUpdate(apkUrl: String, fileName: String = "perfumatico-v4.6.1.apk") {
-        val publicDownloadDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
-        val targetFile = File(publicDownloadDir, fileName)
+    fun downloadAndInstallUpdate(apkUrl: String, fileName: String = "perfumatico-update.apk") {
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                _downloadState.value = DownloadState.Downloading(0, 0, -1)
 
-        try {
-            // Remove qualquer versão antiga para evitar conflitos de cache ou arquivo incompleto
-            if (targetFile.exists()) {
-                targetFile.delete()
-            }
-        } catch (e: Exception) {
-            Log.w("UpdateManager", "Não foi possível remover arquivo anterior: ${e.message}")
-        }
+                var currentUrl = apkUrl
+                var connection: HttpURLConnection? = null
+                var redirects = 0
+                val maxRedirects = 5
 
-        val request = DownloadManager.Request(Uri.parse(apkUrl))
-            .setTitle("Perfumático - Atualização")
-            .setDescription("Baixando atualização para a pasta Downloads...")
-            .setMimeType("application/vnd.android.package-archive")
-            .setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
-            .setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, fileName)
-            .setAllowedOverMetered(true)
-            .setAllowedOverRoaming(true)
+                while (redirects < maxRedirects) {
+                    val url = URL(currentUrl)
+                    connection = (url.openConnection() as HttpURLConnection).apply {
+                        instanceFollowRedirects = true
+                        connectTimeout = 20000
+                        readTimeout = 20000
+                        setRequestProperty("User-Agent", "Perfumatico-App")
+                    }
+                    val code = connection.responseCode
+                    if (code == HttpURLConnection.HTTP_MOVED_PERM ||
+                        code == HttpURLConnection.HTTP_MOVED_TEMP ||
+                        code == HttpURLConnection.HTTP_SEE_OTHER ||
+                        code == 307 || code == 308
+                    ) {
+                        val newLocation = connection.getHeaderField("Location")
+                        if (!newLocation.isNullOrBlank()) {
+                            currentUrl = newLocation
+                            redirects++
+                            continue
+                        }
+                    }
+                    break
+                }
 
-        android.os.Handler(android.os.Looper.getMainLooper()).post {
-            android.widget.Toast.makeText(
-                context,
-                "Baixando atualização para a sua pasta Downloads...",
-                android.widget.Toast.LENGTH_LONG
-            ).show()
-        }
+                val finalConn = connection
+                if (finalConn != null && finalConn.responseCode == HttpURLConnection.HTTP_OK) {
+                    val totalBytes = finalConn.contentLengthLong
+                    val cacheFile = File(context.cacheDir, "perfumatico_update.apk")
+                    if (cacheFile.exists()) {
+                        cacheFile.delete()
+                    }
 
-        val downloadManager = context.getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
-        val downloadId = downloadManager.enqueue(request)
-
-        val receiver = object : BroadcastReceiver() {
-            override fun onReceive(c: Context, intent: Intent) {
-                val id = intent.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1)
-                if (id == downloadId) {
-                    val query = DownloadManager.Query().setFilterById(downloadId)
-                    val cursor = downloadManager.query(query)
-                    if (cursor != null && cursor.moveToFirst()) {
-                        val status = cursor.getInt(cursor.getColumnIndexOrThrow(DownloadManager.COLUMN_STATUS))
-                        if (status == DownloadManager.STATUS_SUCCESSFUL) {
-                            val localUriStr = cursor.getString(cursor.getColumnIndexOrThrow(DownloadManager.COLUMN_LOCAL_URI))
-                            cursor.close()
-                            installApkFromUri(c, localUriStr, targetFile)
-                        } else {
-                            val reason = cursor.getInt(cursor.getColumnIndexOrThrow(DownloadManager.COLUMN_REASON))
-                            cursor.close()
-                            Log.e("UpdateManager", "Download falhou com código: $reason")
-                            android.os.Handler(android.os.Looper.getMainLooper()).post {
-                                android.widget.Toast.makeText(
-                                    c,
-                                    "Falha no download da atualização. Verifique a internet e tente novamente.",
-                                    android.widget.Toast.LENGTH_LONG
-                                ).show()
+                    var totalRead = 0L
+                    val buffer = ByteArray(16384)
+                    finalConn.inputStream.use { input ->
+                        cacheFile.outputStream().use { output ->
+                            var bytesRead: Int
+                            while (input.read(buffer).also { bytesRead = it } != -1) {
+                                output.write(buffer, 0, bytesRead)
+                                totalRead += bytesRead
+                                val percent = if (totalBytes > 0) ((totalRead * 100) / totalBytes).toInt().coerceIn(0, 100) else -1
+                                _downloadState.value = DownloadState.Downloading(percent, totalRead, totalBytes)
                             }
                         }
-                    } else {
-                        cursor?.close()
                     }
 
-                    try {
-                        c.unregisterReceiver(this)
-                    } catch (e: Exception) {
-                        // Receiver já desregistrado
+                    _downloadState.value = DownloadState.Completed(cacheFile)
+
+                    withContext(Dispatchers.Main) {
+                        installApkDirect(context, cacheFile)
+                    }
+                } else {
+                    val code = finalConn?.responseCode ?: -1
+                    val msg = "Erro no servidor (Código: $code). Verifique sua conexão."
+                    _downloadState.value = DownloadState.Error(msg)
+                    withContext(Dispatchers.Main) {
+                        Toast.makeText(context, msg, Toast.LENGTH_LONG).show()
                     }
                 }
+            } catch (e: Exception) {
+                Log.e("UpdateManager", "Erro no download direto: ${e.message}")
+                val err = e.localizedMessage ?: "Erro de rede"
+                _downloadState.value = DownloadState.Error(err)
+                withContext(Dispatchers.Main) {
+                    Toast.makeText(context, "Falha ao baixar: $err", Toast.LENGTH_LONG).show()
+                }
             }
-        }
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            context.registerReceiver(receiver, IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE), Context.RECEIVER_EXPORTED)
-        } else {
-            context.registerReceiver(receiver, IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE))
         }
     }
 
-    private fun installApkFromUri(context: Context, localUriStr: String?, fallbackFile: File) {
-        val fileToInstall: File = if (!localUriStr.isNullOrEmpty()) {
-            val parsedUri = Uri.parse(localUriStr)
-            if (parsedUri.scheme == "file") {
-                File(parsedUri.path ?: "")
-            } else {
-                fallbackFile
-            }
+    fun installCurrentApk() {
+        val cacheFile = File(context.cacheDir, "perfumatico_update.apk")
+        if (cacheFile.exists()) {
+            installApkDirect(context, cacheFile)
         } else {
-            fallbackFile
+            Toast.makeText(context, "Arquivo APK não encontrado. Baixe novamente.", Toast.LENGTH_SHORT).show()
         }
+    }
 
+    fun resetDownloadState() {
+        _downloadState.value = DownloadState.Idle
+    }
+
+    private fun installApkDirect(context: Context, fileToInstall: File) {
         if (!fileToInstall.exists() || fileToInstall.length() < 500_000) {
-            Log.e("UpdateManager", "Arquivo APK inválido ou incompleto: ${fileToInstall.absolutePath}, bytes: ${fileToInstall.length()}")
-            android.os.Handler(android.os.Looper.getMainLooper()).post {
-                android.widget.Toast.makeText(
-                    context,
-                    "O download ficou incompleto. Tente novamente.",
-                    android.widget.Toast.LENGTH_LONG
-                ).show()
-            }
+            Log.e("UpdateManager", "Arquivo APK inválido ou incompleto: ${fileToInstall.length()} bytes")
+            Toast.makeText(
+                context,
+                "O arquivo baixado está incompleto. Tente novamente.",
+                Toast.LENGTH_LONG
+            ).show()
             return
         }
 
-        android.os.Handler(android.os.Looper.getMainLooper()).post {
-            android.widget.Toast.makeText(
-                context,
-                "Download concluído! Arquivo salvo na pasta Downloads.",
-                android.widget.Toast.LENGTH_SHORT
-            ).show()
-        }
-
-        // No Android 8.0+ (Oreo), verifica permissão para instalar fontes desconhecidas
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             if (!context.packageManager.canRequestPackageInstalls()) {
-                android.os.Handler(android.os.Looper.getMainLooper()).post {
-                    android.widget.Toast.makeText(
-                        context,
-                        "Por favor, autorize o Perfumático a instalar atualizações.",
-                        android.widget.Toast.LENGTH_LONG
-                    ).show()
-                }
+                Toast.makeText(
+                    context,
+                    "Por favor, permita a instalação de atualizações.",
+                    Toast.LENGTH_LONG
+                ).show()
                 val permissionIntent = Intent(android.provider.Settings.ACTION_MANAGE_UNKNOWN_APP_SOURCES).apply {
                     data = Uri.parse("package:${context.packageName}")
                     flags = Intent.FLAG_ACTIVITY_NEW_TASK
@@ -210,31 +211,16 @@ class UpdateManager(private val context: Context) {
                 addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
                 addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                 addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-                putExtra(Intent.EXTRA_NOT_UNKNOWN_SOURCE, true)
-            }
-
-            val resolveInfoList = context.packageManager.queryIntentActivities(
-                installIntent,
-                android.content.pm.PackageManager.MATCH_DEFAULT_ONLY
-            )
-            for (resolveInfo in resolveInfoList) {
-                context.grantUriPermission(
-                    resolveInfo.activityInfo.packageName,
-                    uri,
-                    Intent.FLAG_GRANT_READ_URI_PERMISSION
-                )
             }
 
             context.startActivity(installIntent)
         } catch (e: Exception) {
             Log.e("UpdateManager", "Erro ao abrir instalador: ${e.message}")
-            android.os.Handler(android.os.Looper.getMainLooper()).post {
-                android.widget.Toast.makeText(
-                    context,
-                    "Atualização salva em Downloads! Abra o arquivo manualmente para instalar.",
-                    android.widget.Toast.LENGTH_LONG
-                ).show()
-            }
+            Toast.makeText(
+                context,
+                "Erro ao abrir instalador: ${e.message}",
+                Toast.LENGTH_LONG
+            ).show()
         }
     }
 }
