@@ -184,8 +184,8 @@ fun PerfumeDetailDialog(
                             modifier = Modifier
                                 .size(72.dp)
                                 .clip(RoundedCornerShape(16.dp))
-                                .background(Color.Black)
-                                .border(1.dp, Slate700, RoundedCornerShape(16.dp)),
+                                .background(if (perfume.imageUrl.isNotBlank()) Color.White else Slate800)
+                                .border(1.dp, if (perfume.imageUrl.isNotBlank()) Slate600 else Slate700, RoundedCornerShape(16.dp)),
                             contentAlignment = Alignment.Center
                         ) {
                             if (perfume.imageUrl.isNotBlank()) {
@@ -608,8 +608,8 @@ fun PerfumeDetailDialog(
                                     modifier = Modifier
                                         .size(60.dp)
                                         .clip(RoundedCornerShape(12.dp))
-                                        .background(Color.Black)
-                                        .border(1.dp, Slate700, RoundedCornerShape(12.dp)),
+                                        .background(if (simPerfume.imageUrl.isNotBlank()) Color.White else Slate800)
+                                        .border(1.dp, if (simPerfume.imageUrl.isNotBlank()) Slate600 else Slate700, RoundedCornerShape(12.dp)),
                                     contentAlignment = Alignment.Center
                                 ) {
                                     if (simPerfume.imageUrl.isNotBlank()) {

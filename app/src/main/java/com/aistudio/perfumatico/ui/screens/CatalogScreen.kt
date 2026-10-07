@@ -386,8 +386,8 @@ fun CatalogPerfumeCard(
                 modifier = Modifier
                     .size(76.dp)
                     .clip(RoundedCornerShape(14.dp))
-                    .background(Color.Black)
-                    .border(1.dp, Slate700, RoundedCornerShape(14.dp)),
+                    .background(if (perfume.imageUrl.isNotBlank()) Color.White else Slate800)
+                    .border(1.dp, if (perfume.imageUrl.isNotBlank()) Slate600 else Slate700, RoundedCornerShape(14.dp)),
                 contentAlignment = Alignment.Center
             ) {
                 if (perfume.imageUrl.isNotBlank()) {
